@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 
 class Layout extends React.Component {
-  render() {
+  render = (): JSX.Element => {
     return (
       <>
         <Header />

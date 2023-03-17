@@ -7,7 +7,7 @@ import NotFound from './pages/NotFound';
 import './styles/App.scss';
 
 class App extends React.Component {
-  render() {
+  render = (): JSX.Element => {
     return (
       <>
         <Routes>

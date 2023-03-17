@@ -1,7 +1,7 @@
 import React from 'react';
 
 class Home extends React.Component {
-  render() {
+  render = (): JSX.Element => {
     return <div>This is about us</div>;
   }
 }
