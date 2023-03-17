@@ -5,9 +5,13 @@ class Layout extends React.Component {
   render() {
     return (
       <>
-        <header>
-          <NavLink to={'/'}>Home</NavLink>
-          <NavLink to={'/about'}>About Us</NavLink>
+        <header className={'header'}>
+          <NavLink to={'/'} className={'header__link'}>
+            Home
+          </NavLink>
+          <NavLink to={'/about'} className={'header__link'}>
+            About Us
+          </NavLink>
         </header>
         <Outlet />
         <footer>Bye</footer>

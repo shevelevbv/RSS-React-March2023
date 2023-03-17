@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Roboto Regular';
+  src: url('src/assets/fonts/Roboto/Roboto-Regular.ttf')
+}
+
+@font-face {
+  font-family: 'Roboto Medium';
+  src: url('src/assets/fonts/Roboto/Roboto-Medium.ttf')
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  height: 100px;
+  background-color: #282a35;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 30px;
+
+  &__link {
+    font-family: 'Roboto Medium', sans-serif;
+    color: #ffffff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.active {
+      text-decoration: none;
+      color: #3dd5c5;
+    }
+  }
+}
+

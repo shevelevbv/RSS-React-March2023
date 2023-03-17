@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import './App.scss';
 
 class App extends React.Component {
   render() {
@@ -22,4 +23,3 @@ class App extends React.Component {
 }
 
 export default App;
-
