@@ -4,7 +4,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
-import './App.scss';
+import './styles/App.scss';
 
 class App extends React.Component {
   render() {
