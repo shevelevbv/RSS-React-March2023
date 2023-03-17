@@ -1,7 +1,8 @@
 import React from 'react';
 import Card from '../components/Card';
-import data from '../data';
 import { ICard } from '../helpers/interfaces';
+import data from '../data';
+import '../styles/Home.scss';
 
 class Home extends React.Component {
   cards: Array<ICard> = data;
