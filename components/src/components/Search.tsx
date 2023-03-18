@@ -30,6 +30,7 @@ class Search extends React.Component {
       <div className="search">
         <Magnifier />
         <input
+          role="search-input"
           className="search__input"
           type="text"
           onChange={this.handleInputChange}

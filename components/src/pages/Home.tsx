@@ -11,7 +11,7 @@ class Home extends React.Component {
     return (
       <main className="main_home">
         <Search />
-        <ul className="cards">
+        <ul role="cards-container" className="cards">
           {this.cards.map((card: ICard) => (
             <Card key={card.id} card={card} />
           ))}

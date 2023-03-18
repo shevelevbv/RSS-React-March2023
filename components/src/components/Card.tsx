@@ -17,7 +17,7 @@ class Card extends React.Component<CardProps> {
       <li className="card">
         <h2 className="card__title">{this.card.title}</h2>
         <div className="card__image_container">
-          <img src={this.card.img} alt={this.card.title} width={200} height={200} />
+          <img src={this.card.img} alt={this.card.title} width="200" height="200" />
         </div>
         <ul className="card__items">
           <li className="card__item_description">
