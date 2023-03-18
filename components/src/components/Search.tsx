@@ -1,17 +1,20 @@
-import React, {ChangeEvent} from 'react';
+import React, { ChangeEvent } from 'react';
+
+interface ISearchState {
+  value: string;
+}
 
 class Search extends React.Component {
-  state = {
+  state: ISearchState = {
     value: '',
   };
 
-  handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     this.setState({ value: event.target.value });
   };
 
   componentWillUnmount = (): void => {
-    const savedSearchValue = this.state.value;
-    localStorage.setItem('searchValue', savedSearchValue);
+    localStorage.setItem('searchValue', this.state.value);
   };
 
   componentDidMount = (): void => {
@@ -23,8 +26,15 @@ class Search extends React.Component {
 
   render = (): JSX.Element => {
     return (
-      <div>
-        <input type={'text'} onChange={this.handleInputChange} value={this.state.value} />
+      <div className={'search'}>
+        <input
+          className={'search__input'}
+          type={'text'}
+          onChange={this.handleInputChange}
+          value={this.state.value}
+          placeholder={'Search for tea'}
+          autoFocus={true}
+        />
       </div>
     );
   };
