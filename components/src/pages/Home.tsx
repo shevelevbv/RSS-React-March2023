@@ -9,9 +9,9 @@ class Home extends React.Component {
   cards: Array<ICard> = data;
   render = (): JSX.Element => {
     return (
-      <main className={'main_home'}>
+      <main className="main_home">
         <Search />
-        <ul className={'cards'}>
+        <ul className="cards">
           {this.cards.map((card: ICard) => (
             <Card key={card.id} card={card} />
           ))}

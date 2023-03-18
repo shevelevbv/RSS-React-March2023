@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from 'react';
+import Magnifier from './Magnifier';
 
 interface ISearchState {
   value: string;
@@ -26,13 +27,14 @@ class Search extends React.Component {
 
   render = (): JSX.Element => {
     return (
-      <div className={'search'}>
+      <div className="search">
+        <Magnifier />
         <input
-          className={'search__input'}
-          type={'text'}
+          className="search__input"
+          type="text"
           onChange={this.handleInputChange}
           value={this.state.value}
-          placeholder={'Search for tea'}
+          placeholder="Search"
           autoFocus={true}
         />
       </div>
