@@ -35,6 +35,7 @@ class Search extends React.Component {
           onChange={this.handleInputChange}
           value={this.state.value}
           placeholder="Search"
+          spellCheck={false}
           autoFocus={true}
         />
       </div>

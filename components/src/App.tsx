@@ -19,7 +19,7 @@ class App extends React.Component {
         </Routes>
       </>
     );
-  }
+  };
 }
 
 export default App;

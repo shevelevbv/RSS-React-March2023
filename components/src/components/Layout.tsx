@@ -10,7 +10,7 @@ class Layout extends React.Component {
         <Outlet />
       </>
     );
-  }
+  };
 }
 
 export default Layout;
