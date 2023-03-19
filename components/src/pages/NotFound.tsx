@@ -17,7 +17,7 @@ class NotFound extends React.Component {
           </p>
         </section>
         <div className="image_not-found">
-          <img src="./src/assets/svg/NotFound.svg" alt="Not found" />
+          <img src="../svg/NotFound.svg" alt="Not found" />
         </div>
       </main>
     );

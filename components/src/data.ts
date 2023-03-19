@@ -4,7 +4,7 @@ const data: Array<ICard> = [
   {
     id: 1,
     title: 'Assam Enigma',
-    img: './src/assets/img/assam.jpg',
+    img: '../img/assam.jpg',
     country: 'India',
     year: 2022,
     season: 'Summer',
@@ -16,7 +16,7 @@ const data: Array<ICard> = [
   {
     id: 2,
     title: 'Gold Ceylon',
-    img: './src/assets/img/ceylon.jpg',
+    img: '../img/ceylon.jpg',
     country: 'Ceylon',
     year: 2022,
     season: 'Summer',
@@ -28,7 +28,7 @@ const data: Array<ICard> = [
   {
     id: 3,
     title: 'Da Hong Pao',
-    img: './src/assets/img/da-hong-pao.jpg',
+    img: '../img/da-hong-pao.jpg',
     country: 'China',
     year: 2021,
     season: 'Fall',
@@ -40,7 +40,7 @@ const data: Array<ICard> = [
   {
     id: 4,
     title: 'Jin Jun Mei',
-    img: './src/assets/img/jin-jun-mei.jpg',
+    img: '../img/jin-jun-mei.jpg',
     country: 'China',
     year: 2021,
     season: 'Summer',
@@ -52,7 +52,7 @@ const data: Array<ICard> = [
   {
     id: 5,
     title: 'Long Jing',
-    img: './src/assets/img/long-jing.jpg',
+    img: '../img/long-jing.jpg',
     country: 'China',
     year: 2022,
     season: 'Spring',
@@ -64,7 +64,7 @@ const data: Array<ICard> = [
   {
     id: 6,
     title: 'Organic Dargeeling',
-    img: './src/assets/img/organic-darjeeling.jpg',
+    img: '../img/organic-darjeeling.jpg',
     country: 'India',
     year: 2021,
     season: 'Fall',
@@ -76,7 +76,7 @@ const data: Array<ICard> = [
   {
     id: 7,
     title: 'Ripe Puerh',
-    img: './src/assets/img/puerh-ripe.jpg',
+    img: '../img/puerh-ripe.jpg',
     country: 'China',
     year: 2015,
     season: 'Fall',
@@ -88,7 +88,7 @@ const data: Array<ICard> = [
   {
     id: 8,
     title: 'Shen Puerh',
-    img: './src/assets/img/puerh-shen.jpg',
+    img: '../img/puerh-shen.jpg',
     country: 'China',
     year: 2012,
     season: 'Winter',
@@ -100,7 +100,7 @@ const data: Array<ICard> = [
   {
     id: 9,
     title: 'Tai Ping Hou Kui',
-    img: './src/assets/img/tai-ping-hou-kui.jpg',
+    img: '../img/tai-ping-hou-kui.jpg',
     country: 'China',
     year: 2021,
     season: 'Spring',
@@ -112,7 +112,7 @@ const data: Array<ICard> = [
   {
     id: 10,
     title: 'Tie Guan Yin',
-    img: './src/assets/img/tie-guan-yin.jpg',
+    img: '../img/tie-guan-yin.jpg',
     country: 'China',
     year: 2022,
     season: 'Spring',
@@ -124,7 +124,7 @@ const data: Array<ICard> = [
   {
     id: 11,
     title: 'Darjeeling - First Flush',
-    img: './src/assets/img/darjeeling-first-flush.jpeg',
+    img: '../img/darjeeling-first-flush.jpeg',
     country: 'India',
     year: 2022,
     season: 'Spring',
@@ -136,7 +136,7 @@ const data: Array<ICard> = [
   {
     id: 12,
     title: 'Bai Hao Yin Zhen',
-    img: './src/assets/img/bai-hao-yin-zhen.jpg',
+    img: '../img/bai-hao-yin-zhen.jpg',
     country: 'China',
     year: 2022,
     season: 'Spring',
@@ -148,7 +148,7 @@ const data: Array<ICard> = [
   {
     id: 13,
     title: 'Bai Mu Dan',
-    img: './src/assets/img/bai-mu-dan.jpg',
+    img: '../img/bai-mu-dan.jpg',
     country: 'China',
     year: 2022,
     season: 'Fall',
@@ -160,7 +160,7 @@ const data: Array<ICard> = [
   {
     id: 14,
     title: 'English Breakfast',
-    img: './src/assets/img/english-breakfast.jpg',
+    img: '../img/english-breakfast.jpg',
     country: 'India',
     year: 2020,
     season: 'Summer',
@@ -172,7 +172,7 @@ const data: Array<ICard> = [
   {
     id: 15,
     title: 'Ceylon Green Tea',
-    img: './src/assets/img/ceylon-green-tea.jpg',
+    img: '../img/ceylon-green-tea.jpg',
     country: 'Ceylon',
     year: 2021,
     season: 'Spring',
@@ -184,7 +184,7 @@ const data: Array<ICard> = [
   {
     id: 16,
     title: 'Bi Luo Chun',
-    img: './src/assets/img/bi-luo-chun.jpg',
+    img: '../img/bi-luo-chun.jpg',
     country: 'China',
     year: 2022,
     season: 'Spring',
@@ -196,7 +196,7 @@ const data: Array<ICard> = [
   {
     id: 17,
     title: 'Dian Hong',
-    img: './src/assets/img/dian-hong.jpg',
+    img: '../img/dian-hong.jpg',
     country: 'China',
     year: 2021,
     season: 'Summer',
@@ -208,7 +208,7 @@ const data: Array<ICard> = [
   {
     id: 18,
     title: 'Alishan',
-    img: './src/assets/img/alishan.jpeg',
+    img: '../img/alishan.jpeg',
     country: 'China',
     year: 2021,
     season: 'Spring',
@@ -220,7 +220,7 @@ const data: Array<ICard> = [
   {
     id: 19,
     title: 'Shui Xian',
-    img: './src/assets/img/shui-xian.jpg',
+    img: '../img/shui-xian.jpg',
     country: 'China',
     year: 2021,
     season: 'Summer',
@@ -232,7 +232,7 @@ const data: Array<ICard> = [
   {
     id: 20,
     title: 'Rou Gui',
-    img: './src/assets/img/rou-gui.jpeg',
+    img: '../img/rou-gui.jpeg',
     country: 'China',
     year: 2020,
     season: 'Summer',
@@ -244,7 +244,7 @@ const data: Array<ICard> = [
   {
     id: 21,
     title: 'Shou Mei',
-    img: './src/assets/img/shou-mei.jpg',
+    img: '../img/shou-mei.jpg',
     country: 'China',
     year: 2021,
     season: 'Fall',
