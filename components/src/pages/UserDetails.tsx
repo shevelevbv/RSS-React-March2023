@@ -2,6 +2,7 @@ import React from 'react';
 import UserForm from '../components/UserForm';
 
 export interface IUserDetails {
+  id: number;
   textInputValue: string;
   dateInputValue: string;
 }
@@ -16,19 +17,20 @@ class UserDetails extends React.Component {
   };
 
   addUserCard = (userCard: IUserDetails): void => {
-    console.log(this);
+    const userCards = [...this.state.userCards];
+    userCard.id = userCards.length + 1;
+    userCards.push(userCard);
     this.setState({
-      userCards: this.state.userCards.concat(userCard),
+      userCards: userCards,
     });
   };
   render = (): JSX.Element => {
-    console.log(this.state.userCards);
     return (
       <div>
         <UserForm addUserCard={this.addUserCard} />
         <ul>
           {this.state.userCards.map((card) => (
-            <li key={card.textInputValue}>{card.textInputValue}</li>
+            <li key={card.id}>{card.textInputValue}</li>
           ))}
         </ul>
       </div>

@@ -18,6 +18,7 @@ class UserForm extends React.Component<IPropsType> {
     event.preventDefault();
     if (this.textInput.current && this.dateInput.current) {
       const userCard = {
+        id: NaN,
         textInputValue: this.textInput.current.value,
         dateInputValue: this.dateInput.current.value,
       };
