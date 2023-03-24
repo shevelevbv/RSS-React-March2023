@@ -3,7 +3,7 @@ import React from 'react';
 interface IPropsType {
   fileInput: React.RefObject<HTMLInputElement>;
 }
-class NameInput extends React.Component<IPropsType> {
+class FileInput extends React.Component<IPropsType> {
   constructor(props: IPropsType) {
     super(props);
   }
@@ -19,5 +19,4 @@ class NameInput extends React.Component<IPropsType> {
   };
 }
 
-
-export default NameInput;
+export default FileInput;

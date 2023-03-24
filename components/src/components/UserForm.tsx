@@ -5,6 +5,7 @@ import DateInput from './form-components/DateInput';
 import CountrySelect from './form-components/CountrySelect';
 import GenderRadioInputs from "./form-components/GenderRadioInputs";
 import FileInput from "./form-components/FileInput";
+import ConsentInput from "./form-components/ConsentInput";
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
@@ -179,8 +180,7 @@ class UserForm extends React.Component<IPropsType> {
           {this.state.errors.gender && <p>{this.state.errors.gender}</p>}
           <FileInput fileInput={this.fileInput} />
           {this.state.errors.file && <p>{this.state.errors.file}</p>}
-          <input type="checkbox" id="consent" ref={this.consentInput} />
-          <label htmlFor="consent">I hereby consent to the processing of my personal data*</label>
+          <ConsentInput consentInput={this.consentInput} />
           {this.state.errors.consent && <p>{this.state.errors.consent}</p>}
           <input type="submit" value="Submit" />
         </form>

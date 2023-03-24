@@ -6,7 +6,7 @@ interface IPropsType {
   otherRadioInput: React.RefObject<HTMLInputElement>;
 }
 
-class DateInput extends React.Component<IPropsType> {
+class GenderRadioInputs extends React.Component<IPropsType> {
   constructor(props: IPropsType) {
     super(props);
   }
@@ -33,4 +33,4 @@ class DateInput extends React.Component<IPropsType> {
   };
 }
 
-export default DateInput;
+export default GenderRadioInputs;
