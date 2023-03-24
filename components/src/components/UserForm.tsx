@@ -59,6 +59,10 @@ class UserForm extends React.Component<IPropsType> {
       if (!startsWithUpperLetter) {
         errors.name = 'The name should start with an upper-case Latin letter';
       }
+      const nameLength = name.length;
+      if (nameLength < 3) {
+        errors.name = 'The name should be at least 3 letters long';
+      }
     }
     return errors;
   };
