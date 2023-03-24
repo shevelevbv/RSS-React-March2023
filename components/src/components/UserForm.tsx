@@ -2,6 +2,7 @@ import React, { RefObject } from 'react';
 import { IUserDetails } from '../pages/UserDetails';
 import NameInput from './form-components/NameInput';
 import DateInput from "./form-components/DateInput";
+import CountrySelect from "./form-components/CountrySelect";
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
@@ -166,15 +167,7 @@ class UserForm extends React.Component<IPropsType> {
           {this.state.errors.name && <p>{this.state.errors.name}</p>}
           <DateInput dateInput={this.dateInput} />
           {this.state.errors.date && <p>{this.state.errors.date}</p>}
-          <label htmlFor="country-select">Select your country*:</label>
-          <select id="country-select" ref={this.countrySelect}>
-            <option value="">Please choose an option</option>
-            <option value="Belarus">Belarus</option>
-            <option value="Georgia">Georgia</option>
-            <option value="Kazakhstan">Kazakhstan</option>
-            <option value="Russia">Russia</option>
-            <option value="Ukraine">Ukraine</option>
-          </select>
+          <CountrySelect countrySelect={this.countrySelect} />
           {this.state.errors.country && <p>{this.state.errors.country}</p>}
           <fieldset>
             <legend>Select your gender*: </legend>
