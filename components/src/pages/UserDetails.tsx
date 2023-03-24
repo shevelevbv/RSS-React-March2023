@@ -6,6 +6,9 @@ export interface IUserDetails {
   name: string;
   date: string;
   country: string;
+
+  consent: boolean;
+  gender: string;
 }
 
 interface IDetailsState {
