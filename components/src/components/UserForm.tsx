@@ -34,17 +34,13 @@ class UserForm extends React.Component<IPropsType> {
     const name: string = this.nameInput.current?.value as string;
     const startsWithUpperLetter = /^[A-Z]/.test(name);
     if (!startsWithUpperLetter) {
-      Object.defineProperty(this.errors, 'name', {
-        value: 'The name should start with an upper-case Latin letter',
-      });
+      this.errors.name = 'The name should start with an upper-case Latin letter';
     }
   };
 
   private validateDateInput = () => {
     if (!this.dateInput.current?.value) {
-      Object.defineProperty(this.errors, 'date', {
-        value: "The date shouldn't be empty",
-      });
+      this.errors.date = "The date shouldn't be empty";
     }
   };
 
@@ -59,8 +55,11 @@ class UserForm extends React.Component<IPropsType> {
         date: this.dateInput.current?.value as string,
       };
       this.props.addUserCard(userCard);
+    } else {
+      this.setState({ errors: this.errors }, () => {
+        this.errors = {};
+      });
     }
-    this.setState({ errors: this.errors });
   };
 
   render = () => {
@@ -72,7 +71,7 @@ class UserForm extends React.Component<IPropsType> {
           </label>
           {this.state.errors.name && <p>{this.state.errors.name}</p>}
           <label>
-            Preferred date to deliver your order: <input type="date" ref={this.dateInput} />
+            Date of birth: <input type="date" ref={this.dateInput} />
           </label>
           {this.state.errors.date && <p>{this.state.errors.date}</p>}
           <input type="submit" value="Submit" />
