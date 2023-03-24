@@ -1,8 +1,9 @@
 import React, { RefObject } from 'react';
 import { IUserDetails } from '../pages/UserDetails';
 import NameInput from './form-components/NameInput';
-import DateInput from "./form-components/DateInput";
-import CountrySelect from "./form-components/CountrySelect";
+import DateInput from './form-components/DateInput';
+import CountrySelect from './form-components/CountrySelect';
+import GenderRadioInputs from "./form-components/GenderRadioInputs";
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
@@ -169,21 +170,11 @@ class UserForm extends React.Component<IPropsType> {
           {this.state.errors.date && <p>{this.state.errors.date}</p>}
           <CountrySelect countrySelect={this.countrySelect} />
           {this.state.errors.country && <p>{this.state.errors.country}</p>}
-          <fieldset>
-            <legend>Select your gender*: </legend>
-            <label>
-              <input type="radio" name="gender" value="male" ref={this.maleRadioInput} />
-              Male
-            </label>
-            <label>
-              <input type="radio" name="gender" value="female" ref={this.femaleRadioInput} />
-              Female
-            </label>
-            <label>
-              <input type="radio" name="gender" value="other" ref={this.otherRadioInput} />
-              Other
-            </label>
-          </fieldset>
+          <GenderRadioInputs
+            maleRadioInput={this.maleRadioInput}
+            femaleRadioInput={this.femaleRadioInput}
+            otherRadioInput={this.otherRadioInput}
+          />
           {this.state.errors.gender && <p>{this.state.errors.gender}</p>}
           <label>
             Your profile picture*:
