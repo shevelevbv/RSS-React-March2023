@@ -6,6 +6,7 @@ import CountrySelect from './form-components/CountrySelect';
 import GenderRadioInputs from './form-components/GenderRadioInputs';
 import FileInput from './form-components/FileInput';
 import ConsentInput from './form-components/ConsentInput';
+import ErrorText from "./form-components/ErrorText";
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
@@ -57,10 +58,11 @@ class UserForm extends React.Component<IPropsType> {
 
   private validateNameInput = (): IErrors => {
     const errors: IErrors = {};
-    const name: string | undefined = this.nameInput.current?.value;
+    let name: string | undefined = this.nameInput.current?.value;
     if (!name) {
       errors.name = "The name shouldn't be empty";
     } else {
+      name = name.trim();
       const startsWithUpperLetter: boolean = /^[A-Z]/.test(name);
       if (!startsWithUpperLetter) {
         errors.name = 'The name should start with an upper-case Latin letter';
@@ -167,21 +169,21 @@ class UserForm extends React.Component<IPropsType> {
       <>
         <form onSubmit={this.handleSubmit} ref={this.form}>
           <NameInput nameInput={this.nameInput} />
-          {this.state.errors.name && <p>{this.state.errors.name}</p>}
+          <ErrorText errorMessage={this.state.errors.name} />
           <DateInput dateInput={this.dateInput} />
-          {this.state.errors.date && <p>{this.state.errors.date}</p>}
+          <ErrorText errorMessage={this.state.errors.date} />
           <CountrySelect countrySelect={this.countrySelect} />
-          {this.state.errors.country && <p>{this.state.errors.country}</p>}
+          <ErrorText errorMessage={this.state.errors.country} />
           <GenderRadioInputs
             maleRadioInput={this.maleRadioInput}
             femaleRadioInput={this.femaleRadioInput}
             otherRadioInput={this.otherRadioInput}
           />
-          {this.state.errors.gender && <p>{this.state.errors.gender}</p>}
+          <ErrorText errorMessage={this.state.errors.gender} />
           <FileInput fileInput={this.fileInput} />
-          {this.state.errors.file && <p>{this.state.errors.file}</p>}
+          <ErrorText errorMessage={this.state.errors.file} />
           <ConsentInput consentInput={this.consentInput} />
-          {this.state.errors.consent && <p>{this.state.errors.consent}</p>}
+          <ErrorText errorMessage={this.state.errors.consent} />
           <input type="submit" value="Submit" />
         </form>
       </>

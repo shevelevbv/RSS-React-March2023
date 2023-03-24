@@ -1,6 +1,6 @@
 import React from 'react';
 import UserForm from '../components/UserForm';
-import UserCard from "../components/UserCard";
+import UserCard from '../components/UserCard';
 
 export interface IUserDetails {
   id: number;
@@ -30,7 +30,7 @@ class UserDetails extends React.Component {
   };
   render = (): JSX.Element => {
     return (
-      <div>
+      <main className="main-form">
         <UserForm addUserCard={this.addUserCard} />
         <ul>
           {this.state.userCards.map((card) => (
@@ -39,7 +39,7 @@ class UserDetails extends React.Component {
             </li>
           ))}
         </ul>
-      </div>
+      </main>
     );
   };
 }
