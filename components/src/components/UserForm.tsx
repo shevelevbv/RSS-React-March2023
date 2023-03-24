@@ -120,23 +120,27 @@ class UserForm extends React.Component<IPropsType> {
       ...this.validateFileInput(),
     };
   };
+  private createUserCard = (): IUserDetails => {
+    const checkedInput: RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
+      (input: RefObject<HTMLInputElement>) => input.current?.checked
+    )[0];
+    const gender: string = checkedInput.current?.value as string;
+    return {
+      id: NaN,
+      name: this.nameInput.current?.value as string,
+      date: this.dateInput.current?.value as string,
+      country: this.countrySelect.current?.value as string,
+      gender: gender,
+      file: this.fileInput.current?.files?.[0].name as string,
+    };
+  };
 
   private handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
     const errors: IErrors = { ...this.validateData() };
-    if (!Object.keys(errors).length) {
-      const checkedInput: RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
-        (input: RefObject<HTMLInputElement>) => input.current?.checked
-      )[0];
-      const gender: string = checkedInput.current?.value as string;
-      const userCard = {
-        id: NaN,
-        name: this.nameInput.current?.value as string,
-        date: this.dateInput.current?.value as string,
-        country: this.countrySelect.current?.value as string,
-        gender: gender,
-        file: this.fileInput.current?.files?.[0].name as string,
-      };
+    const noErrors = !Object.keys(errors).length;
+    if (noErrors) {
+      const userCard: IUserDetails = this.createUserCard();
       this.form.current?.reset();
       this.props.addUserCard(userCard);
     } else {
