@@ -3,8 +3,8 @@ import UserForm from '../components/UserForm';
 
 export interface IUserDetails {
   id: number;
-  textInputValue: string;
-  dateInputValue: string;
+  name: string;
+  date: string;
 }
 
 interface IDetailsState {
@@ -30,7 +30,7 @@ class UserDetails extends React.Component {
         <UserForm addUserCard={this.addUserCard} />
         <ul>
           {this.state.userCards.map((card) => (
-            <li key={card.id}>{card.textInputValue}</li>
+            <li key={card.id}>{card.name}</li>
           ))}
         </ul>
       </div>
