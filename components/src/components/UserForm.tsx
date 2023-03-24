@@ -1,5 +1,6 @@
 import React, { RefObject } from 'react';
 import { IUserDetails } from '../pages/UserDetails';
+import NameInput from './form-components/NameInput';
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
@@ -160,9 +161,7 @@ class UserForm extends React.Component<IPropsType> {
     return (
       <>
         <form onSubmit={this.handleSubmit} ref={this.form}>
-          <label>
-            First name*: <input type="text" ref={this.nameInput} />
-          </label>
+          <NameInput nameInput={this.nameInput} />
           {this.state.errors.name && <p>{this.state.errors.name}</p>}
           <label>
             Date of birth*: <input type="date" ref={this.dateInput} />
