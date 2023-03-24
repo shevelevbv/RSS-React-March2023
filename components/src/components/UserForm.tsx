@@ -84,6 +84,13 @@ class UserForm extends React.Component<IPropsType> {
     const dateIsEmpty = !this.dateInput.current?.value;
     if (dateIsEmpty) {
       errors.date = "The date shouldn't be empty";
+    } else {
+      const dateValue = this.dateInput.current?.value as string;
+      const currentDate = new Date();
+      const inputDate = new Date(dateValue);
+      if (inputDate > currentDate) {
+        errors.date = "The date of birth can't be later than today";
+      }
     }
     return errors;
   };
