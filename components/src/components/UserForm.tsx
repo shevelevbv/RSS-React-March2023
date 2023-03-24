@@ -13,11 +13,13 @@ interface IErrors {
   name?: string;
   date?: string;
   country?: string;
+  consent?: string;
 }
 
 class UserForm extends React.Component<IPropsType> {
   private readonly nameInput: React.RefObject<HTMLInputElement>;
   private readonly dateInput: React.RefObject<HTMLInputElement>;
+  private readonly consentInput: React.RefObject<HTMLInputElement>;
 
   private readonly countrySelect: React.RefObject<HTMLSelectElement>;
   private errors: IErrors;
@@ -28,6 +30,7 @@ class UserForm extends React.Component<IPropsType> {
     this.nameInput = React.createRef();
     this.dateInput = React.createRef();
     this.countrySelect = React.createRef();
+    this.consentInput = React.createRef();
     this.errors = {};
     this.state = {
       errors: {},
@@ -54,17 +57,25 @@ class UserForm extends React.Component<IPropsType> {
     }
   };
 
+  private validateConsentInput = (): void => {
+    if (!this.consentInput.current?.checked) {
+      this.errors.consent = 'You should agree to the terms';
+    }
+  };
+
   private handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
     this.validateNameInput();
     this.validateDateInput();
     this.validateCountrySelect();
+    this.validateConsentInput();
     if (!Object.keys(this.errors).length) {
       const userCard = {
         id: NaN,
         name: this.nameInput.current?.value as string,
         date: this.dateInput.current?.value as string,
         country: this.countrySelect.current?.value as string,
+        consent: this.consentInput.current?.checked as boolean,
       };
       this.props.addUserCard(userCard);
     } else {
@@ -96,6 +107,9 @@ class UserForm extends React.Component<IPropsType> {
             <option value="Ukraine">Ukraine</option>
           </select>
           {this.state.errors.country && <p>{this.state.errors.country}</p>}
+          <input type="checkbox" id="consent" ref={this.consentInput} />
+          <label htmlFor="consent">I hereby consent to the processing of my personal data</label>
+          {this.state.errors.consent && <p>{this.state.errors.consent}</p>}
           <input type="submit" value="Submit" />
         </form>
       </>
