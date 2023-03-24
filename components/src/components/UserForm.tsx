@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from 'react';
+import React from 'react';
 import { IUserDetails } from '../pages/UserDetails';
 
 interface IPropsType {
@@ -12,25 +12,29 @@ interface IFormState {
 interface IErrors {
   name?: string;
   date?: string;
+  country?: string;
 }
 
 class UserForm extends React.Component<IPropsType> {
-  nameInput: React.RefObject<HTMLInputElement>;
-  dateInput: React.RefObject<HTMLInputElement>;
-  errors: IErrors;
+  private readonly nameInput: React.RefObject<HTMLInputElement>;
+  private readonly dateInput: React.RefObject<HTMLInputElement>;
+
+  private readonly countrySelect: React.RefObject<HTMLSelectElement>;
+  private errors: IErrors;
   state: IFormState;
 
   constructor(props: IPropsType) {
     super(props);
     this.nameInput = React.createRef();
     this.dateInput = React.createRef();
+    this.countrySelect = React.createRef();
     this.errors = {};
     this.state = {
       errors: {},
     };
   }
 
-  private validateNameInput = () => {
+  private validateNameInput = (): void => {
     const name: string = this.nameInput.current?.value as string;
     const startsWithUpperLetter = /^[A-Z]/.test(name);
     if (!startsWithUpperLetter) {
@@ -38,21 +42,29 @@ class UserForm extends React.Component<IPropsType> {
     }
   };
 
-  private validateDateInput = () => {
+  private validateDateInput = (): void => {
     if (!this.dateInput.current?.value) {
       this.errors.date = "The date shouldn't be empty";
     }
   };
 
-  private handleSubmit = (event: SyntheticEvent) => {
+  private validateCountrySelect = (): void => {
+    if (!this.countrySelect.current?.value) {
+      this.errors.country = 'Please choose your country';
+    }
+  };
+
+  private handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
     this.validateNameInput();
     this.validateDateInput();
+    this.validateCountrySelect();
     if (!Object.keys(this.errors).length) {
       const userCard = {
         id: NaN,
         name: this.nameInput.current?.value as string,
         date: this.dateInput.current?.value as string,
+        country: this.countrySelect.current?.value as string,
       };
       this.props.addUserCard(userCard);
     } else {
@@ -62,7 +74,7 @@ class UserForm extends React.Component<IPropsType> {
     }
   };
 
-  render = () => {
+  render = (): JSX.Element => {
     return (
       <>
         <form onSubmit={this.handleSubmit}>
@@ -74,6 +86,16 @@ class UserForm extends React.Component<IPropsType> {
             Date of birth: <input type="date" ref={this.dateInput} />
           </label>
           {this.state.errors.date && <p>{this.state.errors.date}</p>}
+          <label htmlFor="country-select">Select your country:</label>
+          <select id="country-select" ref={this.countrySelect}>
+            <option value="">Please choose an option</option>
+            <option value="Belarus">Belarus</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Kazakhstan">Kazakhstan</option>
+            <option value="Russia">Russia</option>
+            <option value="Ukraine">Ukraine</option>
+          </select>
+          {this.state.errors.country && <p>{this.state.errors.country}</p>}
           <input type="submit" value="Submit" />
         </form>
       </>

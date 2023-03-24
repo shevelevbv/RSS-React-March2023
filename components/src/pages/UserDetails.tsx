@@ -5,6 +5,7 @@ export interface IUserDetails {
   id: number;
   name: string;
   date: string;
+  country: string;
 }
 
 interface IDetailsState {
