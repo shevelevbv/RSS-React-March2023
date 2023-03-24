@@ -1,4 +1,4 @@
-import React, {RefObject} from 'react';
+import React, { RefObject } from 'react';
 import { IUserDetails } from '../pages/UserDetails';
 
 interface IPropsType {
@@ -19,21 +19,21 @@ interface IErrors {
 }
 
 class UserForm extends React.Component<IPropsType> {
-  private readonly nameInput: React.RefObject<HTMLInputElement>;
-  private readonly dateInput: React.RefObject<HTMLInputElement>;
-  private readonly consentInput: React.RefObject<HTMLInputElement>;
-  private readonly fileInput: React.RefObject<HTMLInputElement>;
-  private readonly maleRadioInput: React.RefObject<HTMLInputElement>;
-  private readonly femaleRadioInput: React.RefObject<HTMLInputElement>;
-  private readonly otherRadioInput: React.RefObject<HTMLInputElement>;
-  private readonly genderRadioInputs: Array<React.RefObject<HTMLInputElement>>;
-
-  private readonly countrySelect: React.RefObject<HTMLSelectElement>;
-  private errors: IErrors;
+  private readonly form: RefObject<HTMLFormElement>;
+  private readonly nameInput: RefObject<HTMLInputElement>;
+  private readonly dateInput: RefObject<HTMLInputElement>;
+  private readonly consentInput: RefObject<HTMLInputElement>;
+  private readonly fileInput: RefObject<HTMLInputElement>;
+  private readonly maleRadioInput: RefObject<HTMLInputElement>;
+  private readonly femaleRadioInput: RefObject<HTMLInputElement>;
+  private readonly otherRadioInput: RefObject<HTMLInputElement>;
+  private readonly genderRadioInputs: Array<RefObject<HTMLInputElement>>;
+  private readonly countrySelect: RefObject<HTMLSelectElement>;
   state: IFormState;
 
   constructor(props: IPropsType) {
     super(props);
+    this.form = React.createRef();
     this.nameInput = React.createRef();
     this.dateInput = React.createRef();
     this.countrySelect = React.createRef();
@@ -44,64 +44,81 @@ class UserForm extends React.Component<IPropsType> {
       (this.femaleRadioInput = React.createRef()),
       (this.otherRadioInput = React.createRef()),
     ];
-    this.errors = {};
     this.state = {
       errors: {},
     };
   }
 
-  private validateNameInput = (): void => {
+  private validateNameInput = (): IErrors => {
+    const errors: IErrors = {};
     const name: string = this.nameInput.current?.value as string;
     const startsWithUpperLetter = /^[A-Z]/.test(name);
     if (!startsWithUpperLetter) {
-      this.errors.name = 'The name should start with an upper-case Latin letter';
+      errors.name = 'The name should start with an upper-case Latin letter';
     }
+    return errors;
   };
 
-  private validateDateInput = (): void => {
+  private validateDateInput = (): IErrors => {
+    const errors: IErrors = {};
     if (!this.dateInput.current?.value) {
-      this.errors.date = "The date shouldn't be empty";
+      errors.date = "The date shouldn't be empty";
     }
+    return errors;
   };
 
-  private validateCountrySelect = (): void => {
+  private validateCountrySelect = (): IErrors => {
+    const errors: IErrors = {};
     if (!this.countrySelect.current?.value) {
-      this.errors.country = 'Please choose your country';
+      errors.country = 'Please choose your country';
     }
+    return errors;
   };
 
-  private validateConsentInput = (): void => {
+  private validateConsentInput = (): IErrors => {
+    const errors: IErrors = {};
     const noConsent = !this.consentInput.current?.checked;
     if (noConsent) {
-      this.errors.consent = 'You should agree to the terms';
+      errors.consent = 'You should agree to the terms';
     }
+    return errors;
   };
 
-  private validateFileInput = (): void => {
+  private validateFileInput = (): IErrors => {
+    const errors: IErrors = {};
     const noFilesChosen = !this.fileInput.current?.files?.length;
     if (noFilesChosen) {
-      this.errors.file = 'Please choose your file';
+      errors.file = 'Please choose your file';
     }
+    return errors;
   };
 
-  private validateGenderInput = (): void => {
+  private validateGenderInput = (): IErrors => {
+    const errors: IErrors = {};
     const nothingChecked = this.genderRadioInputs.every(
       (input: RefObject<HTMLInputElement>): boolean => !input.current?.checked
     );
     if (nothingChecked) {
-      this.errors.gender = 'Please select your gender';
+      errors.gender = 'Please select your gender';
     }
+    return errors;
+  };
+
+  private validateData = () => {
+    return {
+      ...this.validateNameInput(),
+      ...this.validateDateInput(),
+      ...this.validateCountrySelect(),
+      ...this.validateConsentInput(),
+      ...this.validateGenderInput(),
+      ...this.validateFileInput(),
+    };
   };
 
   private handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
-    this.validateNameInput();
-    this.validateDateInput();
-    this.validateCountrySelect();
-    this.validateConsentInput();
-    this.validateGenderInput();
-    this.validateFileInput();
-    if (!Object.keys(this.errors).length) {
+    const errors: IErrors = { ...this.validateData() };
+    if (!Object.keys(errors).length) {
       const checkedInput: RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
         (input: RefObject<HTMLInputElement>) => input.current?.checked
       )[0];
@@ -111,22 +128,20 @@ class UserForm extends React.Component<IPropsType> {
         name: this.nameInput.current?.value as string,
         date: this.dateInput.current?.value as string,
         country: this.countrySelect.current?.value as string,
-        consent: this.consentInput.current?.checked as boolean,
         gender: gender,
         file: this.fileInput.current?.files?.[0].name as string,
       };
+      this.form.current?.reset();
       this.props.addUserCard(userCard);
     } else {
-      this.setState({ errors: this.errors }, () => {
-        this.errors = {};
-      });
+      this.setState({ errors: errors });
     }
   };
 
   render = (): JSX.Element => {
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} ref={this.form}>
           <label>
             First name*: <input type="text" ref={this.nameInput} />
           </label>

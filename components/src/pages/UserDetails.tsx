@@ -6,8 +6,6 @@ export interface IUserDetails {
   name: string;
   date: string;
   country: string;
-
-  consent: boolean;
   gender: string;
   file: string;
 }
@@ -35,7 +33,9 @@ class UserDetails extends React.Component {
         <UserForm addUserCard={this.addUserCard} />
         <ul>
           {this.state.userCards.map((card) => (
-            <li key={card.id}>{card.name}</li>
+            <li key={card.id}>
+              {card.name} {card.country} {card.date} {card.gender} {'consent received'} {card.file}
+            </li>
           ))}
         </ul>
       </div>
