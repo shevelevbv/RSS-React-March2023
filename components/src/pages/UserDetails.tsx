@@ -9,6 +9,7 @@ export interface IUserDetails {
 
   consent: boolean;
   gender: string;
+  file: string;
 }
 
 interface IDetailsState {

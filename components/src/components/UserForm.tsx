@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {RefObject} from 'react';
 import { IUserDetails } from '../pages/UserDetails';
 
 interface IPropsType {
@@ -15,12 +15,14 @@ interface IErrors {
   country?: string;
   consent?: string;
   gender?: string;
+  file?: string;
 }
 
 class UserForm extends React.Component<IPropsType> {
   private readonly nameInput: React.RefObject<HTMLInputElement>;
   private readonly dateInput: React.RefObject<HTMLInputElement>;
   private readonly consentInput: React.RefObject<HTMLInputElement>;
+  private readonly fileInput: React.RefObject<HTMLInputElement>;
   private readonly maleRadioInput: React.RefObject<HTMLInputElement>;
   private readonly femaleRadioInput: React.RefObject<HTMLInputElement>;
   private readonly otherRadioInput: React.RefObject<HTMLInputElement>;
@@ -36,6 +38,7 @@ class UserForm extends React.Component<IPropsType> {
     this.dateInput = React.createRef();
     this.countrySelect = React.createRef();
     this.consentInput = React.createRef();
+    this.fileInput = React.createRef();
     this.genderRadioInputs = [
       (this.maleRadioInput = React.createRef()),
       (this.femaleRadioInput = React.createRef()),
@@ -68,13 +71,23 @@ class UserForm extends React.Component<IPropsType> {
   };
 
   private validateConsentInput = (): void => {
-    if (!this.consentInput.current?.checked) {
+    const noConsent = !this.consentInput.current?.checked;
+    if (noConsent) {
       this.errors.consent = 'You should agree to the terms';
     }
   };
 
+  private validateFileInput = (): void => {
+    const noFilesChosen = !this.fileInput.current?.files?.length;
+    if (noFilesChosen) {
+      this.errors.file = 'Please choose your file';
+    }
+  };
+
   private validateGenderInput = (): void => {
-    const nothingChecked = this.genderRadioInputs.every((input) => !input.current?.checked);
+    const nothingChecked = this.genderRadioInputs.every(
+      (input: RefObject<HTMLInputElement>): boolean => !input.current?.checked
+    );
     if (nothingChecked) {
       this.errors.gender = 'Please select your gender';
     }
@@ -87,10 +100,12 @@ class UserForm extends React.Component<IPropsType> {
     this.validateCountrySelect();
     this.validateConsentInput();
     this.validateGenderInput();
+    this.validateFileInput();
     if (!Object.keys(this.errors).length) {
-      const gender: string = this.genderRadioInputs
-        .filter((input) => input.current?.checked)
-        .join('');
+      const checkedInput: RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
+        (input: RefObject<HTMLInputElement>) => input.current?.checked
+      )[0];
+      const gender: string = checkedInput.current?.value as string;
       const userCard = {
         id: NaN,
         name: this.nameInput.current?.value as string,
@@ -98,6 +113,7 @@ class UserForm extends React.Component<IPropsType> {
         country: this.countrySelect.current?.value as string,
         consent: this.consentInput.current?.checked as boolean,
         gender: gender,
+        file: this.fileInput.current?.files?.[0].name as string,
       };
       this.props.addUserCard(userCard);
     } else {
@@ -112,14 +128,14 @@ class UserForm extends React.Component<IPropsType> {
       <>
         <form onSubmit={this.handleSubmit}>
           <label>
-            First name: <input type="text" ref={this.nameInput} />
+            First name*: <input type="text" ref={this.nameInput} />
           </label>
           {this.state.errors.name && <p>{this.state.errors.name}</p>}
           <label>
-            Date of birth: <input type="date" ref={this.dateInput} />
+            Date of birth*: <input type="date" ref={this.dateInput} />
           </label>
           {this.state.errors.date && <p>{this.state.errors.date}</p>}
-          <label htmlFor="country-select">Select your country:</label>
+          <label htmlFor="country-select">Select your country*:</label>
           <select id="country-select" ref={this.countrySelect}>
             <option value="">Please choose an option</option>
             <option value="Belarus">Belarus</option>
@@ -129,11 +145,8 @@ class UserForm extends React.Component<IPropsType> {
             <option value="Ukraine">Ukraine</option>
           </select>
           {this.state.errors.country && <p>{this.state.errors.country}</p>}
-          <input type="checkbox" id="consent" ref={this.consentInput} />
-          <label htmlFor="consent">I hereby consent to the processing of my personal data</label>
-          {this.state.errors.consent && <p>{this.state.errors.consent}</p>}
           <fieldset>
-            <legend>Select your gender: </legend>
+            <legend>Select your gender*: </legend>
             <label>
               <input type="radio" name="gender" value="male" ref={this.maleRadioInput} />
               Male
@@ -148,6 +161,14 @@ class UserForm extends React.Component<IPropsType> {
             </label>
           </fieldset>
           {this.state.errors.gender && <p>{this.state.errors.gender}</p>}
+          <label>
+            Your profile picture*:
+            <input type="file" ref={this.fileInput} />
+          </label>
+          {this.state.errors.file && <p>{this.state.errors.file}</p>}
+          <input type="checkbox" id="consent" ref={this.consentInput} />
+          <label htmlFor="consent">I hereby consent to the processing of my personal data*</label>
+          {this.state.errors.consent && <p>{this.state.errors.consent}</p>}
           <input type="submit" value="Submit" />
         </form>
       </>
