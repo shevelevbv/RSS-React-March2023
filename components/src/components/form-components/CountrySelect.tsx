@@ -9,7 +9,7 @@ class CountrySelect extends React.Component<IPropsType> {
   }
   render = () => {
     return (
-      <>
+      <div>
         <label htmlFor="country-select">Select your country*:</label>
         <select id="country-select" ref={this.props.countrySelect}>
           <option value="">Please choose an option</option>
@@ -21,7 +21,7 @@ class CountrySelect extends React.Component<IPropsType> {
           <option value="Russia">Russia</option>
           <option value="Ukraine">Ukraine</option>
         </select>
-      </>
+      </div>
     );
   };
 }

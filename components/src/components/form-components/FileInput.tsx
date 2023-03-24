@@ -9,12 +9,12 @@ class FileInput extends React.Component<IPropsType> {
   }
   render = () => {
     return (
-      <>
+      <div>
         <label>
           Your profile picture*:
           <input type="file" ref={this.props.fileInput} />
         </label>
-      </>
+      </div>
     );
   };
 }

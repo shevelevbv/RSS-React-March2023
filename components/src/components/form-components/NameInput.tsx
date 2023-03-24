@@ -9,14 +9,13 @@ class NameInput extends React.Component<IPropsType> {
   }
   render = () => {
     return (
-      <>
+      <div>
         <label>
           First name*: <input type="text" ref={this.props.nameInput} />
         </label>
-      </>
+      </div>
     );
   };
 }
-
 
 export default NameInput;

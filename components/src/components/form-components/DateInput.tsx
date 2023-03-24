@@ -9,11 +9,11 @@ class DateInput extends React.Component<IPropsType> {
   }
   render = () => {
     return (
-      <>
+      <div>
         <label>
           Date of birth*: <input type="date" ref={this.props.dateInput} />
         </label>
-      </>
+      </div>
     );
   };
 }

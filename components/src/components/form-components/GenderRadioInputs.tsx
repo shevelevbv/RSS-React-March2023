@@ -12,7 +12,7 @@ class GenderRadioInputs extends React.Component<IPropsType> {
   }
   render = () => {
     return (
-      <>
+      <div>
         <fieldset>
           <legend>Select your gender*: </legend>
           <label>
@@ -28,7 +28,7 @@ class GenderRadioInputs extends React.Component<IPropsType> {
             Other
           </label>
         </fieldset>
-      </>
+      </div>
     );
   };
 }

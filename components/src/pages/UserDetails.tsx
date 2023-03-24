@@ -1,5 +1,6 @@
 import React from 'react';
 import UserForm from '../components/UserForm';
+import UserCard from "../components/UserCard";
 
 export interface IUserDetails {
   id: number;
@@ -34,7 +35,7 @@ class UserDetails extends React.Component {
         <ul>
           {this.state.userCards.map((card) => (
             <li key={card.id}>
-              {card.name} {card.country} {card.date} {card.gender} {'consent received'} {card.file}
+              <UserCard userDetails={card} />
             </li>
           ))}
         </ul>

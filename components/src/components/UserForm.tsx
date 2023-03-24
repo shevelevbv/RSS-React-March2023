@@ -1,11 +1,11 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import { IUserDetails } from '../pages/UserDetails';
 import NameInput from './form-components/NameInput';
 import DateInput from './form-components/DateInput';
 import CountrySelect from './form-components/CountrySelect';
-import GenderRadioInputs from "./form-components/GenderRadioInputs";
-import FileInput from "./form-components/FileInput";
-import ConsentInput from "./form-components/ConsentInput";
+import GenderRadioInputs from './form-components/GenderRadioInputs';
+import FileInput from './form-components/FileInput';
+import ConsentInput from './form-components/ConsentInput';
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
@@ -25,16 +25,16 @@ interface IErrors {
 }
 
 class UserForm extends React.Component<IPropsType> {
-  private readonly form: RefObject<HTMLFormElement>;
-  private readonly nameInput: RefObject<HTMLInputElement>;
-  private readonly dateInput: RefObject<HTMLInputElement>;
-  private readonly consentInput: RefObject<HTMLInputElement>;
-  private readonly fileInput: RefObject<HTMLInputElement>;
-  private readonly maleRadioInput: RefObject<HTMLInputElement>;
-  private readonly femaleRadioInput: RefObject<HTMLInputElement>;
-  private readonly otherRadioInput: RefObject<HTMLInputElement>;
-  private readonly genderRadioInputs: Array<RefObject<HTMLInputElement>>;
-  private readonly countrySelect: RefObject<HTMLSelectElement>;
+  private readonly form: React.RefObject<HTMLFormElement>;
+  private readonly nameInput: React.RefObject<HTMLInputElement>;
+  private readonly dateInput: React.RefObject<HTMLInputElement>;
+  private readonly consentInput: React.RefObject<HTMLInputElement>;
+  private readonly fileInput: React.RefObject<HTMLInputElement>;
+  private readonly maleRadioInput: React.RefObject<HTMLInputElement>;
+  private readonly femaleRadioInput: React.RefObject<HTMLInputElement>;
+  private readonly otherRadioInput: React.RefObject<HTMLInputElement>;
+  private readonly genderRadioInputs: Array<React.RefObject<HTMLInputElement>>;
+  private readonly countrySelect: React.RefObject<HTMLSelectElement>;
   state: IFormState;
 
   constructor(props: IPropsType) {
@@ -116,7 +116,7 @@ class UserForm extends React.Component<IPropsType> {
   private validateGenderInput = (): IErrors => {
     const errors: IErrors = {};
     const nothingChecked = this.genderRadioInputs.every(
-      (input: RefObject<HTMLInputElement>): boolean => !input.current?.checked
+      (input: React.RefObject<HTMLInputElement>): boolean => !input.current?.checked
     );
     if (nothingChecked) {
       errors.gender = 'Please select your gender';
@@ -135,8 +135,8 @@ class UserForm extends React.Component<IPropsType> {
     };
   };
   private createUserCard = (): IUserDetails => {
-    const checkedInput: RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
-      (input: RefObject<HTMLInputElement>) => input.current?.checked
+    const checkedInput: React.RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
+      (input: React.RefObject<HTMLInputElement>) => input.current?.checked
     )[0];
     const gender: string = checkedInput.current?.value as string;
     return {
