@@ -111,6 +111,12 @@ class UserForm extends React.Component<IPropsType> {
     const noFilesChosen = !this.fileInput.current?.files?.length;
     if (noFilesChosen) {
       errors.file = 'Please choose your file';
+    } else {
+      const file = this.fileInput.current?.files?.[0];
+      const notImage = !file?.type.startsWith('image/');
+      if (notImage) {
+        errors.file = 'The file should be an image';
+      }
     }
     return errors;
   };
