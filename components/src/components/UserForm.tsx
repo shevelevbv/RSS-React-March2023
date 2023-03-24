@@ -51,17 +51,22 @@ class UserForm extends React.Component<IPropsType> {
 
   private validateNameInput = (): IErrors => {
     const errors: IErrors = {};
-    const name: string = this.nameInput.current?.value as string;
-    const startsWithUpperLetter = /^[A-Z]/.test(name);
-    if (!startsWithUpperLetter) {
-      errors.name = 'The name should start with an upper-case Latin letter';
+    const name: string | undefined = this.nameInput.current?.value;
+    if (!name) {
+      errors.name = "The name shouldn't be empty";
+    } else {
+      const startsWithUpperLetter: boolean = /^[A-Z]/.test(name);
+      if (!startsWithUpperLetter) {
+        errors.name = 'The name should start with an upper-case Latin letter';
+      }
     }
     return errors;
   };
 
   private validateDateInput = (): IErrors => {
     const errors: IErrors = {};
-    if (!this.dateInput.current?.value) {
+    const dateIsEmpty = !this.dateInput.current?.value;
+    if (dateIsEmpty) {
       errors.date = "The date shouldn't be empty";
     }
     return errors;
@@ -69,7 +74,8 @@ class UserForm extends React.Component<IPropsType> {
 
   private validateCountrySelect = (): IErrors => {
     const errors: IErrors = {};
-    if (!this.countrySelect.current?.value) {
+    const nothingSelected = !this.countrySelect.current?.value;
+    if (nothingSelected) {
       errors.country = 'Please choose your country';
     }
     return errors;
