@@ -73,15 +73,15 @@ class UserForm extends React.Component<IPropsType> {
       name = name.trim();
       const startsWithUpperLetter: boolean = /^[A-Z]/.test(name);
       if (!startsWithUpperLetter) {
-        errors[refName as keyof IErrors] = 'The name should start with an upper-case Latin letter';
+        errors[refName as keyof IErrors] = 'The name must start with an upper-case letter';
       }
       const onlyLettersInName = /^[A-Za-z]+$/.test(name);
       if (!onlyLettersInName) {
-        errors[refName as keyof IErrors] = 'The name should contain only Latin letters';
+        errors[refName as keyof IErrors] = 'The name must contain only Latin letters';
       }
       const nameLength = name.length;
       if (nameLength < 3) {
-        errors[refName as keyof IErrors] = 'The name should be at least 3 letters long';
+        errors[refName as keyof IErrors] = 'The name must be at least 3 letters long';
       }
     }
     return errors;
@@ -205,13 +205,16 @@ class UserForm extends React.Component<IPropsType> {
     return (
       <>
         <form onSubmit={this.handleSubmit} ref={this.form} className="form">
-          <div className="form__input_container">
-            <NameInput text="First name:" nameInput={this.nameInput} />
-            <ErrorText errorMessage={this.state.errors.name} />
-          </div>
-          <div className="form__input_container">
-            <NameInput text="Last name:" nameInput={this.lastNameInput} />
-            <ErrorText errorMessage={this.state.errors.lastName} />
+          <div className="form__name">
+            <span className="form__name__title">Name*:</span>
+            <div className="form__input_container form__name__input_container">
+              <NameInput text="First name" nameInput={this.nameInput} />
+              <ErrorText errorMessage={this.state.errors.name} />
+            </div>
+            <div className="form__input_container form__name__input_container">
+              <NameInput text="Last name" nameInput={this.lastNameInput} />
+              <ErrorText errorMessage={this.state.errors.lastName} />
+            </div>
           </div>
           <div className="form__input_container">
             <DateInput dateInput={this.dateInput} />

@@ -7,7 +7,7 @@
 
 .form {
   font-family: "Roboto Regular", sans-serif;
-  width: 50%;
+  width: 40%;
   height: 30vw;
   display: flex;
   flex-direction: column;
@@ -19,11 +19,46 @@
 
   &__input_container {
     height: 35px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    display: flex;
+    justify-content: flex-start;
+
+    &__input_container {
+      width: 30%;
+    }
+
+    &__title {
+      margin-right: 10px;
+    }
+
+    &__input {
+      display: inline-block;
+      width: 100%;
+      outline: none;
+      border: none;
+      border-bottom: 1px solid black;
+
+      &::placeholder {
+        font-family: "Roboto Thin", sans-serif;
+      }
+
+      &:focus {
+        border-color: #3dd5c5;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   &__error_text {
     color: red;
-    font-size: 15px;
+    font-size: 11px;
     font-style: oblique;
   }
 
