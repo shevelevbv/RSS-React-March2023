@@ -189,7 +189,7 @@ class UserForm extends React.Component<IPropsType> {
         this.form.current?.reset();
         state.submitted = false;
         this.setState(state);
-      }, 5000);
+      }, 3000);
     } else {
       this.setState({ errors: errors });
     }
