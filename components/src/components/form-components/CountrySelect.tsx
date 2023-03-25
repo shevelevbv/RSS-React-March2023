@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IPropsType {
-  countrySelect: React.RefObject<HTMLSelectElement>
+  countrySelect: React.RefObject<HTMLSelectElement>;
 }
 class CountrySelect extends React.Component<IPropsType> {
   constructor(props: IPropsType) {
