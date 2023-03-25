@@ -224,7 +224,8 @@ class UserForm extends React.Component<IPropsType> {
             <CountrySelect countrySelect={this.countrySelect} />
             <ErrorText errorMessage={this.state.errors.country} />
           </div>
-          <div className="form__input_container">
+          <div className="form__gender">
+            <label className="form__label">Gender:</label>
             <GenderRadioInputs
               maleRadioInput={this.maleRadioInput}
               femaleRadioInput={this.femaleRadioInput}

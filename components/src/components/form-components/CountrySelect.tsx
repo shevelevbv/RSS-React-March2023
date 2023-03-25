@@ -11,14 +11,14 @@ class CountrySelect extends React.Component<IPropsType> {
     return (
       <div>
         <label htmlFor="country-select" className="form__label">
-          Select your country:
+          Country:
         </label>
         <select
           id="country-select"
           ref={this.props.countrySelect}
           className="form__input form__input_country"
         >
-          <option value="">Please choose an option</option>
+          <option value="">Choose the country</option>
           <option value="Belarus">Belarus</option>
           <option value="Georgia">Georgia</option>
           <option value="Kazakhstan">Kazakhstan</option>
