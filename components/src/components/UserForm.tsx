@@ -206,7 +206,7 @@ class UserForm extends React.Component<IPropsType> {
       <>
         <form onSubmit={this.handleSubmit} ref={this.form} className="form">
           <div className="form__name">
-            <span className="form__name__title">Name*:</span>
+            <span className="form__name__title">Full name*:</span>
             <div className="form__input_container form__name__input_container">
               <NameInput text="First name" nameInput={this.nameInput} />
               <ErrorText errorMessage={this.state.errors.name} />

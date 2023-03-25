@@ -11,14 +11,13 @@ class NameInput extends React.Component<IPropsType> {
   render = () => {
     return (
       <div>
-        <label>
-          <input
-            type="text"
-            ref={this.props.nameInput}
-            placeholder={this.props.text}
-            className="form__name__input"
-          />
-        </label>
+        <input
+          type="text"
+          ref={this.props.nameInput}
+          placeholder={this.props.text}
+          className="form__name__input"
+          spellCheck={false}
+        />
       </div>
     );
   };
