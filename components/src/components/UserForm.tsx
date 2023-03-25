@@ -29,6 +29,7 @@ interface IErrors {
 class UserForm extends React.Component<IPropsType> {
   private readonly form: React.RefObject<HTMLFormElement>;
   private readonly nameInput: React.RefObject<HTMLInputElement>;
+  private readonly lastNameInput: React.RefObject<HTMLInputElement>;
   private readonly dateInput: React.RefObject<HTMLInputElement>;
   private readonly consentInput: React.RefObject<HTMLInputElement>;
   private readonly fileInput: React.RefObject<HTMLInputElement>;
@@ -43,6 +44,7 @@ class UserForm extends React.Component<IPropsType> {
     super(props);
     this.form = React.createRef();
     this.nameInput = React.createRef();
+    this.lastNameInput = React.createRef();
     this.dateInput = React.createRef();
     this.countrySelect = React.createRef();
     this.consentInput = React.createRef();
@@ -57,9 +59,9 @@ class UserForm extends React.Component<IPropsType> {
     };
   }
 
-  private validateNameInput = (): IErrors => {
+  private validateNameInput = (nameRefObject: React.RefObject<HTMLInputElement>): IErrors => {
     const errors: IErrors = {};
-    let name: string | undefined = this.nameInput.current?.value;
+    let name: string | undefined = nameRefObject.current?.value;
     if (!name) {
       errors.name = "The name shouldn't be empty";
     } else {
@@ -142,7 +144,8 @@ class UserForm extends React.Component<IPropsType> {
 
   private validateData = () => {
     return {
-      ...this.validateNameInput(),
+      ...this.validateNameInput(this.nameInput),
+      ...this.validateNameInput(this.lastNameInput),
       ...this.validateDateInput(),
       ...this.validateCountrySelect(),
       ...this.validateConsentInput(),
@@ -158,6 +161,7 @@ class UserForm extends React.Component<IPropsType> {
     return {
       id: NaN,
       name: this.nameInput.current?.value as string,
+      lastName: this.lastNameInput.current?.value as string,
       date: this.dateInput.current?.value as string,
       country: this.countrySelect.current?.value as string,
       gender: checkedInput.current?.value as string,
@@ -182,7 +186,9 @@ class UserForm extends React.Component<IPropsType> {
     return (
       <>
         <form onSubmit={this.handleSubmit} ref={this.form}>
-          <NameInput nameInput={this.nameInput} />
+          <NameInput text="First name:" nameInput={this.nameInput} />
+          <ErrorText errorMessage={this.state.errors.name} />
+          <NameInput text="Last name:" nameInput={this.lastNameInput} />
           <ErrorText errorMessage={this.state.errors.name} />
           <DateInput dateInput={this.dateInput} />
           <ErrorText errorMessage={this.state.errors.date} />

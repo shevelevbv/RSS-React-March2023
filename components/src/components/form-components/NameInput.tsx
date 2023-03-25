@@ -2,6 +2,7 @@ import React from 'react';
 
 interface IPropsType {
   nameInput: React.RefObject<HTMLInputElement>;
+  text: string;
 }
 class NameInput extends React.Component<IPropsType> {
   constructor(props: IPropsType) {
@@ -11,7 +12,7 @@ class NameInput extends React.Component<IPropsType> {
     return (
       <div>
         <label>
-          First name*: <input type="text" ref={this.props.nameInput} />
+          {this.props.text} <input type="text" ref={this.props.nameInput} />
         </label>
       </div>
     );

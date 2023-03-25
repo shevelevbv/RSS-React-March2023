@@ -5,6 +5,7 @@ import UserCard from '../components/UserCard';
 export interface IUserDetails {
   id: number;
   name: string;
+  lastName: string;
   date: string;
   country: string;
   gender: string;

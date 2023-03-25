@@ -11,7 +11,7 @@ class UserCard extends React.Component<IPropsType> {
   render = () => {
     return (
       <div>
-        <h2>{`${this.props.userDetails.name}'s Details`}</h2>
+        <h2>{this.props.userDetails.name} {this.props.userDetails.lastName}</h2>
         <div>
           <img
             src={this.props.userDetails.file}
