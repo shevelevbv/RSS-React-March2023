@@ -12,7 +12,7 @@ class NameInput extends React.Component<IPropsType> {
     return (
       <div>
         <label>
-          {this.props.text} <input type="text" ref={this.props.nameInput} />
+          {this.props.text}* <input type="text" ref={this.props.nameInput} />
         </label>
       </div>
     );

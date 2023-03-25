@@ -14,6 +14,7 @@ interface IPropsType {
 }
 
 interface IFormState {
+  submitted: boolean;
   errors: IErrors;
 }
 
@@ -56,6 +57,7 @@ class UserForm extends React.Component<IPropsType> {
       (this.otherRadioInput = React.createRef()),
     ];
     this.state = {
+      submitted: false,
       errors: {},
     };
   }
@@ -179,8 +181,15 @@ class UserForm extends React.Component<IPropsType> {
     const noErrors = !Object.keys(errors).length;
     if (noErrors) {
       const userCard: IUserDetails = this.createUserCard();
-      this.form.current?.reset();
       this.props.addUserCard(userCard);
+      const state: IFormState = { ...this.state };
+      state.submitted = true;
+      this.setState(state);
+      setTimeout(() => {
+        this.form.current?.reset();
+        state.submitted = false;
+        this.setState(state);
+      }, 5000);
     } else {
       this.setState({ errors: errors });
     }
@@ -208,7 +217,8 @@ class UserForm extends React.Component<IPropsType> {
           <ErrorText errorMessage={this.state.errors.file} />
           <ConsentInput consentInput={this.consentInput} />
           <ErrorText errorMessage={this.state.errors.consent} />
-          <input type="submit" value="Save details" />
+          {!this.state.submitted && <input type="submit" value="Save details" />}
+          {this.state.submitted && <p>Submitted successfully</p>}
         </form>
       </>
     );
