@@ -8,7 +8,11 @@ class FileInput extends React.Component<IPropsType> {
     super(props);
   }
   render = () => {
-    return <div>{this.props.errorMessage && <p className="form__error_text">{this.props.errorMessage}</p>}</div>;
+    return (
+      <div>
+        {this.props.errorMessage && <p className="form__error_text">{this.props.errorMessage}</p>}
+      </div>
+    );
   };
 }
 

@@ -154,13 +154,14 @@ class UserForm extends React.Component<IPropsType> {
     const checkedInput: React.RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
       (input: React.RefObject<HTMLInputElement>) => input.current?.checked
     )[0];
+    const imageURL: string = URL.createObjectURL(this.fileInput.current?.files?.[0] as File);
     return {
       id: NaN,
       name: this.nameInput.current?.value as string,
       date: this.dateInput.current?.value as string,
       country: this.countrySelect.current?.value as string,
       gender: checkedInput.current?.value as string,
-      file: this.fileInput.current?.files?.[0].name as string,
+      file: imageURL,
     };
   };
 
@@ -197,7 +198,7 @@ class UserForm extends React.Component<IPropsType> {
           <ErrorText errorMessage={this.state.errors.file} />
           <ConsentInput consentInput={this.consentInput} />
           <ErrorText errorMessage={this.state.errors.consent} />
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Save details" />
         </form>
       </>
     );
