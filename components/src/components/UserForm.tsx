@@ -6,7 +6,8 @@ import CountrySelect from './form-components/CountrySelect';
 import GenderRadioInputs from './form-components/GenderRadioInputs';
 import FileInput from './form-components/FileInput';
 import ConsentInput from './form-components/ConsentInput';
-import ErrorText from "./form-components/ErrorText";
+import ErrorText from './form-components/ErrorText';
+import '../styles/Form.scss';
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
@@ -153,13 +154,12 @@ class UserForm extends React.Component<IPropsType> {
     const checkedInput: React.RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
       (input: React.RefObject<HTMLInputElement>) => input.current?.checked
     )[0];
-    const gender: string = checkedInput.current?.value as string;
     return {
       id: NaN,
       name: this.nameInput.current?.value as string,
       date: this.dateInput.current?.value as string,
       country: this.countrySelect.current?.value as string,
-      gender: gender,
+      gender: checkedInput.current?.value as string,
       file: this.fileInput.current?.files?.[0].name as string,
     };
   };
