@@ -1,0 +1,42 @@
+.main-form {
+  display: flex;
+  flex-direction: column;
+  align-items:  center;
+  padding: 30px;
+}
+
+.form {
+  font-family: "Roboto Regular", sans-serif;
+  width: 50%;
+  height: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  margin-bottom: 30px;
+  border: 2px solid rgb(175, 168, 168);
+  border-radius: 10px;
+
+  &__input_container {
+    height: 35px;
+  }
+
+  &__error_text {
+    color: red;
+    font-size: 15px;
+    font-style: oblique;
+  }
+
+  &__saved {
+    color: limegreen;
+    align-self: center;
+  }
+}
+
+.user-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 30px;
+  row-gap: 30px;
+}

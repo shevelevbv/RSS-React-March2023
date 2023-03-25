@@ -1,5 +1,6 @@
 import React from 'react';
 import { IUserDetails } from '../pages/UserDetails';
+import '../styles/UserCard.scss';
 
 interface IPropsType {
   userDetails: IUserDetails;
@@ -23,7 +24,6 @@ class UserCard extends React.Component<IPropsType> {
         <p>Date of birth: {this.props.userDetails.date}</p>
         <p>Gender: {this.props.userDetails.gender}</p>
         <p>Country: {this.props.userDetails.country}</p>
-
         <p>Consent to process personal data received</p>
       </div>
     );

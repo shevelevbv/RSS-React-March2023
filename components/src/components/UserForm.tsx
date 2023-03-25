@@ -7,7 +7,6 @@ import GenderRadioInputs from './form-components/GenderRadioInputs';
 import FileInput from './form-components/FileInput';
 import ConsentInput from './form-components/ConsentInput';
 import ErrorText from './form-components/ErrorText';
-import '../styles/Form.scss';
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
@@ -199,27 +198,43 @@ class UserForm extends React.Component<IPropsType> {
   render = (): JSX.Element => {
     return (
       <>
-        <form onSubmit={this.handleSubmit} ref={this.form}>
-          <NameInput text="First name:" nameInput={this.nameInput} />
-          <ErrorText errorMessage={this.state.errors.name} />
-          <NameInput text="Last name:" nameInput={this.lastNameInput} />
-          <ErrorText errorMessage={this.state.errors.lastName} />
-          <DateInput dateInput={this.dateInput} />
-          <ErrorText errorMessage={this.state.errors.date} />
-          <CountrySelect countrySelect={this.countrySelect} />
-          <ErrorText errorMessage={this.state.errors.country} />
-          <GenderRadioInputs
-            maleRadioInput={this.maleRadioInput}
-            femaleRadioInput={this.femaleRadioInput}
-            otherRadioInput={this.otherRadioInput}
-          />
-          <ErrorText errorMessage={this.state.errors.gender} />
-          <FileInput fileInput={this.fileInput} />
-          <ErrorText errorMessage={this.state.errors.file} />
-          <ConsentInput consentInput={this.consentInput} />
-          <ErrorText errorMessage={this.state.errors.consent} />
+        <form onSubmit={this.handleSubmit} ref={this.form} className="form">
+          <div className="form__input_container">
+            <NameInput text="First name:" nameInput={this.nameInput} />
+            <ErrorText errorMessage={this.state.errors.name} />
+          </div>
+          <div className="form__input_container">
+            <NameInput text="Last name:" nameInput={this.lastNameInput} />
+            <ErrorText errorMessage={this.state.errors.lastName} />
+          </div>
+          <div className="form__input_container">
+            <DateInput dateInput={this.dateInput} />
+            <ErrorText errorMessage={this.state.errors.date} />
+          </div>
+          <div className="form__input_container">
+            <CountrySelect countrySelect={this.countrySelect} />
+            <ErrorText errorMessage={this.state.errors.country} />
+          </div>
+          <div className="form__input_container">
+            <GenderRadioInputs
+              maleRadioInput={this.maleRadioInput}
+              femaleRadioInput={this.femaleRadioInput}
+              otherRadioInput={this.otherRadioInput}
+            />
+            <ErrorText errorMessage={this.state.errors.gender} />
+          </div>
+          <div className="form__input_container">
+            <FileInput fileInput={this.fileInput} />
+            <ErrorText errorMessage={this.state.errors.file} />
+          </div>
+          <div className="form__input_container">
+            <ConsentInput consentInput={this.consentInput} />
+            <ErrorText errorMessage={this.state.errors.consent} />
+          </div>
           {!this.state.submitted && <input type="submit" value="Save details" />}
-          {this.state.submitted && <p>The data has been saved successfully</p>}
+          {this.state.submitted && (
+            <p className="form__saved">The data has been saved successfully</p>
+          )}
         </form>
       </>
     );

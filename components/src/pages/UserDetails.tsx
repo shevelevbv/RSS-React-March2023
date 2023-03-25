@@ -1,6 +1,7 @@
 import React from 'react';
 import UserForm from '../components/UserForm';
 import UserCard from '../components/UserCard';
+import '../styles/UserDetails.scss';
 
 export interface IUserDetails {
   id: number;
@@ -33,7 +34,7 @@ class UserDetails extends React.Component {
     return (
       <main className="main-form">
         <UserForm addUserCard={this.addUserCard} />
-        <ul>
+        <ul className="user-cards">
           {this.state.userCards.map((card) => (
             <li key={card.id}>
               <UserCard userDetails={card} />
