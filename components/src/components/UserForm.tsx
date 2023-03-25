@@ -184,6 +184,7 @@ class UserForm extends React.Component<IPropsType> {
       this.props.addUserCard(userCard);
       const state: IFormState = { ...this.state };
       state.submitted = true;
+      state.errors = {};
       this.setState(state);
       setTimeout(() => {
         this.form.current?.reset();
@@ -218,7 +219,7 @@ class UserForm extends React.Component<IPropsType> {
           <ConsentInput consentInput={this.consentInput} />
           <ErrorText errorMessage={this.state.errors.consent} />
           {!this.state.submitted && <input type="submit" value="Save details" />}
-          {this.state.submitted && <p>Submitted successfully</p>}
+          {this.state.submitted && <p>The data has been saved successfully</p>}
         </form>
       </>
     );
