@@ -19,6 +19,7 @@ interface IFormState {
 
 interface IErrors {
   name?: string;
+  lastName?: string;
   date?: string;
   country?: string;
   consent?: string;
@@ -59,24 +60,27 @@ class UserForm extends React.Component<IPropsType> {
     };
   }
 
-  private validateNameInput = (nameRefObject: React.RefObject<HTMLInputElement>): IErrors => {
+  private validateNameInput = (
+    nameRefObject: React.RefObject<HTMLInputElement>,
+    refName: string
+  ): IErrors => {
     const errors: IErrors = {};
     let name: string | undefined = nameRefObject.current?.value;
     if (!name) {
-      errors.name = "The name shouldn't be empty";
+      errors[refName as keyof IErrors] = "The name shouldn't be empty";
     } else {
       name = name.trim();
       const startsWithUpperLetter: boolean = /^[A-Z]/.test(name);
       if (!startsWithUpperLetter) {
-        errors.name = 'The name should start with an upper-case Latin letter';
+        errors[refName as keyof IErrors] = 'The name should start with an upper-case Latin letter';
       }
       const onlyLettersInName = /^[A-Za-z]+$/.test(name);
       if (!onlyLettersInName) {
-        errors.name = 'The name should contain only Latin letters';
+        errors[refName as keyof IErrors] = 'The name should contain only Latin letters';
       }
       const nameLength = name.length;
       if (nameLength < 3) {
-        errors.name = 'The name should be at least 3 letters long';
+        errors[refName as keyof IErrors] = 'The name should be at least 3 letters long';
       }
     }
     return errors;
@@ -144,8 +148,8 @@ class UserForm extends React.Component<IPropsType> {
 
   private validateData = () => {
     return {
-      ...this.validateNameInput(this.nameInput),
-      ...this.validateNameInput(this.lastNameInput),
+      ...this.validateNameInput(this.nameInput, 'name'),
+      ...this.validateNameInput(this.lastNameInput, 'lastName'),
       ...this.validateDateInput(),
       ...this.validateCountrySelect(),
       ...this.validateConsentInput(),
@@ -189,7 +193,7 @@ class UserForm extends React.Component<IPropsType> {
           <NameInput text="First name:" nameInput={this.nameInput} />
           <ErrorText errorMessage={this.state.errors.name} />
           <NameInput text="Last name:" nameInput={this.lastNameInput} />
-          <ErrorText errorMessage={this.state.errors.name} />
+          <ErrorText errorMessage={this.state.errors.lastName} />
           <DateInput dateInput={this.dateInput} />
           <ErrorText errorMessage={this.state.errors.date} />
           <CountrySelect countrySelect={this.countrySelect} />
