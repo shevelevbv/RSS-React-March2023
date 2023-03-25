@@ -163,11 +163,17 @@ class UserForm extends React.Component<IPropsType> {
       (input: React.RefObject<HTMLInputElement>) => input.current?.checked
     )[0];
     const imageURL: string = URL.createObjectURL(this.fileInput.current?.files?.[0] as File);
+    const inputDate = new Date(this.dateInput.current?.value as string);
+    const formattedDate = inputDate.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
     return {
       id: NaN,
       name: this.nameInput.current?.value as string,
       lastName: this.lastNameInput.current?.value as string,
-      date: this.dateInput.current?.value as string,
+      date: formattedDate,
       country: this.countrySelect.current?.value as string,
       gender: checkedInput.current?.value as string,
       file: imageURL,
