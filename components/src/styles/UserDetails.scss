@@ -23,6 +23,10 @@
     flex-direction: column;
   }
 
+  &__label {
+    margin-right: 10px;
+  }
+
   &__name {
     display: flex;
     justify-content: flex-start;
@@ -31,9 +35,6 @@
       width: 30%;
     }
 
-    &__title {
-      margin-right: 10px;
-    }
 
     &__input {
       display: inline-block;
@@ -59,9 +60,8 @@
   &__error_text {
     width: 95%;
     color: red;
-    font-family: "Roboto Light", sans-serif;
+    font-family: "Roboto Light Italic", sans-serif;
     font-size: 11px;
-    font-style: oblique;
   }
 
   &__saved {

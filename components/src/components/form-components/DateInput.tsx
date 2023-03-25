@@ -10,9 +10,10 @@ class DateInput extends React.Component<IPropsType> {
   render = () => {
     return (
       <div>
-        <label>
-          Date of birth*: <input type="date" ref={this.props.dateInput} />
+        <label htmlFor="date" className="form__label">
+          Date of birth:
         </label>
+        <input type="date" ref={this.props.dateInput} id="date" />
       </div>
     );
   };
