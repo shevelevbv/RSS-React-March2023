@@ -15,6 +15,7 @@ class DateInput extends React.Component<IPropsType> {
           ref={this.props.dateInput}
           id="date"
           className="form__input form__input_date"
+          role="date-input"
         />
       </div>
     );

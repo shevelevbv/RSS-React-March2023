@@ -15,6 +15,7 @@ class FileInput extends React.Component<IPropsType> {
           className="form__input form__input_file"
           type="file"
           ref={this.props.fileInput}
+          role="file-input"
         />
       </div>
     );

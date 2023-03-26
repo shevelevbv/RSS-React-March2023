@@ -1,5 +1,6 @@
 import React from 'react';
 import { IUserDetails } from '../pages/UserDetails';
+import { IErrors, IFormState } from '../helpers/interfaces';
 import NameInput from './form-components/NameInput';
 import DateInput from './form-components/DateInput';
 import CountrySelect from './form-components/CountrySelect';
@@ -10,21 +11,6 @@ import ErrorText from './form-components/ErrorText';
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
-}
-
-interface IFormState {
-  submitted: boolean;
-  errors: IErrors;
-}
-
-interface IErrors {
-  name?: string;
-  lastName?: string;
-  date?: string;
-  country?: string;
-  consent?: string;
-  gender?: string;
-  file?: string;
 }
 
 class UserForm extends React.Component<IPropsType> {
@@ -262,7 +248,7 @@ class UserForm extends React.Component<IPropsType> {
             <ConsentInput consentInput={this.consentInput} />
             <ErrorText errorMessage={this.state.errors.consent} />
           </div>
-          {!this.state.submitted && <input type="submit" value="Save details" />}
+          {!this.state.submitted && <input type="submit" value="Save details" role="submit" />}
           {this.state.submitted && (
             <p className="form__saved">The data has been saved successfully</p>
           )}

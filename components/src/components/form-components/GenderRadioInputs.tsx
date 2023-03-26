@@ -14,16 +14,35 @@ class GenderRadioInputs extends React.Component<IPropsType> {
     return (
       <fieldset className="form__gender__inputs">
         <div className="form__gender__input">
-          <input type="radio" name="gender" value="male" ref={this.props.maleRadioInput} />
-          <label>Male</label>
+          <input
+            type="radio"
+            name="gender"
+            value="male"
+            id="input-male"
+            role="male-input"
+            ref={this.props.maleRadioInput}
+          />
+          <label htmlFor="input-male">Male</label>
         </div>
         <div className="form__gender__input">
-          <input type="radio" name="gender" value="female" ref={this.props.femaleRadioInput} />
-          <label>Female</label>
+          <input
+            type="radio"
+            name="gender"
+            value="female"
+            id="input-female"
+            ref={this.props.femaleRadioInput}
+          />
+          <label htmlFor="input-female">Female</label>
         </div>
         <div className="form__gender__input">
-          <input type="radio" name="gender" value="other" ref={this.props.otherRadioInput} />
-          <label>Other</label>
+          <input
+            type="radio"
+            name="gender"
+            value="other"
+            id="input-other"
+            ref={this.props.otherRadioInput}
+          />
+          <label htmlFor="input-other">Other</label>
         </div>
       </fieldset>
     );

@@ -14,6 +14,7 @@ class CountrySelect extends React.Component<IPropsType> {
           id="country"
           ref={this.props.countrySelect}
           className="form__input form__input_country"
+          role="country-input"
         >
           <option value="">Choose the country</option>
           <option value="Belarus">Belarus</option>

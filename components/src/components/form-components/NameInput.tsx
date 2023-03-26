@@ -17,6 +17,7 @@ class NameInput extends React.Component<IPropsType> {
           placeholder={this.props.text}
           className="form__input"
           spellCheck={false}
+          role="name-input"
         />
       </div>
     );

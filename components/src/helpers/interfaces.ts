@@ -10,3 +10,18 @@ export interface ICard {
   favorite: string;
   price: number;
 }
+
+export interface IErrors {
+  name?: string;
+  lastName?: string;
+  date?: string;
+  country?: string;
+  consent?: string;
+  gender?: string;
+  file?: string;
+}
+
+export interface IFormState {
+  submitted: boolean;
+  errors: IErrors;
+}
