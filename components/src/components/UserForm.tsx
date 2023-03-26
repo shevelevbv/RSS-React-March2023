@@ -95,7 +95,7 @@ class UserForm extends React.Component<IPropsType> {
     } else {
       const dateValue = this.dateInput.current?.value as string;
       const currentDate = new Date();
-      const inputDate = new Date(dateValue);
+      const inputDate = new Date(`${dateValue}T00:00`);
       if (inputDate > currentDate) {
         errors.date = "The date of birth can't be later than today";
       }
@@ -163,7 +163,7 @@ class UserForm extends React.Component<IPropsType> {
       (input: React.RefObject<HTMLInputElement>) => input.current?.checked
     )[0];
     const imageURL: string = URL.createObjectURL(this.fileInput.current?.files?.[0] as File);
-    const inputDate = new Date(this.dateInput.current?.value as string);
+    const inputDate = new Date(`${this.dateInput.current?.value}T00:00`);
     const formattedDate = inputDate.toLocaleDateString('en-US', {
       month: 'long',
       day: 'numeric',
