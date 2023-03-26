@@ -10,11 +10,8 @@ class CountrySelect extends React.Component<IPropsType> {
   render = () => {
     return (
       <div>
-        <label htmlFor="country-select" className="form__label">
-          Country:
-        </label>
         <select
-          id="country-select"
+          id="country"
           ref={this.props.countrySelect}
           className="form__input form__input_country"
         >

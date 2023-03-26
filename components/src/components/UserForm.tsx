@@ -225,9 +225,14 @@ class UserForm extends React.Component<IPropsType> {
               <ErrorText errorMessage={this.state.errors.date} />
             </div>
           </div>
-          <div className="form__input_container">
-            <CountrySelect countrySelect={this.countrySelect} />
-            <ErrorText errorMessage={this.state.errors.country} />
+          <div className="form__country">
+            <label htmlFor="country" className="form__label">
+              Country:
+            </label>
+            <div className="form__input_container form__country__input_container">
+              <CountrySelect countrySelect={this.countrySelect} />
+              <ErrorText errorMessage={this.state.errors.country} />
+            </div>
           </div>
           <div className="form__gender">
             <label className="form__label">Gender:</label>
