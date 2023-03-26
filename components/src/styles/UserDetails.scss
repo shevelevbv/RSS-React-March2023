@@ -99,7 +99,8 @@
   }
 
   &__date,
-  &__country {
+  &__country,
+  &__file {
     display: flex;
 
     &__input_container {
@@ -110,6 +111,12 @@
   &__country {
     &__input_container {
       width: 500px;
+    }
+  }
+
+  &__input {
+    &_file {
+      border: none;
     }
   }
 

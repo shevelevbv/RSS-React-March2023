@@ -245,9 +245,14 @@ class UserForm extends React.Component<IPropsType> {
               <ErrorText errorMessage={this.state.errors.gender} />
             </div>
           </div>
-          <div className="form__input_container">
-            <FileInput fileInput={this.fileInput} />
-            <ErrorText errorMessage={this.state.errors.file} />
+          <div className="form__file">
+            <label htmlFor="file" className="form__label">
+              Profile picture:
+            </label>
+            <div className="form__input_container form__file__input_container">
+              <FileInput fileInput={this.fileInput} />
+              <ErrorText errorMessage={this.state.errors.file} />
+            </div>
           </div>
           <div className="form__input_container">
             <ConsentInput consentInput={this.consentInput} />

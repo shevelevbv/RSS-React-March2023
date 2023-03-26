@@ -10,9 +10,6 @@ class FileInput extends React.Component<IPropsType> {
   render = () => {
     return (
       <div>
-        <label htmlFor="file" className="form__label">
-          Your profile picture:
-        </label>
         <input
           id="file"
           className="form__input form__input_file"
