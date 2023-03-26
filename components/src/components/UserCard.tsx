@@ -11,11 +11,11 @@ class UserCard extends React.Component<IPropsType> {
   }
   render = () => {
     return (
-      <div>
+      <div className="user-card">
         <h2>
           {this.props.userDetails.name} {this.props.userDetails.lastName}
         </h2>
-        <div>
+        <div className="user-card__image">
           <img
             src={this.props.userDetails.file}
             alt={this.props.userDetails.name}
@@ -23,9 +23,18 @@ class UserCard extends React.Component<IPropsType> {
             height="100"
           />
         </div>
-        <p>Date of birth: {this.props.userDetails.date}</p>
-        <p>Gender: {this.props.userDetails.gender}</p>
-        <p>Country: {this.props.userDetails.country}</p>
+        <div className="user-card__info">
+          <span>Date of birth:</span>
+          <span>{this.props.userDetails.date}</span>
+        </div>
+        <div className="user-card__info">
+          <span>Gender:</span>
+          <span>{this.props.userDetails.gender}</span>
+        </div>
+        <div className="user-card__info">
+          <span>Country:</span>
+          <span>{this.props.userDetails.country}</span>
+        </div>
       </div>
     );
   };
