@@ -120,6 +120,12 @@
     }
   }
 
+  &__consent {
+    &__input {
+      margin-right: 10px;
+    }
+  }
+
   &__saved {
     color: limegreen;
     align-self: center;

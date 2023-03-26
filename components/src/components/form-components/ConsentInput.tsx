@@ -10,7 +10,7 @@ class ConsentInput extends React.Component<IPropsType> {
   render = () => {
     return (
       <div>
-        <input type="checkbox" id="consent" ref={this.props.consentInput} />
+        <input type="checkbox" id="consent" className="form__consent__input" ref={this.props.consentInput} />
         <label htmlFor="consent">I hereby consent to the processing of my personal data*</label>
       </div>
     );
