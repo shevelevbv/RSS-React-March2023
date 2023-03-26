@@ -46,13 +46,15 @@
     &_country {
       width: 30%;
     }
+
   }
 
   &__label {
     margin-right: 10px;
   }
 
-  &__name {
+  &__name,
+  &__date {
     display: flex;
     justify-content: flex-start;
 
@@ -98,6 +100,10 @@
 
   &__date {
     display: flex;
+
+    &__input_container {
+      width: 400px;
+    }
   }
 
   &__saved {

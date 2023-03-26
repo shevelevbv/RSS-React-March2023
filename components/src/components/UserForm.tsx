@@ -216,9 +216,14 @@ class UserForm extends React.Component<IPropsType> {
               <ErrorText errorMessage={this.state.errors.lastName} />
             </div>
           </div>
-          <div className="form__input_container">
-            <DateInput dateInput={this.dateInput} />
-            <ErrorText errorMessage={this.state.errors.date} />
+          <div className="form__date">
+            <label htmlFor="date" className="form__label">
+              Date of birth:
+            </label>
+            <div className="form__input_container form__date__input_container">
+              <DateInput dateInput={this.dateInput} />
+              <ErrorText errorMessage={this.state.errors.date} />
+            </div>
           </div>
           <div className="form__input_container">
             <CountrySelect countrySelect={this.countrySelect} />
