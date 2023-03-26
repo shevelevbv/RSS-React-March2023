@@ -20,6 +20,27 @@ test('renders the Home page when the URL does not specify the path', () => {
   expect(homeLinkElement).toBeInTheDocument();
 });
 
+test('renders the About Us page when the path is /about', () => {
+  render(
+    <MemoryRouter initialEntries={['/about']}>
+      <App />
+    </MemoryRouter>
+  );
+
+  const headingElement = screen.getByRole('heading', { level: 1 });
+  expect(headingElement).toBeInTheDocument();
+});
+test('renders the User Details page when the path is /user', () => {
+  render(
+    <MemoryRouter initialEntries={['/user']}>
+      <App />
+    </MemoryRouter>
+  );
+
+  const formElement = screen.getByRole('form');
+  expect(formElement).toBeInTheDocument();
+});
+
 test('renders the Not Found page when URL does not match any routes', () => {
   render(
     <MemoryRouter initialEntries={['/non-existent-url']}>

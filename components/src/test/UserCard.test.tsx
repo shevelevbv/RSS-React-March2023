@@ -23,4 +23,6 @@ test('renders card elements', (): void => {
   expect(date).toBeInTheDocument();
   const gender = screen.getByText(mockCard.gender);
   expect(gender).toBeInTheDocument();
+  const country = screen.getByText(mockCard.country);
+  expect(country).toBeInTheDocument();
 });

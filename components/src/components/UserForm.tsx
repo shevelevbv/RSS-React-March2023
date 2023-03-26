@@ -194,7 +194,7 @@ class UserForm extends React.Component<IPropsType> {
   render = (): JSX.Element => {
     return (
       <>
-        <form onSubmit={this.handleSubmit} ref={this.form} className="form">
+        <form onSubmit={this.handleSubmit} ref={this.form} className="form" role="form">
           <div className="form__name">
             <label className="form__label">Full name:</label>
             <div className="form__input_container form__name__input_container">
