@@ -1,5 +1,6 @@
 .main-form {
   display: flex;
+  min-height: calc(100vh - 190px);
   flex-direction: column;
   align-items:  center;
   padding: 30px;

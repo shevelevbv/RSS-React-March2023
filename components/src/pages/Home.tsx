@@ -9,7 +9,7 @@ class Home extends React.Component {
   cards: Array<ICard> = data;
   render = (): JSX.Element => {
     return (
-      <main className="main_home">
+      <main className="main-home">
         <Search />
         <ul role="cards-container" className="cards">
           {this.cards.map((card: ICard) => (
