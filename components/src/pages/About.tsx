@@ -18,9 +18,9 @@ class Home extends React.Component {
           tones of a Chinese pu-erh, we have something for everyone.
         </p>
         <p>
-          At our tea store, we pride ourselves on our commitment to sustainability and ethical sourcing.
-          We work closely with our suppliers to ensure that all of our teas are grown and harvested in a way
-          that is both environmentally and socially responsible.
+          At our tea store, we pride ourselves on our commitment to sustainability and ethical
+          sourcing. We work closely with our suppliers to ensure that all of our teas are grown and
+          harvested in a way that is both environmentally and socially responsible.
         </p>
         <p>
           Whether you&rsquo;re a tea enthusiast or just looking for a new way to relax and unwind,
@@ -37,4 +37,3 @@ class Home extends React.Component {
 }
 
 export default Home;
-
