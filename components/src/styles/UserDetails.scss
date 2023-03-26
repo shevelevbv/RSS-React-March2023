@@ -8,7 +8,7 @@
 .form {
   font-family: "Roboto Regular", sans-serif;
   width: 600px;
-  height: 350px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -63,6 +63,7 @@
 
   &__gender {
       display: flex;
+      height: 40px;
 
     &__inputs {
       width: 200px;
@@ -71,18 +72,18 @@
       justify-content: space-between;
     }
 
-    &__label {
+    &__input {
       display: flex;
       column-gap: 5px;
     }
 
-    &__label input + span {
+    &__input input + label {
       color: #7f7f7f;
       font-family: "Roboto Light", sans-serif;
       opacity: 0.8;
     }
 
-    &__label input:checked + span {
+    &__input input:checked + label {
       color: black;
       font-family: "Roboto Regular", sans-serif;
     }

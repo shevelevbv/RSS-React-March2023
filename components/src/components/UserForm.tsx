@@ -226,12 +226,14 @@ class UserForm extends React.Component<IPropsType> {
           </div>
           <div className="form__gender">
             <label className="form__label">Gender:</label>
-            <GenderRadioInputs
-              maleRadioInput={this.maleRadioInput}
-              femaleRadioInput={this.femaleRadioInput}
-              otherRadioInput={this.otherRadioInput}
-            />
-            <ErrorText errorMessage={this.state.errors.gender} />
+            <div className="form__gender__input_container">
+              <GenderRadioInputs
+                maleRadioInput={this.maleRadioInput}
+                femaleRadioInput={this.femaleRadioInput}
+                otherRadioInput={this.otherRadioInput}
+              />
+              <ErrorText errorMessage={this.state.errors.gender} />
+            </div>
           </div>
           <div className="form__input_container">
             <FileInput fileInput={this.fileInput} />
