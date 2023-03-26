@@ -180,22 +180,26 @@ class UserForm extends React.Component<IPropsType> {
     };
   };
 
+  private completeProcessingForm = (): void => {
+    const userCard: IUserDetails = this.createUserCard();
+    this.props.addUserCard(userCard);
+    const state: IFormState = { ...this.state };
+    state.submitted = true;
+    state.errors = {};
+    this.setState(state);
+    setTimeout(() => {
+      this.form.current?.reset();
+      state.submitted = false;
+      this.setState(state);
+    }, 3000);
+  };
+
   private handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault();
     const errors: IErrors = { ...this.validateData() };
     const noErrors = !Object.keys(errors).length;
     if (noErrors) {
-      const userCard: IUserDetails = this.createUserCard();
-      this.props.addUserCard(userCard);
-      const state: IFormState = { ...this.state };
-      state.submitted = true;
-      state.errors = {};
-      this.setState(state);
-      setTimeout(() => {
-        this.form.current?.reset();
-        state.submitted = false;
-        this.setState(state);
-      }, 3000);
+      this.completeProcessingForm();
     } else {
       this.setState({ errors: errors });
     }
