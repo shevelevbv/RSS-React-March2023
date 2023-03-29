@@ -1,47 +1,39 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Magnifier from './Magnifier';
 
-interface ISearchState {
-  value: string;
-}
+const Search = (): JSX.Element => {
+  const [value, setValue]: [string, Dispatch<SetStateAction<string>>] = useState('');
 
-class Search extends React.Component {
-  state: ISearchState = {
-    value: '',
-  };
-
-  handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ value: event.target.value });
-  };
-
-  componentWillUnmount = (): void => {
-    localStorage.setItem('searchValue', this.state.value);
-  };
-
-  componentDidMount = (): void => {
+  useEffect(() => {
     const savedSearchValue: string | null = localStorage.getItem('searchValue');
     if (savedSearchValue) {
-      this.setState({ value: savedSearchValue });
+      setValue(savedSearchValue);
     }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('searchValue', value);
+  }, [value]);
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setValue(event.target.value);
   };
 
-  render = (): JSX.Element => {
-    return (
-      <div className="search">
-        <Magnifier />
-        <input
-          role="search-input"
-          className="search__input"
-          type="text"
-          onChange={this.handleInputChange}
-          value={this.state.value}
-          placeholder="Search"
-          spellCheck={false}
-          autoFocus={true}
-        />
-      </div>
-    );
-  };
-}
+  return (
+    <div className="search">
+      <Magnifier />
+      <input
+        role="search-input"
+        className="search__input"
+        type="text"
+        onChange={handleInputChange}
+        value={value}
+        placeholder="Search"
+        spellCheck={false}
+        autoFocus={true}
+      />
+    </div>
+  );
+};
 
 export default Search;
