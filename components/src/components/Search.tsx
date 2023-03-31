@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import Magnifier from './Magnifier';
 
 const Search = (): JSX.Element => {
@@ -8,9 +8,7 @@ const Search = (): JSX.Element => {
 
   useEffect(() => {
     initialValueRef.current = localStorage.getItem('searchValue') || '';
-    if (initialValueRef.current) {
-      setValue(initialValueRef.current);
-    }
+    setValue(initialValueRef.current);
   }, []);
 
   useEffect(() => {
