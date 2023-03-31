@@ -1,5 +1,5 @@
 import React from 'react';
-import UserForm from '../components/UserForm';
+import UserFormHooks from '../components/UserFormHooks';
 import UserCard from '../components/UserCard';
 import '../styles/UserDetails.scss';
 
@@ -33,7 +33,7 @@ class UserDetails extends React.Component {
   render = (): JSX.Element => {
     return (
       <main className="main-form">
-        <UserForm addUserCard={this.addUserCard} />
+        <UserFormHooks addUserCard={this.addUserCard} />
         <ul className="user-cards">
           {this.state.userCards.map((card) => (
             <li key={card.id}>

@@ -2,22 +2,21 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useSta
 import Magnifier from './Magnifier';
 
 const Search = (): JSX.Element => {
-  const [value, setValue]: [string, Dispatch<SetStateAction<string>>] = useState('');
+  const [value, setValue]: [string, Dispatch<SetStateAction<string>>] = useState(
+    localStorage.getItem('searchValue') || ''
+  );
 
   const initialValueRef = useRef<string>('');
 
   useEffect(() => {
-    initialValueRef.current = localStorage.getItem('searchValue') || '';
-    setValue(initialValueRef.current);
-  }, []);
+    initialValueRef.current = value;
+  }, [value]);
 
   useEffect(() => {
     return () => {
-      if (initialValueRef.current !== value) {
-        localStorage.setItem('searchValue', value);
-      }
+      localStorage.setItem('searchValue', initialValueRef.current);
     };
-  }, [value]);
+  }, []);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
