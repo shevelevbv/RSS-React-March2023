@@ -1,12 +1,8 @@
 import React from 'react';
-import { UseFormRegister } from 'react-hook-form';
-
-interface IFormInput {
-  name: string;
-}
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 type InputProps = {
-  register: UseFormRegister<string>;
+  register: UseFormRegister<FieldValues>;
   placeholder: string;
   keyName: string;
 };

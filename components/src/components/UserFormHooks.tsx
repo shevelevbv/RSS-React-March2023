@@ -1,6 +1,6 @@
-import React, {useRef, useState} from 'react';
+import React, { useState } from 'react';
 import { IUserDetails } from '../pages/UserDetails';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import NameInput from './form-components/NameInput';
 import ErrorText from './form-components/ErrorText';
 import DateInput from './form-components/DateInput';
@@ -18,6 +18,7 @@ interface IPropsType {
 interface IFormInput {
   name: string;
   lastName: string;
+  date: string;
 }
 
 const UserFormHooks = (props: IPropsType): JSX.Element => {
@@ -29,7 +30,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     formState: { errors },
     getValues,
     reset,
-  } = useForm<IFormInput>();
+  } = useForm<FieldValues>();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const validateNameInput = (refName: string): IErrors => {
@@ -161,7 +162,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
       setIsSubmitted(false);
     }, 3000);
   };
-  const onSubmit = async (data): Promise<void> => {
+  const onSubmit = (data): void => {
     const errors: IErrors = { ...validateData() };
     const noErrors = !Object.keys(errors).length;
     if (noErrors) {
@@ -187,15 +188,15 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
             <ErrorText errorMessage={errors.lastName?.message} />
           </div>
         </div>
-        {/*<div className="form__date">*/}
-        {/*  <label htmlFor="date" className="form__label">*/}
-        {/*    Date of birth:*/}
-        {/*  </label>*/}
-        {/*  <div className="form__input_container form__date__input_container">*/}
-        {/*    <DateInput dateInput={this.dateInput} />*/}
-        {/*    <ErrorText errorMessage={this.state.errors.date} />*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+        <div className="form__date">
+          <label htmlFor="date" className="form__label">
+            Date of birth:
+          </label>
+          <div className="form__input_container form__date__input_container">
+            <DateInput register={register} />
+            <ErrorText errorMessage={errors.date?.message} />
+          </div>
+        </div>
         {/*<div className="form__country">*/}
         {/*  <label htmlFor="country" className="form__label">*/}
         {/*    Country:*/}

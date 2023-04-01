@@ -12,13 +12,13 @@ export interface ICard {
 }
 
 export interface IErrors {
-  name?: string;
-  lastName?: string;
-  date?: string;
-  country?: string;
-  consent?: string;
-  gender?: string;
-  file?: string;
+  name?: { message: string };
+  lastName?: { message: string };
+  date?: { message: string };
+  country?: { message: string };
+  consent?: { message: string };
+  gender?: { message: string };
+  file?: { message: string };
 }
 
 export interface IFormState {
