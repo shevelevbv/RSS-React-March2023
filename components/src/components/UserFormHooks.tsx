@@ -36,6 +36,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const consentGiven: boolean = watch('consent');
   const selectedFiles: FileList = watch('file');
+  const selectedGender: string = watch('gender');
 
   const validateNameInput = (refName: string): IErrors => {
     const errors: IErrors = {};
@@ -94,20 +95,18 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     return errors;
   };
 
-  // // const validateGenderInput = (): IErrors => {
-  // //   const errors: IErrors = {};
-  // //   const nothingChecked = this.genderRadioInputs.every(
-  // //     (input: React.RefObject<HTMLInputElement>): boolean => !input.current?.checked
-  // //   );
-  // //   if (nothingChecked) {
-  // //     errors.gender = 'Please select your gender';
-  // //   }
-  // //   return errors;
-  // // };
-  // //
+  const validateGenderInput = (): IErrors => {
+    const errors: IErrors = {};
+    const nothingChecked = !selectedGender;
+    if (nothingChecked) {
+      errors.gender = { message: 'Please select your gender' };
+    }
+    return errors;
+  };
+
   const validateFileInput = (): IErrors => {
     const errors: IErrors = {};
-    const noFilesChosen = !selectedFiles.length;
+    const noFilesChosen = !selectedFiles;
     if (noFilesChosen) {
       errors.file = { message: 'Please choose your file' };
     } else {
@@ -127,15 +126,12 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
       ...validateDateInput(),
       ...validateCountrySelect(),
       ...validateConsentInput(),
-      // ...validateGenderInput(),
+      ...validateGenderInput(),
       ...validateFileInput(),
     };
   };
 
   const createUserCard = (): IUserDetails => {
-    // const checkedInput: React.RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
-    //   (input: React.RefObject<HTMLInputElement>) => input.current?.checked
-    // )[0];
     const imageURL: string = URL.createObjectURL(selectedFiles[0] as File);
     const inputDate = new Date(`${getValues('date')}T00:00`);
     const formattedDate = inputDate.toLocaleDateString('en-US', {
@@ -149,7 +145,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
       lastName: getValues('lastName'),
       date: formattedDate,
       country: getValues('country'),
-      // gender: checkedInput.current?.value as string,
+      gender: selectedGender,
       file: imageURL,
     };
   };
@@ -208,17 +204,13 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
             <ErrorText errorMessage={errors.country?.message as string} />
           </div>
         </div>
-        {/*<div className="form__gender">*/}
-        {/*  <label className="form__label">Gender:</label>*/}
-        {/*  <div className="form__gender__input_container">*/}
-        {/*    <GenderRadioInputs*/}
-        {/*      maleRadioInput={this.maleRadioInput}*/}
-        {/*      femaleRadioInput={this.femaleRadioInput}*/}
-        {/*      otherRadioInput={this.otherRadioInput}*/}
-        {/*    />*/}
-        {/*    <ErrorText errorMessage={this.state.errors.gender} />*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+        <div className="form__gender">
+          <label className="form__label">Gender:</label>
+          <div className="form__gender__input_container">
+            <GenderRadioInputs register={register} />
+            <ErrorText errorMessage={errors.gender?.message as string} />
+          </div>
+        </div>
         <div className="form__file">
           <label htmlFor="file" className="form__label">
             Profile picture:

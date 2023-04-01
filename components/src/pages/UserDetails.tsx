@@ -9,7 +9,7 @@ export interface IUserDetails {
   lastName: string;
   date: string;
   country: string;
-  // gender: string;
+  gender: string;
   file: string;
 }
 

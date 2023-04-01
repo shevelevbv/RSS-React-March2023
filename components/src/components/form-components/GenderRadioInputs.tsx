@@ -1,52 +1,25 @@
 import React from 'react';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 interface IPropsType {
-  maleRadioInput: React.RefObject<HTMLInputElement>;
-  femaleRadioInput: React.RefObject<HTMLInputElement>;
-  otherRadioInput: React.RefObject<HTMLInputElement>;
+  register: UseFormRegister<FieldValues>;
 }
 
-class GenderRadioInputs extends React.Component<IPropsType> {
-  constructor(props: IPropsType) {
-    super(props);
-  }
-  render = () => {
-    return (
-      <fieldset className="form__gender__inputs">
-        <div className="form__gender__input">
-          <input
-            type="radio"
-            name="gender"
-            value="male"
-            id="input-male"
-            role="male-input"
-            ref={this.props.maleRadioInput}
-          />
-          <label htmlFor="input-male">Male</label>
-        </div>
-        <div className="form__gender__input">
-          <input
-            type="radio"
-            name="gender"
-            value="female"
-            id="input-female"
-            ref={this.props.femaleRadioInput}
-          />
-          <label htmlFor="input-female">Female</label>
-        </div>
-        <div className="form__gender__input">
-          <input
-            type="radio"
-            name="gender"
-            value="other"
-            id="input-other"
-            ref={this.props.otherRadioInput}
-          />
-          <label htmlFor="input-other">Other</label>
-        </div>
-      </fieldset>
-    );
-  };
-}
+const GenderRadioInputs = ({ register }: IPropsType) => (
+  <fieldset className="form__gender__inputs">
+    <div className="form__gender__input">
+      <input type="radio" value="male" id="input-male" role="male-input" {...register('gender')} />
+      <label htmlFor="input-male">Male</label>
+    </div>
+    <div className="form__gender__input">
+      <input type="radio" value="female" id="input-female" {...register('gender')} />
+      <label htmlFor="input-female">Female</label>
+    </div>
+    <div className="form__gender__input">
+      <input type="radio" value="other" id="input-other" {...register('gender')} />
+      <label htmlFor="input-other">Other</label>
+    </div>
+  </fieldset>
+);
 
 export default GenderRadioInputs;
