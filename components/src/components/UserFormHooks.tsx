@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IUserDetails } from '../pages/UserDetails';
-import { FieldValues, useForm } from 'react-hook-form';
+import { ErrorOption, FieldValues, useForm } from 'react-hook-form';
 import NameInput from './form-components/NameInput';
 import ErrorText from './form-components/ErrorText';
 import DateInput from './form-components/DateInput';
@@ -8,18 +8,10 @@ import CountrySelect from './form-components/CountrySelect';
 import GenderRadioInputs from './form-components/GenderRadioInputs';
 import FileInput from './form-components/FileInput';
 import ConsentInput from './form-components/ConsentInput';
-import {IErrors, IFormState} from '../helpers/interfaces';
-import userForm from './UserForm';
+import { IErrors } from '../helpers/interfaces';
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
-}
-
-interface IFormInput {
-  name: string;
-  lastName: string;
-  date: string;
-  country: string;
 }
 
 const UserFormHooks = (props: IPropsType): JSX.Element => {
@@ -160,14 +152,14 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
       setIsSubmitted(false);
     }, 3000);
   };
-  const onSubmit = (data): void => {
+  const onSubmit = (): void => {
     const errors: IErrors = { ...validateData() };
     const noErrors = !Object.keys(errors).length;
     if (noErrors) {
       completeProcessingForm();
     } else {
       Object.keys(errors).forEach((key: string) => {
-        setError(key, errors[key]);
+        setError(key, errors[key as keyof IErrors] as ErrorOption);
       });
     }
   };

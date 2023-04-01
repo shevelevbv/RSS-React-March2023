@@ -13,7 +13,7 @@ class UserCard extends React.Component<IPropsType> {
     return (
       <div className="user-card">
         <h2>
-          {this.props.userDetails.name} {this.props.userDetails.name}
+          {this.props.userDetails.name} {this.props.userDetails.lastName}
         </h2>
         <div className="user-card__image">
           <img

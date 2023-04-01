@@ -1,3 +1,5 @@
+import {ErrorOption} from "react-hook-form";
+
 export interface ICard {
   id: number;
   title: string;
@@ -12,13 +14,13 @@ export interface ICard {
 }
 
 export interface IErrors {
-  name?: { message: string };
-  lastName?: { message: string };
-  date?: { message: string };
-  country?: { message: string };
-  consent?: { message: string };
-  gender?: { message: string };
-  file?: { message: string };
+  name?: ErrorOption;
+  lastName?: ErrorOption;
+  date?: ErrorOption;
+  country?: ErrorOption;
+  consent?: ErrorOption;
+  gender?: ErrorOption;
+  file?: ErrorOption;
 }
 
 export interface IFormState {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import UserForm from '../components/UserForm';
+import UserForm from '../components/UserFormHooks';
 import { IUserDetails } from '../pages/UserDetails';
 
 const cards: Array<IUserDetails> = [];
