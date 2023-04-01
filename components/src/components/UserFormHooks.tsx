@@ -57,22 +57,21 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     }
     return errors;
   };
-  // //
-  // // const validateDateInput = (): IErrors => {
-  // //   const errors: IErrors = {};
-  // //   const dateIsEmpty = !dateInput.current?.value;
-  // //   if (dateIsEmpty) {
-  // //     errors.date = "The date shouldn't be empty";
-  // //   } else {
-  // //     const dateValue = dateInput.current?.value as string;
-  // //     const currentDate = new Date();
-  // //     const inputDate = new Date(`${dateValue}T00:00`);
-  // //     if (inputDate > currentDate) {
-  // //       errors.date = "The date of birth can't be later than today";
-  // //     }
-  // //   }
-  // //   return errors;
-  // // };
+
+  const validateDateInput = (): IErrors => {
+    const errors: IErrors = {};
+    const date = getValues('date');
+    if (!date) {
+      errors.date = { message: "The date shouldn't be empty" };
+    } else {
+      const currentDate = new Date();
+      const inputDate = new Date(`${date}T00:00`);
+      if (inputDate > currentDate) {
+        errors.date = { message: "The date of birth can't be later than today" };
+      }
+    }
+    return errors;
+  };
   // //
   // // const validateCountrySelect = (): IErrors => {
   // //   const errors: IErrors = {};
@@ -122,7 +121,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     return {
       ...validateNameInput('name'),
       ...validateNameInput('lastName'),
-      // ...validateDateInput(),
+      ...validateDateInput(),
       // ...validateCountrySelect(),
       // ...validateConsentInput(),
       // ...validateGenderInput(),
@@ -135,17 +134,17 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     //   (input: React.RefObject<HTMLInputElement>) => input.current?.checked
     // )[0];
     // const imageURL: string = URL.createObjectURL(this.fileInput.current?.files?.[0] as File);
-    // const inputDate = new Date(`${this.dateInput.current?.value}T00:00`);
-    // const formattedDate = inputDate.toLocaleDateString('en-US', {
-    //   month: 'long',
-    //   day: 'numeric',
-    //   year: 'numeric',
-    // });
+    const inputDate = new Date(`${getValues('date')}T00:00`);
+    const formattedDate = inputDate.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
     return {
       id: NaN,
       name: getValues('name'),
       lastName: getValues('lastName'),
-      // date: formattedDate,
+      date: formattedDate,
       // country: this.countrySelect.current?.value as string,
       // gender: checkedInput.current?.value as string,
       // file: imageURL,
