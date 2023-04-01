@@ -8,7 +8,9 @@ const CountrySelect = ({ register }: IPropsType) => (
   <div>
     <select
       id="country"
-      {...register('country')}
+      {...register('country', {
+        required: 'Please choose your country',
+      })}
       className="form__input form__input_country"
       role="country-input"
     >

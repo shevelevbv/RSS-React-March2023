@@ -22,109 +22,12 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     clearErrors,
     formState: { errors },
     getValues,
-    watch,
     reset,
   } = useForm<FieldValues>();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const consentGiven: boolean = watch('consent');
-  const selectedFiles: FileList = watch('file');
-  const selectedGender: string = watch('gender');
-
-  const validateNameInput = (refName: string): IErrors => {
-    const errors: IErrors = {};
-    let name: string = getValues(refName);
-    if (!name) {
-      errors[refName as keyof IErrors] = { message: "The name shouldn't be empty" };
-    } else {
-      name = name.trim();
-      const startsWithUpperLetter: boolean = /^[A-Z]/.test(name);
-      if (!startsWithUpperLetter) {
-        errors[refName as keyof IErrors] = {
-          message: 'The name must start with an upper-case letter',
-        };
-      }
-      const onlyLettersInName = /^[A-Za-z]+$/.test(name);
-      if (!onlyLettersInName) {
-        errors[refName as keyof IErrors] = { message: 'The name must contain only Latin letters' };
-      }
-      const nameLength = name.length;
-      if (nameLength < 3) {
-        errors[refName as keyof IErrors] = { message: 'The name must be at least 3 letters long' };
-      }
-    }
-    return errors;
-  };
-
-  const validateDateInput = (): IErrors => {
-    const errors: IErrors = {};
-    const date = getValues('date');
-    if (!date) {
-      errors.date = { message: "The date shouldn't be empty" };
-    } else {
-      const currentDate = new Date();
-      const inputDate = new Date(`${date}T00:00`);
-      if (inputDate > currentDate) {
-        errors.date = { message: "The date of birth can't be later than today" };
-      }
-    }
-    return errors;
-  };
-
-  const validateCountrySelect = (): IErrors => {
-    const errors: IErrors = {};
-    const nothingSelected = !getValues('country');
-    if (nothingSelected) {
-      errors.country = { message: 'Please choose your country' };
-    }
-    return errors;
-  };
-
-  const validateConsentInput = (): IErrors => {
-    const errors: IErrors = {};
-    if (!consentGiven) {
-      errors.consent = { message: 'You should agree to the terms' };
-    }
-    return errors;
-  };
-
-  const validateGenderInput = (): IErrors => {
-    const errors: IErrors = {};
-    const nothingChecked = !selectedGender;
-    if (nothingChecked) {
-      errors.gender = { message: 'Please select your gender' };
-    }
-    return errors;
-  };
-
-  const validateFileInput = (): IErrors => {
-    const errors: IErrors = {};
-    const noFilesChosen = !selectedFiles;
-    if (noFilesChosen) {
-      errors.file = { message: 'Please choose your file' };
-    } else {
-      const file = selectedFiles[0];
-      const notImage = !file?.type.startsWith('image/');
-      if (notImage) {
-        errors.file = { message: 'The file should be an image' };
-      }
-    }
-    return errors;
-  };
-
-  const validateData = () => {
-    return {
-      ...validateNameInput('name'),
-      ...validateNameInput('lastName'),
-      ...validateDateInput(),
-      ...validateCountrySelect(),
-      ...validateConsentInput(),
-      ...validateGenderInput(),
-      ...validateFileInput(),
-    };
-  };
 
   const createUserCard = (): IUserDetails => {
-    const imageURL: string = URL.createObjectURL(selectedFiles[0] as File);
+    const imageURL: string = URL.createObjectURL(getValues('file')[0]);
     const inputDate = new Date(`${getValues('date')}T00:00`);
     const formattedDate = inputDate.toLocaleDateString('en-US', {
       month: 'long',
@@ -137,7 +40,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
       lastName: getValues('lastName'),
       date: formattedDate,
       country: getValues('country'),
-      gender: selectedGender,
+      gender: getValues('gender'),
       file: imageURL,
     };
   };
@@ -152,8 +55,8 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
       setIsSubmitted(false);
     }, 3000);
   };
+
   const onSubmit = (): void => {
-    const errors: IErrors = { ...validateData() };
     const noErrors = !Object.keys(errors).length;
     if (noErrors) {
       completeProcessingForm();

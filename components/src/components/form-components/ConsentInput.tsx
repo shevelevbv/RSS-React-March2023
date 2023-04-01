@@ -10,7 +10,9 @@ const ConsentInput = ({ register }: IPropsType) => (
       type="checkbox"
       id="consent"
       className="form__consent__input"
-      {...register('consent')}
+      {...register('consent', {
+        required: 'You should agree to the terms',
+      })}
       role="checkbox-input"
     />
     <label htmlFor="consent">I hereby consent to the processing of my personal data</label>
