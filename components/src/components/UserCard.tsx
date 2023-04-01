@@ -31,10 +31,10 @@ class UserCard extends React.Component<IPropsType> {
         {/*  <span>Gender:</span>*/}
         {/*  <span>{this.props.userDetails.gender}</span>*/}
         {/*</div>*/}
-        {/*<div className="user-card__info">*/}
-        {/*  <span>Country:</span>*/}
-        {/*  <span>{this.props.userDetails.country}</span>*/}
-        {/*</div>*/}
+        <div className="user-card__info">
+          <span>Country:</span>
+          <span>{this.props.userDetails.country}</span>
+        </div>
       </div>
     );
   };

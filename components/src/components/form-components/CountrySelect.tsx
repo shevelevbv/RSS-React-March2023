@@ -1,33 +1,27 @@
 import React from 'react';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 interface IPropsType {
-  countrySelect: React.RefObject<HTMLSelectElement>;
+  register: UseFormRegister<FieldValues>
 }
-class CountrySelect extends React.Component<IPropsType> {
-  constructor(props: IPropsType) {
-    super(props);
-  }
-  render = () => {
-    return (
-      <div>
-        <select
-          id="country"
-          ref={this.props.countrySelect}
-          className="form__input form__input_country"
-          role="country-input"
-        >
-          <option value="">Choose the country</option>
-          <option value="Belarus">Belarus</option>
-          <option value="Georgia">Georgia</option>
-          <option value="Kazakhstan">Kazakhstan</option>
-          <option value="Kyrgyzstan">Kyrgyzstan</option>
-          <option value="Poland">Poland</option>
-          <option value="Russia">Russia</option>
-          <option value="Ukraine">Ukraine</option>
-        </select>
-      </div>
-    );
-  };
-}
+const CountrySelect = ({ register }: IPropsType) => (
+  <div>
+    <select
+      id="country"
+      {...register('country')}
+      className="form__input form__input_country"
+      role="country-input"
+    >
+      <option value="">Choose the country</option>
+      <option value="Belarus">Belarus</option>
+      <option value="Georgia">Georgia</option>
+      <option value="Kazakhstan">Kazakhstan</option>
+      <option value="Kyrgyzstan">Kyrgyzstan</option>
+      <option value="Poland">Poland</option>
+      <option value="Russia">Russia</option>
+      <option value="Ukraine">Ukraine</option>
+    </select>
+  </div>
+);
 
 export default CountrySelect;

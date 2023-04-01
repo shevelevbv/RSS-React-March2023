@@ -8,7 +8,7 @@ export interface IUserDetails {
   name: string;
   lastName: string;
   date: string;
-  // country: string;
+  country: string;
   // gender: string;
   // file: string;
 }

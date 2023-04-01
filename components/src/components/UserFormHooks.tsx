@@ -19,6 +19,7 @@ interface IFormInput {
   name: string;
   lastName: string;
   date: string;
+  country: string;
 }
 
 const UserFormHooks = (props: IPropsType): JSX.Element => {
@@ -29,9 +30,11 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     clearErrors,
     formState: { errors },
     getValues,
+    watch,
     reset,
   } = useForm<FieldValues>();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const consentGiven = watch('consent');
 
   const validateNameInput = (refName: string): IErrors => {
     const errors: IErrors = {};
@@ -72,25 +75,24 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     }
     return errors;
   };
-  // //
-  // // const validateCountrySelect = (): IErrors => {
-  // //   const errors: IErrors = {};
-  // //   const nothingSelected = !countrySelect.current?.value;
-  // //   if (nothingSelected) {
-  // //     errors.country = 'Please choose your country';
-  // //   }
-  // //   return errors;
-  // // };
-  // //
-  // // const validateConsentInput = (): IErrors => {
-  // //   const errors: IErrors = {};
-  // //   const noConsent = !consentInput.current?.checked;
-  // //   if (noConsent) {
-  // //     errors.consent = 'You should agree to the terms';
-  // //   }
-  // //   return errors;
-  // // };
-  // //
+
+  const validateCountrySelect = (): IErrors => {
+    const errors: IErrors = {};
+    const nothingSelected = !getValues('country');
+    if (nothingSelected) {
+      errors.country = { message: 'Please choose your country' };
+    }
+    return errors;
+  };
+
+  const validateConsentInput = (): IErrors => {
+    const errors: IErrors = {};
+    if (!consentGiven) {
+      errors.consent = { message: 'You should agree to the terms' };
+    }
+    return errors;
+  };
+
   // // const validateGenderInput = (): IErrors => {
   // //   const errors: IErrors = {};
   // //   const nothingChecked = this.genderRadioInputs.every(
@@ -122,8 +124,8 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
       ...validateNameInput('name'),
       ...validateNameInput('lastName'),
       ...validateDateInput(),
-      // ...validateCountrySelect(),
-      // ...validateConsentInput(),
+      ...validateCountrySelect(),
+      ...validateConsentInput(),
       // ...validateGenderInput(),
       // ...validateFileInput(),
     };
@@ -145,7 +147,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
       name: getValues('name'),
       lastName: getValues('lastName'),
       date: formattedDate,
-      // country: this.countrySelect.current?.value as string,
+      country: getValues('country'),
       // gender: checkedInput.current?.value as string,
       // file: imageURL,
     };
@@ -167,7 +169,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     if (noErrors) {
       completeProcessingForm();
     } else {
-      Object.keys(errors).forEach(key => {
+      Object.keys(errors).forEach((key: string) => {
         setError(key, errors[key]);
       });
     }
@@ -180,11 +182,11 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
           <label className="form__label">Full name:</label>
           <div className="form__input_container form__name__input_container">
             <NameInput register={register} placeholder="First name" keyName="name" />
-            <ErrorText errorMessage={errors.name?.message} />
+            <ErrorText errorMessage={errors.name?.message as string} />
           </div>
           <div className="form__input_container form__name__input_container">
             <NameInput register={register} placeholder="Last name" keyName="lastName" />
-            <ErrorText errorMessage={errors.lastName?.message} />
+            <ErrorText errorMessage={errors.lastName?.message as string} />
           </div>
         </div>
         <div className="form__date">
@@ -193,18 +195,18 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
           </label>
           <div className="form__input_container form__date__input_container">
             <DateInput register={register} />
-            <ErrorText errorMessage={errors.date?.message} />
+            <ErrorText errorMessage={errors.date?.message as string} />
           </div>
         </div>
-        {/*<div className="form__country">*/}
-        {/*  <label htmlFor="country" className="form__label">*/}
-        {/*    Country:*/}
-        {/*  </label>*/}
-        {/*  <div className="form__input_container form__country__input_container">*/}
-        {/*    <CountrySelect countrySelect={this.countrySelect} />*/}
-        {/*    <ErrorText errorMessage={this.state.errors.country} />*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+        <div className="form__country">
+          <label htmlFor="country" className="form__label">
+            Country:
+          </label>
+          <div className="form__input_container form__country__input_container">
+            <CountrySelect register={register} />
+            <ErrorText errorMessage={errors.country?.message as string} />
+          </div>
+        </div>
         {/*<div className="form__gender">*/}
         {/*  <label className="form__label">Gender:</label>*/}
         {/*  <div className="form__gender__input_container">*/}
@@ -225,10 +227,10 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
         {/*    <ErrorText errorMessage={this.state.errors.file} />*/}
         {/*  </div>*/}
         {/*</div>*/}
-        {/*<div className="form__input_container">*/}
-        {/*  <ConsentInput consentInput={this.consentInput} />*/}
-        {/*  <ErrorText errorMessage={this.state.errors.consent} />*/}
-        {/*</div>*/}
+        <div className="form__input_container">
+          <ConsentInput register={register} />
+          <ErrorText errorMessage={errors.consent?.message as string} />
+        </div>
         {isSubmitted ? (
           <p className="form__saved">The data has been saved successfully</p>
         ) : (
