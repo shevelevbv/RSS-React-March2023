@@ -10,7 +10,7 @@ export interface IUserDetails {
   date: string;
   country: string;
   // gender: string;
-  // file: string;
+  file: string;
 }
 
 interface IDetailsState {

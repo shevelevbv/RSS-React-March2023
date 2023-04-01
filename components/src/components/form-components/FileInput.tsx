@@ -1,25 +1,19 @@
 import React from 'react';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 interface IPropsType {
-  fileInput: React.RefObject<HTMLInputElement>;
+  register: UseFormRegister<FieldValues>
 }
-class FileInput extends React.Component<IPropsType> {
-  constructor(props: IPropsType) {
-    super(props);
-  }
-  render = () => {
-    return (
-      <div>
-        <input
-          id="file"
-          className="form__input form__input_file"
-          type="file"
-          ref={this.props.fileInput}
-          role="file-input"
-        />
-      </div>
-    );
-  };
-}
+const FileInput = ({ register }: IPropsType) => (
+  <div>
+    <input
+      id="file"
+      className="form__input form__input_file"
+      type="file"
+      {...register('file')}
+      role="file-input"
+    />
+  </div>
+);
 
 export default FileInput;

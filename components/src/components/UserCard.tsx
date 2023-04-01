@@ -15,14 +15,14 @@ class UserCard extends React.Component<IPropsType> {
         <h2>
           {this.props.userDetails.name} {this.props.userDetails.name}
         </h2>
-        {/*<div className="user-card__image">*/}
-        {/*  <img*/}
-        {/*    src={this.props.userDetails.file}*/}
-        {/*    alt={this.props.userDetails.name}*/}
-        {/*    width="100"*/}
-        {/*    height="100"*/}
-        {/*  />*/}
-        {/*</div>*/}
+        <div className="user-card__image">
+          <img
+            src={this.props.userDetails.file}
+            alt={this.props.userDetails.name}
+            width="100"
+            height="100"
+          />
+        </div>
         <div className="user-card__info">
           <span>Date of birth:</span>
           <span>{this.props.userDetails.date}</span>
