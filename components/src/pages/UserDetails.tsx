@@ -7,10 +7,10 @@ export interface IUserDetails {
   id: number;
   name: string;
   lastName: string;
-  date: string;
-  country: string;
-  gender: string;
-  file: string;
+  // date: string;
+  // country: string;
+  // gender: string;
+  // file: string;
 }
 
 interface IDetailsState {

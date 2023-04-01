@@ -1,262 +1,242 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import { IUserDetails } from '../pages/UserDetails';
-import { IErrors, IFormState } from '../helpers/interfaces';
+import { useForm } from 'react-hook-form';
 import NameInput from './form-components/NameInput';
+import ErrorText from './form-components/ErrorText';
 import DateInput from './form-components/DateInput';
 import CountrySelect from './form-components/CountrySelect';
 import GenderRadioInputs from './form-components/GenderRadioInputs';
 import FileInput from './form-components/FileInput';
 import ConsentInput from './form-components/ConsentInput';
-import ErrorText from './form-components/ErrorText';
+import {IErrors, IFormState} from '../helpers/interfaces';
+import userForm from './UserForm';
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
 }
 
-class UserForm extends React.Component<IPropsType> {
-  private readonly form: React.RefObject<HTMLFormElement>;
-  private readonly nameInput: React.RefObject<HTMLInputElement>;
-  private readonly lastNameInput: React.RefObject<HTMLInputElement>;
-  private readonly dateInput: React.RefObject<HTMLInputElement>;
-  private readonly consentInput: React.RefObject<HTMLInputElement>;
-  private readonly fileInput: React.RefObject<HTMLInputElement>;
-  private readonly maleRadioInput: React.RefObject<HTMLInputElement>;
-  private readonly femaleRadioInput: React.RefObject<HTMLInputElement>;
-  private readonly otherRadioInput: React.RefObject<HTMLInputElement>;
-  private readonly genderRadioInputs: Array<React.RefObject<HTMLInputElement>>;
-  private readonly countrySelect: React.RefObject<HTMLSelectElement>;
-  state: IFormState;
+interface IFormInput {
+  name: string;
+  lastName: string;
+}
 
-  constructor(props: IPropsType) {
-    super(props);
-    this.form = React.createRef();
-    this.nameInput = React.createRef();
-    this.lastNameInput = React.createRef();
-    this.dateInput = React.createRef();
-    this.countrySelect = React.createRef();
-    this.consentInput = React.createRef();
-    this.fileInput = React.createRef();
-    this.genderRadioInputs = [
-      (this.maleRadioInput = React.createRef()),
-      (this.femaleRadioInput = React.createRef()),
-      (this.otherRadioInput = React.createRef()),
-    ];
-    this.state = {
-      submitted: false,
-      errors: {},
-    };
-  }
+const UserFormHooks = (props: IPropsType): JSX.Element => {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    clearErrors,
+    formState: { errors },
+    getValues,
+    reset,
+  } = useForm<IFormInput>();
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  private validateNameInput = (
-    nameRefObject: React.RefObject<HTMLInputElement>,
-    refName: string
-  ): IErrors => {
+  const validateNameInput = (refName: string): IErrors => {
     const errors: IErrors = {};
-    let name: string | undefined = nameRefObject.current?.value;
+    let name: string = getValues(refName);
     if (!name) {
-      errors[refName as keyof IErrors] = "The name shouldn't be empty";
+      errors[refName as keyof IErrors] = { message: "The name shouldn't be empty" };
     } else {
       name = name.trim();
       const startsWithUpperLetter: boolean = /^[A-Z]/.test(name);
       if (!startsWithUpperLetter) {
-        errors[refName as keyof IErrors] = 'The name must start with an upper-case letter';
+        errors[refName as keyof IErrors] = {
+          message: 'The name must start with an upper-case letter',
+        };
       }
       const onlyLettersInName = /^[A-Za-z]+$/.test(name);
       if (!onlyLettersInName) {
-        errors[refName as keyof IErrors] = 'The name must contain only Latin letters';
+        errors[refName as keyof IErrors] = { message: 'The name must contain only Latin letters' };
       }
       const nameLength = name.length;
       if (nameLength < 3) {
-        errors[refName as keyof IErrors] = 'The name must be at least 3 letters long';
+        errors[refName as keyof IErrors] = { message: 'The name must be at least 3 letters long' };
       }
     }
     return errors;
   };
-
-  private validateDateInput = (): IErrors => {
-    const errors: IErrors = {};
-    const dateIsEmpty = !this.dateInput.current?.value;
-    if (dateIsEmpty) {
-      errors.date = "The date shouldn't be empty";
-    } else {
-      const dateValue = this.dateInput.current?.value as string;
-      const currentDate = new Date();
-      const inputDate = new Date(`${dateValue}T00:00`);
-      if (inputDate > currentDate) {
-        errors.date = "The date of birth can't be later than today";
-      }
-    }
-    return errors;
-  };
-
-  private validateCountrySelect = (): IErrors => {
-    const errors: IErrors = {};
-    const nothingSelected = !this.countrySelect.current?.value;
-    if (nothingSelected) {
-      errors.country = 'Please choose your country';
-    }
-    return errors;
-  };
-
-  private validateConsentInput = (): IErrors => {
-    const errors: IErrors = {};
-    const noConsent = !this.consentInput.current?.checked;
-    if (noConsent) {
-      errors.consent = 'You should agree to the terms';
-    }
-    return errors;
-  };
-
-  private validateFileInput = (): IErrors => {
-    const errors: IErrors = {};
-    const noFilesChosen = !this.fileInput.current?.files?.length;
-    if (noFilesChosen) {
-      errors.file = 'Please choose your file';
-    } else {
-      const file = this.fileInput.current?.files?.[0];
-      const notImage = !file?.type.startsWith('image/');
-      if (notImage) {
-        errors.file = 'The file should be an image';
-      }
-    }
-    return errors;
-  };
-
-  private validateGenderInput = (): IErrors => {
-    const errors: IErrors = {};
-    const nothingChecked = this.genderRadioInputs.every(
-      (input: React.RefObject<HTMLInputElement>): boolean => !input.current?.checked
-    );
-    if (nothingChecked) {
-      errors.gender = 'Please select your gender';
-    }
-    return errors;
-  };
-
-  private validateData = () => {
+  // //
+  // // const validateDateInput = (): IErrors => {
+  // //   const errors: IErrors = {};
+  // //   const dateIsEmpty = !dateInput.current?.value;
+  // //   if (dateIsEmpty) {
+  // //     errors.date = "The date shouldn't be empty";
+  // //   } else {
+  // //     const dateValue = dateInput.current?.value as string;
+  // //     const currentDate = new Date();
+  // //     const inputDate = new Date(`${dateValue}T00:00`);
+  // //     if (inputDate > currentDate) {
+  // //       errors.date = "The date of birth can't be later than today";
+  // //     }
+  // //   }
+  // //   return errors;
+  // // };
+  // //
+  // // const validateCountrySelect = (): IErrors => {
+  // //   const errors: IErrors = {};
+  // //   const nothingSelected = !countrySelect.current?.value;
+  // //   if (nothingSelected) {
+  // //     errors.country = 'Please choose your country';
+  // //   }
+  // //   return errors;
+  // // };
+  // //
+  // // const validateConsentInput = (): IErrors => {
+  // //   const errors: IErrors = {};
+  // //   const noConsent = !consentInput.current?.checked;
+  // //   if (noConsent) {
+  // //     errors.consent = 'You should agree to the terms';
+  // //   }
+  // //   return errors;
+  // // };
+  // //
+  // // const validateGenderInput = (): IErrors => {
+  // //   const errors: IErrors = {};
+  // //   const nothingChecked = this.genderRadioInputs.every(
+  // //     (input: React.RefObject<HTMLInputElement>): boolean => !input.current?.checked
+  // //   );
+  // //   if (nothingChecked) {
+  // //     errors.gender = 'Please select your gender';
+  // //   }
+  // //   return errors;
+  // // };
+  // //
+  // // const validateFileInput = (): IErrors => {
+  // //   const errors: IErrors = {};
+  // //   const noFilesChosen = !fileInput.current?.files?.length;
+  // //   if (noFilesChosen) {
+  // //     errors.file = 'Please choose your file';
+  // //   } else {
+  // //     const file = fileInput.current?.files?.[0];
+  // //     const notImage = !file?.type.startsWith('image/');
+  // //     if (notImage) {
+  // //       errors.file = 'The file should be an image';
+  // //     }
+  // //   }
+  // //   return errors;
+  // // };
+  //
+  const validateData = () => {
     return {
-      ...this.validateNameInput(this.nameInput, 'name'),
-      ...this.validateNameInput(this.lastNameInput, 'lastName'),
-      ...this.validateDateInput(),
-      ...this.validateCountrySelect(),
-      ...this.validateConsentInput(),
-      ...this.validateGenderInput(),
-      ...this.validateFileInput(),
+      ...validateNameInput('name'),
+      ...validateNameInput('lastName'),
+      // ...validateDateInput(),
+      // ...validateCountrySelect(),
+      // ...validateConsentInput(),
+      // ...validateGenderInput(),
+      // ...validateFileInput(),
     };
   };
-  private createUserCard = (): IUserDetails => {
-    const checkedInput: React.RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
-      (input: React.RefObject<HTMLInputElement>) => input.current?.checked
-    )[0];
-    const imageURL: string = URL.createObjectURL(this.fileInput.current?.files?.[0] as File);
-    const inputDate = new Date(`${this.dateInput.current?.value}T00:00`);
-    const formattedDate = inputDate.toLocaleDateString('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    });
+
+  const createUserCard = (): IUserDetails => {
+    // const checkedInput: React.RefObject<HTMLInputElement> = this.genderRadioInputs.filter(
+    //   (input: React.RefObject<HTMLInputElement>) => input.current?.checked
+    // )[0];
+    // const imageURL: string = URL.createObjectURL(this.fileInput.current?.files?.[0] as File);
+    // const inputDate = new Date(`${this.dateInput.current?.value}T00:00`);
+    // const formattedDate = inputDate.toLocaleDateString('en-US', {
+    //   month: 'long',
+    //   day: 'numeric',
+    //   year: 'numeric',
+    // });
     return {
       id: NaN,
-      name: this.nameInput.current?.value as string,
-      lastName: this.lastNameInput.current?.value as string,
-      date: formattedDate,
-      country: this.countrySelect.current?.value as string,
-      gender: checkedInput.current?.value as string,
-      file: imageURL,
+      name: getValues('name'),
+      lastName: getValues('lastName'),
+      // date: formattedDate,
+      // country: this.countrySelect.current?.value as string,
+      // gender: checkedInput.current?.value as string,
+      // file: imageURL,
     };
   };
 
-  private completeProcessingForm = (): void => {
-    const userCard: IUserDetails = this.createUserCard();
-    this.props.addUserCard(userCard);
-    const state: IFormState = { ...this.state };
-    state.submitted = true;
-    state.errors = {};
-    this.setState(state);
+  const completeProcessingForm = (): void => {
+    const userCard: IUserDetails = createUserCard();
+    props.addUserCard(userCard);
+    clearErrors();
+    setIsSubmitted(true);
     setTimeout(() => {
-      this.form.current?.reset();
-      state.submitted = false;
-      this.setState(state);
+      reset();
+      setIsSubmitted(false);
     }, 3000);
   };
-
-  private handleSubmit = (event: React.SyntheticEvent): void => {
-    event.preventDefault();
-    const errors: IErrors = { ...this.validateData() };
+  const onSubmit = async (data): Promise<void> => {
+    const errors: IErrors = { ...validateData() };
     const noErrors = !Object.keys(errors).length;
     if (noErrors) {
-      this.completeProcessingForm();
+      completeProcessingForm();
     } else {
-      this.setState({ errors: errors });
+      Object.keys(errors).forEach(key => {
+        setError(key, errors[key]);
+      });
     }
   };
 
-  render = (): JSX.Element => {
-    return (
-      <>
-        <form onSubmit={this.handleSubmit} ref={this.form} className="form" role="form">
-          <div className="form__name">
-            <label className="form__label">Full name:</label>
-            <div className="form__input_container form__name__input_container">
-              <NameInput text="First name" nameInput={this.nameInput} />
-              <ErrorText errorMessage={this.state.errors.name} />
-            </div>
-            <div className="form__input_container form__name__input_container">
-              <NameInput text="Last name" nameInput={this.lastNameInput} />
-              <ErrorText errorMessage={this.state.errors.lastName} />
-            </div>
+  return (
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className="form" role="form">
+        <div className="form__name">
+          <label className="form__label">Full name:</label>
+          <div className="form__input_container form__name__input_container">
+            <NameInput register={register} placeholder="First name" keyName="name" />
+            <ErrorText errorMessage={errors.name?.message} />
           </div>
-          <div className="form__date">
-            <label htmlFor="date" className="form__label">
-              Date of birth:
-            </label>
-            <div className="form__input_container form__date__input_container">
-              <DateInput dateInput={this.dateInput} />
-              <ErrorText errorMessage={this.state.errors.date} />
-            </div>
+          <div className="form__input_container form__name__input_container">
+            <NameInput register={register} placeholder="Last name" keyName="lastName" />
+            <ErrorText errorMessage={errors.lastName?.message} />
           </div>
-          <div className="form__country">
-            <label htmlFor="country" className="form__label">
-              Country:
-            </label>
-            <div className="form__input_container form__country__input_container">
-              <CountrySelect countrySelect={this.countrySelect} />
-              <ErrorText errorMessage={this.state.errors.country} />
-            </div>
-          </div>
-          <div className="form__gender">
-            <label className="form__label">Gender:</label>
-            <div className="form__gender__input_container">
-              <GenderRadioInputs
-                maleRadioInput={this.maleRadioInput}
-                femaleRadioInput={this.femaleRadioInput}
-                otherRadioInput={this.otherRadioInput}
-              />
-              <ErrorText errorMessage={this.state.errors.gender} />
-            </div>
-          </div>
-          <div className="form__file">
-            <label htmlFor="file" className="form__label">
-              Profile picture:
-            </label>
-            <div className="form__input_container form__file__input_container">
-              <FileInput fileInput={this.fileInput} />
-              <ErrorText errorMessage={this.state.errors.file} />
-            </div>
-          </div>
-          <div className="form__input_container">
-            <ConsentInput consentInput={this.consentInput} />
-            <ErrorText errorMessage={this.state.errors.consent} />
-          </div>
-          {this.state.submitted ? (
-            <p className="form__saved">The data has been saved successfully</p>
-          ) : (
-            <input type="submit" value="Save details" role="submit" />
-          )}
-        </form>
-      </>
-    );
-  };
-}
+        </div>
+        {/*<div className="form__date">*/}
+        {/*  <label htmlFor="date" className="form__label">*/}
+        {/*    Date of birth:*/}
+        {/*  </label>*/}
+        {/*  <div className="form__input_container form__date__input_container">*/}
+        {/*    <DateInput dateInput={this.dateInput} />*/}
+        {/*    <ErrorText errorMessage={this.state.errors.date} />*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        {/*<div className="form__country">*/}
+        {/*  <label htmlFor="country" className="form__label">*/}
+        {/*    Country:*/}
+        {/*  </label>*/}
+        {/*  <div className="form__input_container form__country__input_container">*/}
+        {/*    <CountrySelect countrySelect={this.countrySelect} />*/}
+        {/*    <ErrorText errorMessage={this.state.errors.country} />*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        {/*<div className="form__gender">*/}
+        {/*  <label className="form__label">Gender:</label>*/}
+        {/*  <div className="form__gender__input_container">*/}
+        {/*    <GenderRadioInputs*/}
+        {/*      maleRadioInput={this.maleRadioInput}*/}
+        {/*      femaleRadioInput={this.femaleRadioInput}*/}
+        {/*      otherRadioInput={this.otherRadioInput}*/}
+        {/*    />*/}
+        {/*    <ErrorText errorMessage={this.state.errors.gender} />*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        {/*<div className="form__file">*/}
+        {/*  <label htmlFor="file" className="form__label">*/}
+        {/*    Profile picture:*/}
+        {/*  </label>*/}
+        {/*  <div className="form__input_container form__file__input_container">*/}
+        {/*    <FileInput fileInput={this.fileInput} />*/}
+        {/*    <ErrorText errorMessage={this.state.errors.file} />*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        {/*<div className="form__input_container">*/}
+        {/*  <ConsentInput consentInput={this.consentInput} />*/}
+        {/*  <ErrorText errorMessage={this.state.errors.consent} />*/}
+        {/*</div>*/}
+        {isSubmitted ? (
+          <p className="form__saved">The data has been saved successfully</p>
+        ) : (
+          <input type="submit" value="Save details" role="submit" />
+        )}
+      </form>
+    </>
+  );
+};
 
-export default UserForm;
+export default UserFormHooks;

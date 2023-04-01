@@ -1,27 +1,27 @@
 import React from 'react';
+import { UseFormRegister } from 'react-hook-form';
 
-interface IPropsType {
-  nameInput: React.RefObject<HTMLInputElement>;
-  text: string;
+interface IFormInput {
+  name: string;
 }
-class NameInput extends React.Component<IPropsType> {
-  constructor(props: IPropsType) {
-    super(props);
-  }
-  render = () => {
-    return (
-      <div>
-        <input
-          type="text"
-          ref={this.props.nameInput}
-          placeholder={this.props.text}
-          className="form__input"
-          spellCheck={false}
-          role="name-input"
-        />
-      </div>
-    );
-  };
-}
+
+type InputProps = {
+  register: UseFormRegister<string>;
+  placeholder: string;
+  keyName: string;
+};
+
+const NameInput = ({ register, placeholder, keyName }: InputProps) => (
+  <div>
+    <input
+      type="text"
+      {...register(keyName)}
+      placeholder={placeholder}
+      className="form__input"
+      spellCheck={false}
+      role="name-input"
+    />
+  </div>
+);
 
 export default NameInput;
