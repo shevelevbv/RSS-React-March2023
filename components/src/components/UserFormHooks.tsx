@@ -17,7 +17,6 @@ const UserFormHooks = ({ addUserCard }: IPropsType): JSX.Element => {
   const {
     register,
     handleSubmit,
-    clearErrors,
     formState: { errors, isValid, isSubmitSuccessful },
     getValues,
     reset,
@@ -45,7 +44,6 @@ const UserFormHooks = ({ addUserCard }: IPropsType): JSX.Element => {
   const completeProcessingForm = (): void => {
     const userCard: IUserDetails = createUserCard();
     addUserCard(userCard);
-    clearErrors();
     setTimeout(() => {
       reset();
     }, 3000);
