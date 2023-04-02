@@ -21,7 +21,7 @@ const UserFormHooks = ({ addUserCard }: IPropsType): JSX.Element => {
     formState: { errors, isValid },
     getValues,
     reset,
-  } = useForm<FieldValues>();
+  } = useForm<FieldValues>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const createUserCard = (): IUserDetails => {
