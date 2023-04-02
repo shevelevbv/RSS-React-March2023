@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IUserDetails } from '../pages/UserDetails';
 import { FieldValues, useForm } from 'react-hook-form';
 import NameInput from './form-components/NameInput';
