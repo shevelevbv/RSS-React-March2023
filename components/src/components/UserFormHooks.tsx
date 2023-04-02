@@ -60,10 +60,6 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
     const noErrors = !Object.keys(errors).length;
     if (noErrors) {
       completeProcessingForm();
-    } else {
-      Object.keys(errors).forEach((key: string) => {
-        setError(key, errors[key as keyof IErrors] as ErrorOption);
-      });
     }
   };
 
