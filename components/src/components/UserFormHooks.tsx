@@ -18,11 +18,10 @@ const UserFormHooks = ({ addUserCard }: IPropsType): JSX.Element => {
     register,
     handleSubmit,
     clearErrors,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitSuccessful },
     getValues,
     reset,
   } = useForm<FieldValues>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const createUserCard = (): IUserDetails => {
     const imageURL: string = URL.createObjectURL(getValues('file')[0]);
@@ -47,10 +46,8 @@ const UserFormHooks = ({ addUserCard }: IPropsType): JSX.Element => {
     const userCard: IUserDetails = createUserCard();
     addUserCard(userCard);
     clearErrors();
-    setIsSubmitted(true);
     setTimeout(() => {
       reset();
-      setIsSubmitted(false);
     }, 3000);
   };
 
@@ -112,7 +109,7 @@ const UserFormHooks = ({ addUserCard }: IPropsType): JSX.Element => {
           <ConsentInput register={register} />
           <ErrorText error={errors} errorKey="consent" />
         </div>
-        {isSubmitted ? (
+        {isSubmitSuccessful ? (
           <p className="form__saved">The data has been saved successfully</p>
         ) : (
           <input type="submit" value="Save details" role="submit" />
