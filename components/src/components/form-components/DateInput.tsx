@@ -11,7 +11,7 @@ const DateInput = ({ register }: IPropsType) => {
     if (inputDate > currentDate) {
       return "The date of birth can't be later than today";
     }
-  }
+  };
 
   return (
     <div className="form__date">

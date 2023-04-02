@@ -2,7 +2,7 @@ import React from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 interface IPropsType {
-  register: UseFormRegister<FieldValues>
+  register: UseFormRegister<FieldValues>;
 }
 const FileInput = ({ register }: IPropsType) => {
   const validateFile = (files: FileList) => {
@@ -11,7 +11,7 @@ const FileInput = ({ register }: IPropsType) => {
     if (notImage) {
       return 'The file should be an image';
     }
-  }
+  };
   return (
     <div>
       <input
