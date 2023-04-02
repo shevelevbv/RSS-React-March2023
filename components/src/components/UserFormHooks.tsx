@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IUserDetails } from '../pages/UserDetails';
-import { ErrorOption, FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import NameInput from './form-components/NameInput';
 import ErrorText from './form-components/ErrorText';
 import DateInput from './form-components/DateInput';
@@ -8,19 +8,17 @@ import CountrySelect from './form-components/CountrySelect';
 import GenderRadioInputs from './form-components/GenderRadioInputs';
 import FileInput from './form-components/FileInput';
 import ConsentInput from './form-components/ConsentInput';
-import { IErrors } from '../helpers/interfaces';
 
 interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
 }
 
-const UserFormHooks = (props: IPropsType): JSX.Element => {
+const UserFormHooks = ({ addUserCard }: IPropsType): JSX.Element => {
   const {
     register,
     handleSubmit,
-    setError,
     clearErrors,
-    formState: { errors },
+    formState: { errors, isValid },
     getValues,
     reset,
   } = useForm<FieldValues>();
@@ -28,8 +26,8 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
 
   const createUserCard = (): IUserDetails => {
     const imageURL: string = URL.createObjectURL(getValues('file')[0]);
-    const inputDate = new Date(`${getValues('date')}T00:00`);
-    const formattedDate = inputDate.toLocaleDateString('en-US', {
+    const inputDate: Date = new Date(`${getValues('date')}T00:00`);
+    const formattedDate: string = inputDate.toLocaleDateString('en-US', {
       month: 'long',
       day: 'numeric',
       year: 'numeric',
@@ -47,7 +45,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
 
   const completeProcessingForm = (): void => {
     const userCard: IUserDetails = createUserCard();
-    props.addUserCard(userCard);
+    addUserCard(userCard);
     clearErrors();
     setIsSubmitted(true);
     setTimeout(() => {
@@ -57,8 +55,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
   };
 
   const onSubmit = (): void => {
-    const noErrors = !Object.keys(errors).length;
-    if (noErrors) {
+    if (isValid) {
       completeProcessingForm();
     }
   };
@@ -70,11 +67,11 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
           <label className="form__label">Full name:</label>
           <div className="form__input_container form__name__input_container">
             <NameInput register={register} placeholder="First name" keyName="name" />
-            <ErrorText errorMessage={errors.name?.message as string} />
+            <ErrorText error={errors} errorKey="name" />
           </div>
           <div className="form__input_container form__name__input_container">
             <NameInput register={register} placeholder="Last name" keyName="lastName" />
-            <ErrorText errorMessage={errors.lastName?.message as string} />
+            <ErrorText error={errors} errorKey="lastName" />
           </div>
         </div>
         <div className="form__date">
@@ -83,7 +80,7 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
           </label>
           <div className="form__input_container form__date__input_container">
             <DateInput register={register} />
-            <ErrorText errorMessage={errors.date?.message as string} />
+            <ErrorText error={errors} errorKey="date" />
           </div>
         </div>
         <div className="form__country">
@@ -92,14 +89,14 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
           </label>
           <div className="form__input_container form__country__input_container">
             <CountrySelect register={register} />
-            <ErrorText errorMessage={errors.country?.message as string} />
+            <ErrorText error={errors} errorKey="country" />
           </div>
         </div>
         <div className="form__gender">
           <label className="form__label">Gender:</label>
           <div className="form__gender__input_container">
             <GenderRadioInputs register={register} />
-            <ErrorText errorMessage={errors.gender?.message as string} />
+            <ErrorText error={errors} errorKey="gender" />
           </div>
         </div>
         <div className="form__file">
@@ -108,12 +105,12 @@ const UserFormHooks = (props: IPropsType): JSX.Element => {
           </label>
           <div className="form__input_container form__file__input_container">
             <FileInput register={register} />
-            <ErrorText errorMessage={errors.file?.message as string} />
+            <ErrorText error={errors} errorKey="file" />
           </div>
         </div>
         <div className="form__input_container">
           <ConsentInput register={register} />
-          <ErrorText errorMessage={errors.consent?.message as string} />
+          <ErrorText error={errors} errorKey="consent" />
         </div>
         {isSubmitted ? (
           <p className="form__saved">The data has been saved successfully</p>

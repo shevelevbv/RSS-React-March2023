@@ -6,7 +6,7 @@ const Search = (): JSX.Element => {
     localStorage.getItem('searchValue') || ''
   );
 
-  const initialValueRef = useRef<string>('');
+  const initialValueRef: React.MutableRefObject<string> = useRef<string>('');
 
   useEffect(() => {
     initialValueRef.current = value;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import UserFormHooks from '../components/UserFormHooks';
 import UserCard from '../components/UserCard';
 import '../styles/UserDetails.scss';
@@ -13,37 +13,33 @@ export interface IUserDetails {
   file: string;
 }
 
-interface IDetailsState {
-  userCards: Array<IUserDetails>;
-}
+type StateHookType = [
+  userCards: Array<IUserDetails>,
+  setUserCards: Dispatch<SetStateAction<Array<IUserDetails>>>
+];
 
-class UserDetails extends React.Component {
-  state: IDetailsState = {
-    userCards: [],
-  };
+const UserDetails = (): JSX.Element => {
+  const [userCards, setUserCards]: StateHookType = useState<Array<IUserDetails>>([]);
 
-  addUserCard = (userCard: IUserDetails): void => {
-    const userCards = [...this.state.userCards];
+  const addUserCard = (userCard: IUserDetails): void => {
+    const newUserCards = [...userCards];
     userCard.id = userCards.length + 1;
-    userCards.push(userCard);
-    this.setState({
-      userCards: userCards,
-    });
+    newUserCards.push(userCard);
+    setUserCards(newUserCards);
   };
-  render = (): JSX.Element => {
-    return (
-      <main className="main-form">
-        <UserFormHooks addUserCard={this.addUserCard} />
-        <ul className="user-cards">
-          {this.state.userCards.map((card) => (
-            <li key={card.id}>
-              <UserCard userDetails={card} />
-            </li>
-          ))}
-        </ul>
-      </main>
-    );
-  };
-}
+
+  return (
+    <main className="main-form">
+      <UserFormHooks addUserCard={addUserCard} />
+      <ul className="user-cards">
+        {userCards.map((card) => (
+          <li key={card.id}>
+            <UserCard userDetails={card} />
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+};
 
 export default UserDetails;

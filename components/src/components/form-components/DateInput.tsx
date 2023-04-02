@@ -5,7 +5,7 @@ interface IPropsType {
   register: UseFormRegister<FieldValues>;
 }
 const DateInput = ({ register }: IPropsType) => {
-  const validateDate = (date: string) => {
+  const validateDate = (date: string): string | undefined => {
     const currentDate = new Date();
     const inputDate = new Date(`${date}T00:00`);
     if (inputDate > currentDate) {

@@ -4,7 +4,7 @@ import { FieldValues, UseFormRegister } from 'react-hook-form';
 interface IPropsType {
   register: UseFormRegister<FieldValues>;
 }
-const ConsentInput = ({ register }: IPropsType) => (
+const ConsentInput = ({ register }: IPropsType): JSX.Element => (
   <div>
     <input
       type="checkbox"

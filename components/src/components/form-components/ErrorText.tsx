@@ -1,19 +1,14 @@
 import React from 'react';
+import { FieldErrors } from 'react-hook-form';
 
 interface IPropsType {
-  errorMessage: string | undefined;
+  error: FieldErrors;
+  errorKey: string;
 }
-class FileInput extends React.Component<IPropsType> {
-  constructor(props: IPropsType) {
-    super(props);
-  }
-  render = () => {
-    return (
-      <div>
-        {this.props.errorMessage && <p className="form__error_text">{this.props.errorMessage}</p>}
-      </div>
-    );
-  };
-}
+const FileInput = ({ error, errorKey }: IPropsType) => (
+  <div>
+    {error[errorKey] && <p className="form__error_text">{error[errorKey]?.message as string}</p>}
+  </div>
+);
 
 export default FileInput;

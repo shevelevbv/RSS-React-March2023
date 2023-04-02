@@ -1,10 +1,20 @@
 import React from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 
+const countryOptions: Array<string> = [
+  'Belarus',
+  'Georgia',
+  'Kazakhstan',
+  'Kyrgyzstan',
+  'Poland',
+  'Russia',
+  'Ukraine',
+];
+
 interface IPropsType {
   register: UseFormRegister<FieldValues>;
 }
-const CountrySelect = ({ register }: IPropsType) => (
+const CountrySelect = ({ register }: IPropsType): JSX.Element => (
   <div>
     <select
       id="country"
@@ -15,13 +25,11 @@ const CountrySelect = ({ register }: IPropsType) => (
       role="country-input"
     >
       <option value="">Choose the country</option>
-      <option value="Belarus">Belarus</option>
-      <option value="Georgia">Georgia</option>
-      <option value="Kazakhstan">Kazakhstan</option>
-      <option value="Kyrgyzstan">Kyrgyzstan</option>
-      <option value="Poland">Poland</option>
-      <option value="Russia">Russia</option>
-      <option value="Ukraine">Ukraine</option>
+      {countryOptions.map((option: string) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
     </select>
   </div>
 );

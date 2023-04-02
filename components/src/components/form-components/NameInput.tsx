@@ -7,8 +7,8 @@ type InputProps = {
   keyName: string;
 };
 
-const NameInput = ({ register, placeholder, keyName }: InputProps) => {
-  const validateName = (name: string) => {
+const NameInput = ({ register, placeholder, keyName }: InputProps): JSX.Element => {
+  const validateName = (name: string): string | undefined => {
     if (!/^[A-Za-z]+$/.test(name)) {
       return 'The name must contain only Latin letters';
     }
@@ -32,6 +32,7 @@ const NameInput = ({ register, placeholder, keyName }: InputProps) => {
         placeholder={placeholder}
         className="form__input"
         spellCheck={false}
+        autoComplete="off"
         role="name-input"
       />
     </div>
