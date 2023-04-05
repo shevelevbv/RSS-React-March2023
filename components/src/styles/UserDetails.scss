@@ -1,0 +1,141 @@
+.main-form {
+  display: flex;
+  min-height: calc(100vh - 190px);
+  flex-direction: column;
+  align-items:  center;
+  padding: 30px;
+}
+
+.form {
+  font-family: "Roboto Regular", sans-serif;
+  width: 600px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  margin-bottom: 30px;
+  border: 2px solid rgb(175, 168, 168);
+  border-radius: 10px;
+
+  &__input_container {
+    height: 35px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__input {
+    display: inline-block;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+
+    &::placeholder {
+      font-family: "Roboto Thin", sans-serif;
+    }
+
+    &:focus {
+      border-color: #3dd5c5;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &_date,
+    &_country {
+      width: 30%;
+    }
+
+  }
+
+  &__label {
+    margin-right: 10px;
+  }
+
+  &__name,
+  &__date {
+    display: flex;
+    justify-content: flex-start;
+
+    &__input_container {
+      width: 30%;
+    }
+  }
+
+  &__gender {
+      display: flex;
+      height: 40px;
+
+    &__inputs {
+      width: 200px;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__input {
+      display: flex;
+      column-gap: 5px;
+    }
+
+    &__input input + label {
+      color: #7f7f7f;
+      font-family: "Roboto Light", sans-serif;
+      opacity: 0.8;
+    }
+
+    &__input input:checked + label {
+      color: black;
+      font-family: "Roboto Regular", sans-serif;
+    }
+  }
+
+  &__error_text {
+    width: 95%;
+    color: red;
+    font-family: "Roboto Light Italic", sans-serif;
+    font-size: 11px;
+  }
+
+  &__date,
+  &__country,
+  &__file {
+    display: flex;
+
+    &__input_container {
+      width: 400px;
+    }
+  }
+
+  &__country {
+    &__input_container {
+      width: 500px;
+    }
+  }
+
+  &__input {
+    &_file {
+      border: none;
+    }
+  }
+
+  &__consent {
+    &__input {
+      margin-right: 10px;
+    }
+  }
+
+  &__saved {
+    color: limegreen;
+    align-self: center;
+  }
+}
+
+.user-cards {
+  width: 940px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}

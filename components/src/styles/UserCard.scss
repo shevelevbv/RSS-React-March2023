@@ -1,0 +1,39 @@
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.user-card {
+  font-family: "Roboto Regular", sans-serif;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+  animation-name: appear;
+  animation-duration: 0.9s;
+
+  &__image {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    & > img {
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+}
