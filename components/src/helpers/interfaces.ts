@@ -1,4 +1,4 @@
-import {ErrorOption} from "react-hook-form";
+import { ErrorOption } from 'react-hook-form';
 
 export interface ICard {
   id: number;
