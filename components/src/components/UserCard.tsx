@@ -5,7 +5,7 @@ import '../styles/UserCard.scss';
 interface IPropsType {
   userDetails: IUserDetails;
 }
-const UserCard = ({ userDetails }: IPropsType): JSX.Element => (
+const UserCard: React.FC<IPropsType> = ({ userDetails }) => (
   <div className="user-card">
     <h2>
       {userDetails.name} {userDetails.lastName}

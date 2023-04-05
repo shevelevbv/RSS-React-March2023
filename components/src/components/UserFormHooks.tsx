@@ -13,7 +13,7 @@ interface IPropsType {
   addUserCard: (userCard: IUserDetails) => void;
 }
 
-const UserFormHooks = ({ addUserCard }: IPropsType): JSX.Element => {
+const UserFormHooks: React.FC<IPropsType> = ({ addUserCard }) => {
   const {
     register,
     handleSubmit,

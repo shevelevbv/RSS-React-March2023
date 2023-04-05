@@ -5,7 +5,7 @@ interface IPropsType {
   register: UseFormRegister<FieldValues>;
 }
 
-const GenderRadioInputs = ({ register }: IPropsType): JSX.Element => (
+const GenderRadioInputs: React.FC<IPropsType> = ({ register }) => (
   <fieldset className="form__gender__inputs">
     <div className="form__gender__input">
       <input

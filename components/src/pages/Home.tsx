@@ -5,7 +5,7 @@ import { ICard } from '../helpers/interfaces';
 import data from '../data';
 import '../styles/Home.scss';
 
-const Home = (): JSX.Element => {
+const Home: React.FC = () => {
   const cards: Array<ICard> = data;
   return (
     <main className="main-home">

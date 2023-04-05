@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import Magnifier from './Magnifier';
 
-const Search = (): JSX.Element => {
+const Search: React.FC = () => {
   const [value, setValue]: [string, Dispatch<SetStateAction<string>>] = useState(
     localStorage.getItem('searchValue') || ''
   );

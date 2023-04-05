@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/NotFound.scss';
 import { Link } from 'react-router-dom';
 
-const NotFound = (): JSX.Element => (
+const NotFound: React.FC = () => (
   <main className="main_not-found">
     <section className="container_not-found">
       <h1>Oops! The page does not exist</h1>

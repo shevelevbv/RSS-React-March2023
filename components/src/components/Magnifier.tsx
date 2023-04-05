@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Magnifier = (): JSX.Element => (
+const Magnifier: React.FC = () => (
   <div className="search__magnifier">
     <svg role="magnifier-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
       <path

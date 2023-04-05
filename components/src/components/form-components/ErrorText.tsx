@@ -5,7 +5,7 @@ interface IPropsType {
   error: FieldErrors;
   errorKey: string;
 }
-const FileInput = ({ error, errorKey }: IPropsType) => (
+const FileInput: React.FC<IPropsType> = ({ error, errorKey }) => (
   <div>
     {error[errorKey] && <p className="form__error_text">{error[errorKey]?.message as string}</p>}
   </div>

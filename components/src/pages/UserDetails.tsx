@@ -18,7 +18,7 @@ type StateHookType = [
   setUserCards: Dispatch<SetStateAction<Array<IUserDetails>>>
 ];
 
-const UserDetails = (): JSX.Element => {
+const UserDetails: React.FC = () => {
   const [userCards, setUserCards]: StateHookType = useState<Array<IUserDetails>>([]);
 
   const addUserCard = (userCard: IUserDetails): void => {

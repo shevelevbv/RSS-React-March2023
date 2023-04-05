@@ -4,7 +4,7 @@ import { FieldValues, UseFormRegister } from 'react-hook-form';
 interface IPropsType {
   register: UseFormRegister<FieldValues>;
 }
-const FileInput = ({ register }: IPropsType): JSX.Element => {
+const FileInput: React.FC<IPropsType> = ({ register }) => {
   const validateFile = (files: FileList): string | undefined => {
     const file = files[0];
     const notImage = !file?.type.startsWith('image/');

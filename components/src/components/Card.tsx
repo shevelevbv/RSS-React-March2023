@@ -2,11 +2,11 @@ import React from 'react';
 import { ICard } from '../helpers/interfaces';
 import '../styles/Card.scss';
 
-interface CardProps {
+interface ICardProps {
   card: ICard;
 }
 
-const Card = ({ card }: CardProps): JSX.Element => (
+const Card: React.FC<ICardProps> = ({ card }) => (
   <li className="card">
     <h2 className="card__title">{card.title}</h2>
     <div className="card__image_container">

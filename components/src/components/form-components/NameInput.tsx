@@ -7,7 +7,7 @@ type InputProps = {
   keyName: string;
 };
 
-const NameInput = ({ register, placeholder, keyName }: InputProps): JSX.Element => {
+const NameInput: React.FC<InputProps> = ({ register, placeholder, keyName }) => {
   const validateName = (name: string): string | undefined => {
     if (!/^[A-Za-z]+$/.test(name)) {
       return 'The name must contain only Latin letters';

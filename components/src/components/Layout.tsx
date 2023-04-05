@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 
-const Layout = (): JSX.Element => (
+const Layout: React.FC = () => (
   <>
     <Header />
     <Outlet />

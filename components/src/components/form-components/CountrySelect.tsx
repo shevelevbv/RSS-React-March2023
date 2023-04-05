@@ -14,7 +14,7 @@ const countryOptions: Array<string> = [
 interface IPropsType {
   register: UseFormRegister<FieldValues>;
 }
-const CountrySelect = ({ register }: IPropsType): JSX.Element => (
+const CountrySelect: React.FC<IPropsType> = ({ register }) => (
   <div>
     <select
       id="country"

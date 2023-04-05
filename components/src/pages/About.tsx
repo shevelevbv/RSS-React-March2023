@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/About.scss';
 
-const About = (): JSX.Element => (
+const About: React.FC = () => (
   <main className="main-about">
     <h1>Welcome to our tea store!</h1>
     <p>

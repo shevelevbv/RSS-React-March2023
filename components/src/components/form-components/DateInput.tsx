@@ -4,7 +4,7 @@ import { FieldValues, UseFormRegister } from 'react-hook-form';
 interface IPropsType {
   register: UseFormRegister<FieldValues>;
 }
-const DateInput = ({ register }: IPropsType) => {
+const DateInput: React.FC<IPropsType> = ({ register }) => {
   const validateDate = (date: string): string | undefined => {
     const currentDate = new Date();
     const inputDate = new Date(`${date}T00:00`);

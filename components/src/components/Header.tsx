@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Header = (): JSX.Element => (
+const Header: React.FC = () => (
   <>
     <header className="header">
       <NavLink to="/" className="header__link">
