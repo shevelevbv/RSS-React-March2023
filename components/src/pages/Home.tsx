@@ -64,7 +64,11 @@ const Home: React.FC = () => {
             <Card key={card.id} card={card} showModal={showModal} setShowModal={setShowModal} />
           ))}
       </ul>
-      {showModal && createPortal(<ModalWindow />, document.body)}
+      {showModal &&
+        createPortal(
+          <ModalWindow showModal={showModal} setShowModal={setShowModal} />,
+          document.body
+        )}
     </main>
   );
 };

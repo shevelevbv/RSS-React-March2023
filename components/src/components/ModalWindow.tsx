@@ -1,7 +1,11 @@
 import React from 'react';
 
-const ModalWindow = () => {
-  return <div className="modal-window"></div>;
+interface IPropsType {
+  showModal: boolean;
+  setShowModal: (showModal: boolean) => void;
+}
+const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal }) => {
+  return <div className="modal-window" onClick={() => setShowModal(!showModal)}></div>;
 };
 
 export default ModalWindow;
