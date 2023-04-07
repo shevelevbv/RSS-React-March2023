@@ -10,10 +10,11 @@ import React, {
 import Magnifier from './Magnifier';
 
 interface IPropsType {
-  formSubmitHandler: (searchResult: string) => void;
+  formSubmitHandler: (searchResult: string) => Promise<void>;
+  setIsPending: Dispatch<SetStateAction<boolean>>;
 }
 
-const Search: React.FC<IPropsType> = ({ formSubmitHandler }) => {
+const Search: React.FC<IPropsType> = ({ formSubmitHandler, setIsPending }) => {
   const [value, setValue]: [string, Dispatch<SetStateAction<string>>] = useState(
     localStorage.getItem('searchValue') || ''
   );
@@ -36,7 +37,10 @@ const Search: React.FC<IPropsType> = ({ formSubmitHandler }) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    formSubmitHandler(value);
+    formSubmitHandler(value).catch((err: Error) => {
+      console.log(err);
+      setIsPending(true);
+    });
   };
 
   return (
