@@ -7,6 +7,10 @@
 
 body {
   background-color: #282a35;
+
+  &:has(.modal) {
+    overflow: hidden;
+  }
 }
 
 main {

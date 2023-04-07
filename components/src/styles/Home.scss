@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
 }
 
 .search {
@@ -56,4 +57,13 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 30px;
+}
+
+.page-mask {
+  position: absolute;
+  width: 100vw;
+  min-height: 100%;
+  top: 0;
+  background-color: #7f7f7f;
+  opacity: 0.8;
 }

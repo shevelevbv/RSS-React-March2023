@@ -16,6 +16,7 @@ headers.append('Authorization', `Client-ID ${PUBLIC_KEY}`);
 const Home: React.FC = () => {
   const [cards, setCards]: CardsStateHook = useState([] as Array<ICard>);
   const [isPending, setIsPending]: PendingStateHook = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     updateCards(localStorage.getItem('searchValue') || '').catch((err: Error) => {
@@ -52,12 +53,16 @@ const Home: React.FC = () => {
   };
 
   return (
-    <main className="main-home">
+    <main className={`main-home ${showModal && 'modal'}`}>
       <Search formSubmitHandler={updateCards} setIsPending={setIsPending} />
       <ul role="cards-container" className="cards">
         {isPending && <p>Loading...</p>}
-        {!!cards.length && cards.map((card: ICard) => <Card key={card.id} card={card} />)}
+        {!!cards.length &&
+          cards.map((card: ICard) => (
+            <Card key={card.id} card={card} showModal={showModal} setShowModal={setShowModal} />
+          ))}
       </ul>
+      {showModal && <div className="page-mask" onClick={() => setShowModal(!showModal)}></div>}
     </main>
   );
 };

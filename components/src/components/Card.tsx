@@ -4,10 +4,12 @@ import '../styles/Card.scss';
 
 interface ICardProps {
   card: ICard;
+  setShowModal: (showModal: boolean) => void;
+  showModal: boolean;
 }
 
-const Card: React.FC<ICardProps> = ({ card }) => (
-  <li className="card">
+const Card: React.FC<ICardProps> = ({ card, setShowModal, showModal }) => (
+  <li className="card" onClick={() => setShowModal(!showModal)}>
     <div className="card__image_container">
       <img src={card.img} alt={card.title} width="300" height="300" />
     </div>
