@@ -53,7 +53,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <main className={`main-home ${showModal && 'modal'}`}>
+    <main className={`main-home${showModal ? ' modal' : ''}`}>
       <Search formSubmitHandler={updateCards} setIsPending={setIsPending} />
       <ul role="cards-container" className="cards">
         {isPending && <p>Loading...</p>}

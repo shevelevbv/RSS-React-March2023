@@ -6,7 +6,6 @@
 }
 
 body {
-  background-color: #282a35;
 
   &:has(.modal) {
     overflow: hidden;
@@ -21,13 +20,21 @@ ul {
   list-style: none;
 }
 
+#root {
+  position: relative;
+}
+
 .header {
   height: 120px;
+  position: sticky;
+  top: 0;
   background-color: #282a35;
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: 30px;
+  opacity: 0.95;
+  z-index: 1;
 
   &__link {
     font-size: 20px;
