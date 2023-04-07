@@ -30,7 +30,7 @@ const Home: React.FC = () => {
 
   const updateCards = async (searchResult: string): Promise<void> => {
     const response: Response = await fetch(
-      `${url}?query=${searchResult}&per_page=${PICTURES_PER_PAGE}`,
+      `${url}?query=${searchResult}&per_page=${PICTURES_PER_PAGE}&orientation=portrait`,
       {
         method: 'GET',
         headers: headers,
@@ -63,12 +63,22 @@ const Home: React.FC = () => {
         {isPending && <p>Loading...</p>}
         {!!cards.length &&
           cards.map((card: ICard) => (
-            <Card key={card.id} card={card} showModal={showModal} setShowModal={setShowModal} setSelectedCard={setSelectedCard}/>
+            <Card
+              key={card.id}
+              card={card}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              setSelectedCard={setSelectedCard}
+            />
           ))}
       </ul>
       {showModal &&
         createPortal(
-          <ModalWindow showModal={showModal} setShowModal={setShowModal} selectedCard={selectedCard} />,
+          <ModalWindow
+            showModal={showModal}
+            setShowModal={setShowModal}
+            selectedCard={selectedCard}
+          />,
           document.body
         )}
     </main>

@@ -8,12 +8,14 @@ interface IPropsType {
 }
 const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCard }) => {
   return (
-    <div className="modal-window">
+    <section className="modal-window">
       <div className="modal-mask" onClick={() => setShowModal(!showModal)}></div>
-      <div className="modal-content">
-        <img src={selectedCard.img} alt={selectedCard.title} />
-      </div>
-    </div>
+      <article className="modal-content">
+        <div className="modal-content__image-frame">
+          <img src={selectedCard.img} alt={selectedCard.title} />
+        </div>
+      </article>
+    </section>
   );
 };
 
