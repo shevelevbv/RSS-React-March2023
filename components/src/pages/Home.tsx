@@ -8,6 +8,7 @@ import { createPortal } from 'react-dom';
 
 type CardsStateHook = [Array<ICard>, Dispatch<SetStateAction<Array<ICard>>>];
 type PendingStateHook = [boolean, Dispatch<SetStateAction<boolean>>];
+type SelectedCardStateHook = [ICard, Dispatch<SetStateAction<ICard>>];
 
 const PICTURES_PER_PAGE = 12;
 const PUBLIC_KEY = 'b-CqOgQzXCyyXwpsGptvfHmsMPX985fGfUQgFqR0l78';
@@ -18,7 +19,8 @@ headers.append('Authorization', `Client-ID ${PUBLIC_KEY}`);
 const Home: React.FC = () => {
   const [cards, setCards]: CardsStateHook = useState([] as Array<ICard>);
   const [isPending, setIsPending]: PendingStateHook = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [selectedCard, setSelectedCard]: SelectedCardStateHook = useState({} as ICard);
+  const [showModal, setShowModal]: PendingStateHook = useState(false);
 
   useEffect(() => {
     updateCards(localStorage.getItem('searchValue') || '').catch((err: Error) => {
@@ -61,12 +63,12 @@ const Home: React.FC = () => {
         {isPending && <p>Loading...</p>}
         {!!cards.length &&
           cards.map((card: ICard) => (
-            <Card key={card.id} card={card} showModal={showModal} setShowModal={setShowModal} />
+            <Card key={card.id} card={card} showModal={showModal} setShowModal={setShowModal} setSelectedCard={setSelectedCard}/>
           ))}
       </ul>
       {showModal &&
         createPortal(
-          <ModalWindow showModal={showModal} setShowModal={setShowModal} />,
+          <ModalWindow showModal={showModal} setShowModal={setShowModal} selectedCard={selectedCard} />,
           document.body
         )}
     </main>
