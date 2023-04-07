@@ -1,7 +1,19 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import Magnifier from './Magnifier';
 
-const Search: React.FC = () => {
+interface IPropsType {
+  formSubmitHandler: (searchResult: string) => void;
+}
+
+const Search: React.FC<IPropsType> = ({ formSubmitHandler }) => {
   const [value, setValue]: [string, Dispatch<SetStateAction<string>>] = useState(
     localStorage.getItem('searchValue') || ''
   );
@@ -22,8 +34,13 @@ const Search: React.FC = () => {
     setValue(event.target.value);
   };
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    formSubmitHandler(value);
+  };
+
   return (
-    <div className="search">
+    <form className="search" onSubmit={handleSubmit}>
       <Magnifier />
       <input
         role="search-input"
@@ -35,7 +52,7 @@ const Search: React.FC = () => {
         spellCheck={false}
         autoFocus={true}
       />
-    </div>
+    </form>
   );
 };
 
