@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Card from '../components/Card';
 import Search from '../components/Search';
 import { ICard, IUnsplashData, IUnsplashResult } from '../helpers/interfaces';
@@ -14,6 +14,10 @@ headers.append('Authorization', `Client-ID ${PUBLIC_KEY}`);
 
 const Home: React.FC = () => {
   const [cards, setCards]: CardsStateHook = useState([] as Array<ICard>);
+
+  useEffect(() => {
+    updateCards(localStorage.getItem('searchValue') || '');
+  }, []);
 
   const updateCards = async (searchResult: string): Promise<void> => {
     const response: Response = await fetch(
