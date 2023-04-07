@@ -3,6 +3,8 @@ import Card from '../components/Card';
 import Search from '../components/Search';
 import { ICard, IUnsplashData, IUnsplashResult } from '../helpers/interfaces';
 import '../styles/Home.scss';
+import ModalWindow from '../components/ModalWindow';
+import { createPortal } from 'react-dom';
 
 type CardsStateHook = [Array<ICard>, Dispatch<SetStateAction<Array<ICard>>>];
 type PendingStateHook = [boolean, Dispatch<SetStateAction<boolean>>];
@@ -53,7 +55,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <main className={`main-home${showModal ? ' modal' : ''}`}>
+    <main className="main-home">
       <Search formSubmitHandler={updateCards} setIsPending={setIsPending} />
       <ul role="cards-container" className="cards">
         {isPending && <p>Loading...</p>}
@@ -62,7 +64,7 @@ const Home: React.FC = () => {
             <Card key={card.id} card={card} showModal={showModal} setShowModal={setShowModal} />
           ))}
       </ul>
-      {showModal && <div className="page-mask" onClick={() => setShowModal(!showModal)}></div>}
+      {showModal && createPortal(<ModalWindow />, document.body)}
     </main>
   );
 };
