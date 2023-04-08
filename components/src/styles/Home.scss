@@ -72,20 +72,24 @@
     width: 100%;
     height: 100%;
     background-color: #7f7f7f;
-    opacity: 0.8;
+    opacity: 0.9;
   }
 
   &-content {
     width: 70%;
     height: 70%;
+    padding: 10px 40px;
     position: absolute;
     background-color: white;
-    top: 15%;
-    left: 15%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border: 1px solid #282a35;
     border-radius: 10px;
     overflow: hidden;
     display: flex;
+    align-items: center;
+
 
     &__image-frame {
       width: 40%;
