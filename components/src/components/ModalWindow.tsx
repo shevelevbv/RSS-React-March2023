@@ -1,5 +1,11 @@
 import React from 'react';
 import { ICard } from '../helpers/interfaces';
+import InstagramLogo from '../assets/svg/instagram.svg';
+import TwitterLogo from '../assets/svg/twitter.svg';
+import BookLogo from '../assets/svg/book.svg';
+import CalendarLogo from '../assets/svg/calendar.svg';
+import UserLogo from '../assets/svg/user-id.svg';
+import HeartLogo from '../assets/svg/heart.svg';
 
 interface IPropsType {
   showModal: boolean;
@@ -7,6 +13,15 @@ interface IPropsType {
   selectedCard: ICard;
 }
 const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCard }) => {
+  const transformDate = (date: string): string => {
+    const inputDate: Date = new Date(date);
+    return inputDate.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
   return (
     <section className="modal-window">
       <div className="modal-mask" onClick={() => setShowModal(!showModal)}></div>
@@ -16,10 +31,56 @@ const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCa
         </div>
         <div className="modal-content__data">
           <div className="modal-content__data_description">
-            <h2>Description</h2>
+            <div className="modal-content__data__logo">
+              <img src={BookLogo} alt="book logo" />
+            </div>
             <p>
               {selectedCard.description ? selectedCard.description : 'No description for this card'}
             </p>
+          </div>
+          <div className="modal-content__data_date">
+            <div className="modal-content__data__logo">
+              <img src={CalendarLogo} alt="book logo" />
+            </div>
+            <p>{transformDate(selectedCard.date_created)}</p>
+          </div>
+          <div className="modal-content__data_likes">
+            <div className="modal-content__data__logo">
+              <img src={HeartLogo} alt="heart logo" />
+            </div>
+            <p>{selectedCard.likes}</p>
+          </div>
+          <div className="modal-content__data_user">
+            <div className="modal-content__data__logo">
+              <img src={UserLogo} alt="book logo" />
+            </div>
+            <div>
+              <div>
+                <img src={selectedCard.profile_pic} alt={selectedCard.user} />
+                <p>{selectedCard.user}</p>
+              </div>
+              {selectedCard.portfolio_url && (
+                <a href={selectedCard.portfolio_url}>
+                  <button>view portfolio</button>
+                </a>
+              )}
+              <div>
+                {selectedCard.instagram && (
+                  <div>
+                    <a href={`https://www.instagram.com/${selectedCard.instagram}`}>
+                      <img src={InstagramLogo} alt="Instagram logo" />
+                    </a>
+                  </div>
+                )}
+                {selectedCard.twitter && (
+                  <div>
+                    <a href={`https://www.twitter.com/${selectedCard.twitter}`}>
+                      <img src={TwitterLogo} alt="Instagram logo" />
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
         <button onClick={() => setShowModal(!showModal)}>&#10005;</button>

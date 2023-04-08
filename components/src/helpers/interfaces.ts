@@ -7,6 +7,7 @@ export interface ICard {
   likes: number;
   user: string;
   instagram: string;
+  twitter: string;
   profile_pic: string;
   portfolio_url: string;
   date_created: string;

@@ -50,7 +50,8 @@ const Home: React.FC = () => {
         likes: result.likes,
         user: result.user.name,
         instagram: result.user.instagram_username,
-        profile_pic: result.user.profile_image.small,
+        twitter: result.user.twitter_username,
+        profile_pic: result.user.profile_image.large,
         portfolio_url: result.user.portfolio_url,
         date_created: result.created_at,
       };
