@@ -4,7 +4,7 @@ import InstagramLogo from '../assets/svg/instagram.svg';
 import TwitterLogo from '../assets/svg/twitter.svg';
 import BookLogo from '../assets/svg/book.svg';
 import CalendarLogo from '../assets/svg/calendar.svg';
-import UserLogo from '../assets/svg/user-id.svg';
+import UserLogo from '../assets/svg/user.svg';
 import HeartLogo from '../assets/svg/heart.svg';
 
 interface IPropsType {
@@ -30,7 +30,7 @@ const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCa
           <img src={selectedCard.img} alt={selectedCard.description} />
         </div>
         <div className="modal-content__data">
-          <div className="modal-content__data_description">
+          <div className="modal-content__data__description">
             <div className="modal-content__data__logo">
               <img src={BookLogo} alt="book logo" />
             </div>
@@ -52,11 +52,13 @@ const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCa
           </div>
           <div className="modal-content__data_user">
             <div className="modal-content__data__logo">
-              <img src={UserLogo} alt="book logo" />
+              <img src={UserLogo} alt="user logo" />
             </div>
-            <div>
-              <div>
-                <img src={selectedCard.profile_pic} alt={selectedCard.user} />
+            <div className="modal-content__data_user_details">
+              <div className="modal-content__data_user_info">
+                <div>
+                  <img src={selectedCard.profile_pic} alt={selectedCard.user} />
+                </div>
                 <p>{selectedCard.user}</p>
               </div>
               {selectedCard.portfolio_url && (
@@ -64,7 +66,7 @@ const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCa
                   <button>view portfolio</button>
                 </a>
               )}
-              <div>
+              <div className="modal-content__data_user_details__logos">
                 {selectedCard.instagram && (
                   <div>
                     <a href={`https://www.instagram.com/${selectedCard.instagram}`}>
