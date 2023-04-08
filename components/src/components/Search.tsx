@@ -32,7 +32,7 @@ const Search: React.FC<IPropsType> = ({ formSubmitHandler, setIsPending }) => {
   }, []);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setValue(event.target.value);
+    setValue(event.target.value || 'hello');
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
