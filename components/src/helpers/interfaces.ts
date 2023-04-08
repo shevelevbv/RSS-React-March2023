@@ -13,7 +13,6 @@ export interface ICard {
   date_created: string;
   width: number;
   height: number;
-
 }
 
 export interface IErrors {

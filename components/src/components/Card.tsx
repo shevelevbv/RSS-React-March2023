@@ -16,7 +16,7 @@ const Card: React.FC<ICardProps> = ({ card, setShowModal, showModal, setSelected
   };
 
   return (
-    <li className="card" onClick={handleClick}>
+    <li className="card" onClick={handleClick} role="card">
       <div className="card__image_container">
         <img src={card.img} alt={card.description} width="300" height="300" />
       </div>

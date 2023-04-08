@@ -2,8 +2,11 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Search from '../components/Search';
 
+const formSubmitHandler = (searchInput: string) => {
+  console.log('test);
+};
 test('renders search component', (): void => {
-  render(<Search />);
+  render(<Search formSubmitHandler={formSubmitHandler}/>);
   const input: HTMLInputElement = screen.getByRole('search-input');
   const magnifier: HTMLOrSVGElement = screen.getByRole('magnifier-icon');
   expect(input).toBeInTheDocument();
