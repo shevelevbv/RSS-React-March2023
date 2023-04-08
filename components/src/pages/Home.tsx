@@ -23,7 +23,7 @@ const Home: React.FC = () => {
   const [showModal, setShowModal]: PendingStateHook = useState(false);
 
   useEffect(() => {
-    updateCards(localStorage.getItem('searchValue') || '').catch((err: Error) => {
+    updateCards(localStorage.getItem('searchValue') || 'hello').catch((err: Error) => {
       console.log(err);
     });
   }, []);
