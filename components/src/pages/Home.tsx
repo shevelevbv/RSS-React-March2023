@@ -44,12 +44,15 @@ const Home: React.FC = () => {
       return {
         id: result.id,
         img: result.urls.small,
-        title: result.description,
+        description: result.description,
         width: result.width,
         height: result.height,
         likes: result.likes,
         user: result.user.name,
         instagram: result.user.instagram_username,
+        profile_pic: result.user.profile_image.small,
+        portfolio_url: result.user.portfolio_url,
+        date_created: result.created_at,
       };
     });
     setIsPending(false);

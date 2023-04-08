@@ -18,7 +18,7 @@ const Card: React.FC<ICardProps> = ({ card, setShowModal, showModal, setSelected
   return (
     <li className="card" onClick={handleClick}>
       <div className="card__image_container">
-        <img src={card.img} alt={card.title} width="300" height="300" />
+        <img src={card.img} alt={card.description} width="300" height="300" />
       </div>
       <ul className="card__items">
         <li className="card__item_description">By: {card.user}</li>

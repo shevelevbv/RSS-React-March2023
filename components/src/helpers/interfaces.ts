@@ -3,12 +3,16 @@ import { ErrorOption } from 'react-hook-form';
 export interface ICard {
   id: string;
   img: string;
-  title: string;
+  description: string;
   likes: number;
   user: string;
   instagram: string;
+  profile_pic: string;
+  portfolio_url: string;
+  date_created: string;
   width: number;
   height: number;
+
 }
 
 export interface IErrors {

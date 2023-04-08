@@ -12,8 +12,17 @@ const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCa
       <div className="modal-mask" onClick={() => setShowModal(!showModal)}></div>
       <article className="modal-content">
         <div className="modal-content__image-frame">
-          <img src={selectedCard.img} alt={selectedCard.title} />
+          <img src={selectedCard.img} alt={selectedCard.description} />
         </div>
+        <div className="modal-content__data">
+          <div className="modal-content__data_description">
+            <h2>Description</h2>
+            <p>
+              {selectedCard.description ? selectedCard.description : 'No description for this card'}
+            </p>
+          </div>
+        </div>
+        <button onClick={() => setShowModal(!showModal)}>&#10005;</button>
       </article>
     </section>
   );
