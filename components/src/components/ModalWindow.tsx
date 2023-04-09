@@ -23,7 +23,7 @@ const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCa
   };
 
   return (
-    <section className="modal-window">
+    <section className="modal-window" role="section">
       <div className="modal-mask" onClick={() => setShowModal(!showModal)}></div>
       <article className="modal-content">
         <div className="modal-content__image-frame">
@@ -62,7 +62,7 @@ const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCa
                 <p>{selectedCard.user}</p>
               </div>
               {selectedCard.portfolio_url && (
-                <a href={selectedCard.portfolio_url}>
+                <a href={selectedCard.portfolio_url} role="portfolio-link">
                   <button>view portfolio</button>
                 </a>
               )}
@@ -77,7 +77,7 @@ const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCa
                 {selectedCard.twitter && (
                   <div>
                     <a href={`https://www.twitter.com/${selectedCard.twitter}`}>
-                      <img src={TwitterLogo} alt="Instagram logo" />
+                      <img src={TwitterLogo} alt="Twitter logo" />
                     </a>
                   </div>
                 )}
@@ -85,7 +85,9 @@ const ModalWindow: React.FC<IPropsType> = ({ showModal, setShowModal, selectedCa
             </div>
           </div>
         </div>
-        <button onClick={() => setShowModal(!showModal)}>&#10005;</button>
+        <button role="button-close" onClick={() => setShowModal(!showModal)}>
+          &#10005;
+        </button>
       </article>
     </section>
   );
