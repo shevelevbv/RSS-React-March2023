@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICard, ISelectedCardData, IUnsplashData, IUnsplashResult } from '../helpers/interfaces';
+import { ICard, ISelectedCardData } from '../helpers/interfaces';
 import '../styles/Card.scss';
 
 interface ICardProps {
@@ -15,7 +15,6 @@ const headers = new Headers();
 headers.append('Authorization', `Client-ID ${PUBLIC_KEY}`);
 
 const Card: React.FC<ICardProps> = ({ card, setShowModal, showModal, setSelectedCard }) => {
-
   const getMoreData = async (): Promise<ICard> => {
     const response: Response = await fetch(`${url}/${card.id}`, {
       method: 'GET',
@@ -39,10 +38,14 @@ const Card: React.FC<ICardProps> = ({ card, setShowModal, showModal, setSelected
       portfolio_url: data.user.links.portfolio,
       date_created: data.created_at,
     };
-  }
+  };
   const handleClick = async () => {
-    setSelectedCard(await getMoreData());
-    setShowModal(!showModal);
+    try {
+      setSelectedCard(await getMoreData());
+      setShowModal(!showModal);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

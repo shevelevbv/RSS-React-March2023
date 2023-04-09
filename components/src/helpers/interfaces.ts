@@ -6,10 +6,10 @@ export interface ICard {
   description: string;
   likes: number;
   user: string;
-  instagram: string;
-  twitter: string;
-  profile_pic: string;
-  portfolio_url: string;
+  instagram: string | null;
+  twitter: string | null;
+  profile_pic: string | null;
+  portfolio_url: string | null;
   date_created: string;
   width: number;
   height: number;
