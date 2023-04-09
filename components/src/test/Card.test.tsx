@@ -115,7 +115,7 @@ describe('Card', () => {
       <Card card={mockCard} setShowModal={vi.fn()} showModal={false} setSelectedCard={vi.fn()} />
     );
     expect(screen.getByAltText(mockCard.description)).toBeInTheDocument();
-    expect(screen.getByText(`By: ${mockCard.user}`)).toBeInTheDocument();
+    expect(screen.getByText(`By ${mockCard.user}`)).toBeInTheDocument();
     expect(screen.getByText(`Likes: ${mockCard.likes}`)).toBeInTheDocument();
   });
 

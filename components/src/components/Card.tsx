@@ -54,8 +54,7 @@ const Card: React.FC<ICardProps> = ({ card, setShowModal, showModal, setSelected
         <img src={card.img} alt={card.description} width="300" height="300" />
       </div>
       <ul className="card__items">
-        <li className="card__item_description">By: {card.user}</li>
-        <li className="card__item_description">Instagram: {card.instagram || 'none'}</li>
+        <li className="card__item_description">By {card.user}</li>
         <li className="card__item_description">Likes: {card.likes}</li>
       </ul>
     </li>

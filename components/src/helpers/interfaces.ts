@@ -8,7 +8,7 @@ export interface ICard {
   user: string;
   instagram: string | null;
   twitter: string | null;
-  profile_pic: string | null;
+  profile_pic: string;
   portfolio_url: string | null;
   date_created: string;
   width: number;

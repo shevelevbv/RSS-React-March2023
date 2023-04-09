@@ -37,7 +37,7 @@ const Search: React.FC<IPropsType> = ({ formSubmitHandler, setIsPending }) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    formSubmitHandler(value).catch((err: Error) => {
+    formSubmitHandler(value || 'hello').catch((err: Error) => {
       console.log(err);
       setIsPending(true);
     });
