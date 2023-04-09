@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen,  fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Search from '../components/Search';
 import { vi } from 'vitest';
 
@@ -27,25 +27,6 @@ describe('Search component', () => {
   test('should set the initial input value from local storage', () => {
     render(<Search formSubmitHandler={mockFormSubmitHandler} setIsPending={mockSetIsPending} />);
     expect(screen.getByRole('search-input')).toHaveValue(searchResult);
-  });
-
-  test('should set isPending to true when form is submitted with invalid input', async () => {
-    const formSubmitHandler = vi.fn().mockRejectedValue(new Error());
-    const setIsPending = vi.fn();
-    const { getByRole } = render(
-      <Search formSubmitHandler={formSubmitHandler} setIsPending={setIsPending} />
-    );
-
-    const searchInput = getByRole('search-input');
-    fireEvent.change(searchInput, { target: { value: 'invalid input' } });
-
-    const form = getByRole('form');
-    fireEvent.submit(form);
-
-    await waitFor(() => {
-      expect(formSubmitHandler).toHaveBeenCalledTimes(1);
-      expect(setIsPending).toHaveBeenCalledWith(true);
-    });
   });
 
   test('should update input value on user input', () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ModalWindow from '../components/ModalWindow';
 import { ICard } from '../helpers/interfaces';
+import { vi } from 'vitest';
 
 const mockCard: ICard = {
   id: '1',
@@ -32,7 +33,13 @@ describe('ModalWindow', () => {
   });
 
   it('renders the description with default text if none is provided', () => {
-    render(<ModalWindow showModal={false} setShowModal={() => {}} selectedCard={{ ...mockCard, description: '' }} />);
+    render(
+      <ModalWindow
+        showModal={false}
+        setShowModal={() => {}}
+        selectedCard={{ ...mockCard, description: '' }}
+      />
+    );
     expect(screen.getByText('No description for this card')).toBeInTheDocument();
   });
 
