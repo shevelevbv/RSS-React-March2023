@@ -44,7 +44,7 @@ const Search: React.FC<IPropsType> = ({ formSubmitHandler, setIsPending }) => {
   };
 
   return (
-    <form className="search" onSubmit={handleSubmit}>
+    <form className="search" role="form" onSubmit={handleSubmit}>
       <Magnifier />
       <input
         role="search-input"

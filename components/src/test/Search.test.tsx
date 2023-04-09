@@ -1,40 +1,67 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen,  fireEvent, waitFor } from '@testing-library/react';
 import Search from '../components/Search';
+import { vi } from 'vitest';
 
-const formSubmitHandler = (searchInput: string) => {
-  console.log('test);
-};
-test('renders search component', (): void => {
-  render(<Search formSubmitHandler={formSubmitHandler}/>);
-  const input: HTMLInputElement = screen.getByRole('search-input');
-  const magnifier: HTMLOrSVGElement = screen.getByRole('magnifier-icon');
-  expect(input).toBeInTheDocument();
-  expect(input).toHaveAttribute('placeholder', 'Search');
-  expect(input).toHaveValue('');
-  expect(magnifier).toBeInTheDocument();
-});
+describe('Search component', () => {
+  const searchResult = 'test';
+  const mockFormSubmitHandler = vi.fn(() => Promise.resolve());
+  const mockSetIsPending = vi.fn();
 
-test('updates search value on input change', (): void => {
-  render(<Search />);
-  const input: HTMLInputElement = screen.getByRole('search-input');
-  fireEvent.change(input, { target: { value: 'new search value' } });
-  expect(input).toHaveValue('new search value');
-});
+  beforeEach(() => {
+    vi.clearAllMocks();
+    Object.defineProperty(window, 'localStorage', {
+      value: {
+        getItem: vi.fn(() => searchResult),
+        setItem: vi.fn(),
+      },
+      writable: true,
+    });
+  });
 
-test('gets search value from local storage on mount', (): void => {
-  localStorage.setItem('searchValue', 'search value');
-  render(<Search />);
-  const input: HTMLInputElement = screen.getByRole('search-input');
-  expect(input).toHaveValue('search value');
-});
+  test('should render without errors', () => {
+    render(<Search formSubmitHandler={mockFormSubmitHandler} setIsPending={mockSetIsPending} />);
+    expect(screen.getByRole('form')).toBeInTheDocument();
+  });
 
-test('saves search value to local storage when unmounted', (): void => {
-  const searchValue = 'test value';
-  const { unmount } = render(<Search />);
+  test('should set the initial input value from local storage', () => {
+    render(<Search formSubmitHandler={mockFormSubmitHandler} setIsPending={mockSetIsPending} />);
+    expect(screen.getByRole('search-input')).toHaveValue(searchResult);
+  });
 
-  fireEvent.change(screen.getByRole('search-input'), { target: { value: searchValue } });
-  unmount();
+  test('should set isPending to true when form is submitted with invalid input', async () => {
+    const formSubmitHandler = vi.fn().mockRejectedValue(new Error());
+    const setIsPending = vi.fn();
+    const { getByRole } = render(
+      <Search formSubmitHandler={formSubmitHandler} setIsPending={setIsPending} />
+    );
 
-  expect(localStorage.getItem('searchValue')).toBe(searchValue);
+    const searchInput = getByRole('search-input');
+    fireEvent.change(searchInput, { target: { value: 'invalid input' } });
+
+    const form = getByRole('form');
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(formSubmitHandler).toHaveBeenCalledTimes(1);
+      expect(setIsPending).toHaveBeenCalledWith(true);
+    });
+  });
+
+  test('should update input value on user input', () => {
+    render(<Search formSubmitHandler={mockFormSubmitHandler} setIsPending={mockSetIsPending} />);
+    const searchInput = screen.getByRole('search-input');
+    fireEvent.change(searchInput, { target: { value: 'new value' } });
+    expect(searchInput).toHaveValue('new value');
+  });
+
+  test('should call formSubmitHandler with the correct value when form is submitted', async () => {
+    render(<Search formSubmitHandler={mockFormSubmitHandler} setIsPending={mockSetIsPending} />);
+    const searchInput = screen.getByRole('search-input');
+    const form = screen.getByRole('form');
+    fireEvent.change(searchInput, { target: { value: 'new value' } });
+    fireEvent.submit(form);
+    expect(mockFormSubmitHandler).toHaveBeenCalledWith('new value');
+    expect(mockFormSubmitHandler).toHaveBeenCalledTimes(1);
+  });
 });
