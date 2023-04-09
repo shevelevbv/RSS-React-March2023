@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICard } from '../helpers/interfaces';
+import { ICard, ISelectedCardData, IUnsplashData, IUnsplashResult } from '../helpers/interfaces';
 import '../styles/Card.scss';
 
 interface ICardProps {
@@ -9,9 +9,39 @@ interface ICardProps {
   showModal: boolean;
 }
 
+const PUBLIC_KEY = 'b-CqOgQzXCyyXwpsGptvfHmsMPX985fGfUQgFqR0l78';
+const url = 'https://api.unsplash.com/photos';
+const headers = new Headers();
+headers.append('Authorization', `Client-ID ${PUBLIC_KEY}`);
+
 const Card: React.FC<ICardProps> = ({ card, setShowModal, showModal, setSelectedCard }) => {
-  const handleClick = () => {
-    setSelectedCard(card);
+
+  const getMoreData = async (): Promise<ICard> => {
+    const response: Response = await fetch(`${url}/${card.id}`, {
+      method: 'GET',
+      headers: headers,
+    });
+    if (!response.ok) {
+      throw Error('failed to fetch data from Unsplash');
+    }
+    const data: ISelectedCardData = await response.json();
+    return {
+      id: data.id,
+      img: data.urls.small,
+      description: data.description,
+      width: data.width,
+      height: data.height,
+      likes: data.likes,
+      user: data.user.name,
+      instagram: card.instagram,
+      twitter: card.twitter,
+      profile_pic: card.profile_pic,
+      portfolio_url: data.user.links.portfolio,
+      date_created: data.created_at,
+    };
+  }
+  const handleClick = async () => {
+    setSelectedCard(await getMoreData());
     setShowModal(!showModal);
   };
 
