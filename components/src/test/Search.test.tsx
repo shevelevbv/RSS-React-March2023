@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Search from '../components/Search';
 import { vi } from 'vitest';
 
@@ -36,7 +36,7 @@ describe('Search component', () => {
     expect(searchInput).toHaveValue('new value');
   });
 
-  test('should call formSubmitHandler with the correct value when form is submitted', async () => {
+  test('should call formSubmitHandler with the correct value when form is submitted', () => {
     render(<Search formSubmitHandler={mockFormSubmitHandler} setIsPending={mockSetIsPending} />);
     const searchInput = screen.getByRole('search-input');
     const form = screen.getByRole('form');
