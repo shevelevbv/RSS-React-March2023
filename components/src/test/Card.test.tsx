@@ -122,7 +122,7 @@ describe('Card', () => {
     );
     expect(screen.getByAltText(mockCard.description)).toBeInTheDocument();
     expect(screen.getByText(`By ${mockCard.user}`)).toBeInTheDocument();
-    expect(screen.getByText(`Likes: ${mockCard.likes}`)).toBeInTheDocument();
+    expect(screen.getByText(`\u2661 ${mockCard.likes}`)).toBeInTheDocument();
   });
 
   it('fetches the data from Unsplash API', async () => {

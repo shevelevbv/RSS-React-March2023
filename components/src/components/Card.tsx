@@ -63,7 +63,7 @@ const Card: React.FC<ICardProps> = ({
       </div>
       <ul className="card__items">
         <li className="card__item_description">By {card.user}</li>
-        <li className="card__item_description">Likes: {card.likes}</li>
+        <li className="card__item_description">&#9825; {card.likes}</li>
       </ul>
     </li>
   );
