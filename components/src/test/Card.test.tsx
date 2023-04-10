@@ -3,7 +3,7 @@ import Card from '../components/Card';
 import React from 'react';
 import { ICard, ISelectedCardData } from '../helpers/interfaces';
 import { vi } from 'vitest';
-import { DefaultBodyType, MockedRequest, rest, RestHandler } from 'msw';
+import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
 const url = 'https://api.unsplash.com/photos/:id';
