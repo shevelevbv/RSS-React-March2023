@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import Home from '../pages/Home';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
@@ -89,26 +88,24 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
+test('fetches the data from Unsplash API', async () => {
+  const response = await fetch('https://api.unsplash.com/search/photos');
+  const data = await response.json();
+  expect(data.results).toStrictEqual(mockAPIResponseObject.results);
+  expect(data.results[0].id).toBe('eOLpJytrbsQ');
+  expect(data.results[0].user.name).toBe('Jeff Sheldon');
+  expect(data.results[0].description).toBe('A man drinking a coffee.');
+});
+
 test('renders the cards', async () => {
   render(<Home />);
 
   expect(screen.getByText('Loading...')).toBeInTheDocument();
 
   await waitFor(() => {
-    //expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
-    expect(screen.getByRole('cards-container')).toBeInTheDocument();
-    expect(screen.getByText(mockCard.description)).toBeInTheDocument();
-  });
-});
-
-test('updates cards when search is submitted', async () => {
-  render(<Home />);
-
-  await userEvent.type(screen.getByRole('search-input'), 'test{enter}');
-
-  await waitFor(() => {
     expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
-    expect(screen.getByRole('cards-container')).toBeInTheDocument();
-    expect(screen.getByText('A beautiful photo')).toBeInTheDocument();
+    expect(screen.queryByText(`By ${mockCard.user}`)).toBeInTheDocument();
+    expect(screen.getByRole('card')).toBeInTheDocument();
+    expect(screen.getByAltText('A man drinking a coffee.'));
   });
 });

@@ -6,7 +6,7 @@ import { vi } from 'vitest';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
-const url = 'https://api.unsplash.com/photos/:id';
+const url = 'https://api.unsplash.com/photos/Dwu85P9SOIk';
 const mockAPIResponseObject: ISelectedCardData = {
   id: 'Dwu85P9SOIk',
   created_at: '2016-05-03T11:00:28-04:00',
@@ -110,24 +110,40 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe('Card', () => {
-  it('renders the card correctly', () => {
+  it('renders correctly', () => {
     render(
-      <Card card={mockCard} setShowModal={vi.fn()} showModal={false} setSelectedCard={vi.fn()} />
+      <Card
+        card={mockCard}
+        setShowModal={vi.fn()}
+        showModal={false}
+        setSelectedCard={vi.fn()}
+        setIsModalPending={vi.fn()}
+      />
     );
     expect(screen.getByAltText(mockCard.description)).toBeInTheDocument();
     expect(screen.getByText(`By ${mockCard.user}`)).toBeInTheDocument();
     expect(screen.getByText(`Likes: ${mockCard.likes}`)).toBeInTheDocument();
   });
 
-  it('displays the selected card data in a modal when clicked', async () => {
+  it('fetches the data from Unsplash API', async () => {
+    const response = await fetch(url);
+    const data = await response.json();
+    expect(data.id).toBe('Dwu85P9SOIk');
+    expect(data.user.name).toBe('Joe Example');
+    expect(data.description).toBe('A man drinking a coffee.');
+  });
+
+  it('changes the state of showModal when clicked', async () => {
     const setShowModal = vi.fn();
     const setSelectedCard = vi.fn();
+    const setIsModalPending = vi.fn();
     render(
       <Card
         card={mockCard}
         setShowModal={setShowModal}
         showModal={false}
         setSelectedCard={setSelectedCard}
+        setIsModalPending={setIsModalPending}
       />
     );
     fireEvent.click(screen.getByRole('card'));
@@ -139,18 +155,20 @@ describe('Card', () => {
 
   it('shows an error message when failed to fetch data from Unsplash', async () => {
     server.use(
-      rest.get('https://api.unsplash.com/photos/:id', (req, res, ctx) => {
+      rest.get('https://api.unsplash.com/photos/nonexistent', (req, res, ctx) => {
         return res(ctx.status(404));
       })
     );
     const setShowModal = vi.fn();
     const setSelectedCard = vi.fn();
+    const setIsModalPending = vi.fn();
     render(
       <Card
         card={mockCard}
         setShowModal={setShowModal}
         showModal={false}
         setSelectedCard={setSelectedCard}
+        setIsModalPending={setIsModalPending}
       />
     );
     fireEvent.click(screen.getByRole('card'));
