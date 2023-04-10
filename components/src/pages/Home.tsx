@@ -30,6 +30,7 @@ const Home: React.FC = () => {
   }, []);
 
   const updateCards = async (searchResult: string): Promise<void> => {
+    setIsPending(true);
     const response: Response = await fetch(
       `${url}?query=${searchResult}&per_page=${PICTURES_PER_PAGE}&orientation=portrait`,
       {
@@ -67,8 +68,9 @@ const Home: React.FC = () => {
     <main className="main-home">
       <Search formSubmitHandler={updateCards} setIsPending={setIsPending} />
       <ul role="cards-container" className="cards">
-        {isPending && <div role="spinner" className="lds-dual-ring"></div>}
-        {!!cards.length &&
+        {isPending ? (
+          <div role="spinner" className="lds-dual-ring"></div>
+        ) : (
           cards.map((card: ICard) => (
             <Card
               key={card.id}
@@ -78,7 +80,8 @@ const Home: React.FC = () => {
               setSelectedCard={setSelectedCard}
               setIsModalPending={setIsModalPending}
             />
-          ))}
+          ))
+        )}
       </ul>
       {showModal &&
         createPortal(
