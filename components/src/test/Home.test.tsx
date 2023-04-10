@@ -100,10 +100,10 @@ test('fetches the data from Unsplash API', async () => {
 test('renders the cards', async () => {
   render(<Home />);
 
-  expect(screen.getByText('Loading...')).toBeInTheDocument();
+  expect(screen.getByRole('spinner')).toBeInTheDocument();
 
   await waitFor(() => {
-    expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+    expect(screen.queryByRole('spinner')).not.toBeInTheDocument();
     expect(screen.queryByText(`By ${mockCard.user}`)).toBeInTheDocument();
     expect(screen.getByRole('card')).toBeInTheDocument();
     expect(screen.getByAltText('A man drinking a coffee.'));

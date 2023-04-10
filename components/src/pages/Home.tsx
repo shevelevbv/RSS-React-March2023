@@ -57,15 +57,17 @@ const Home: React.FC = () => {
         date_created: result.created_at,
       };
     });
-    setIsPending(false);
-    setCards(newCards);
+    setTimeout(() => {
+      setIsPending(false);
+      setCards(newCards);
+    }, 500);
   };
 
   return (
     <main className="main-home">
       <Search formSubmitHandler={updateCards} setIsPending={setIsPending} />
       <ul role="cards-container" className="cards">
-        {isPending && <p>Loading...</p>}
+        {isPending && <div role="spinner" className="lds-dual-ring"></div>}
         {!!cards.length &&
           cards.map((card: ICard) => (
             <Card

@@ -40,7 +40,7 @@ const ModalWindow: React.FC<IPropsType> = ({
       <div className="modal-mask" onClick={handleClick}></div>
       <article className="modal-content">
         {isModalPending ? (
-          <p>Loading...</p>
+          <div className="lds-dual-ring"></div>
         ) : (
           <>
             <div className="modal-content__image-frame">

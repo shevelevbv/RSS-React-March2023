@@ -50,7 +50,9 @@ const Card: React.FC<ICardProps> = ({
     try {
       setSelectedCard(await getMoreData());
       setShowModal(!showModal);
-      setIsModalPending(false);
+      setTimeout(() => {
+        setIsModalPending(false);
+      }, 500);
     } catch (error) {
       console.error(error);
     }
