@@ -8,6 +8,11 @@
 body {
   background-color: #282a35;
   position: relative;
+
+  &:has(.modal-window) {
+    height: 100vh;
+    overflow: hidden;
+  }
 }
 
 main {
