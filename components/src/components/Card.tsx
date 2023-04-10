@@ -5,6 +5,7 @@ import '../styles/Card.scss';
 interface ICardProps {
   card: ICard;
   setShowModal: (showModal: boolean) => void;
+  setIsModalPending: (showModal: boolean) => void;
   setSelectedCard: (selectedCard: ICard) => void;
   showModal: boolean;
 }
@@ -14,7 +15,13 @@ const url = 'https://api.unsplash.com/photos';
 const headers = new Headers();
 headers.append('Authorization', `Client-ID ${PUBLIC_KEY}`);
 
-const Card: React.FC<ICardProps> = ({ card, setShowModal, showModal, setSelectedCard }) => {
+const Card: React.FC<ICardProps> = ({
+  card,
+  setShowModal,
+  showModal,
+  setSelectedCard,
+  setIsModalPending,
+}) => {
   const getMoreData = async (): Promise<ICard> => {
     const response: Response = await fetch(`${url}/${card.id}`, {
       method: 'GET',
@@ -43,6 +50,7 @@ const Card: React.FC<ICardProps> = ({ card, setShowModal, showModal, setSelected
     try {
       setSelectedCard(await getMoreData());
       setShowModal(!showModal);
+      setIsModalPending(false);
     } catch (error) {
       console.error(error);
     }

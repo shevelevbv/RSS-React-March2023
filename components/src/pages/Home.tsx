@@ -21,6 +21,7 @@ const Home: React.FC = () => {
   const [isPending, setIsPending]: PendingStateHook = useState(true);
   const [selectedCard, setSelectedCard]: SelectedCardStateHook = useState({} as ICard);
   const [showModal, setShowModal]: PendingStateHook = useState(false);
+  const [isModalPending, setIsModalPending]: PendingStateHook = useState(true);
 
   useEffect(() => {
     updateCards(localStorage.getItem('searchValue') || 'hello').catch((err: Error) => {
@@ -73,6 +74,7 @@ const Home: React.FC = () => {
               showModal={showModal}
               setShowModal={setShowModal}
               setSelectedCard={setSelectedCard}
+              setIsModalPending={setIsModalPending}
             />
           ))}
       </ul>
@@ -82,6 +84,8 @@ const Home: React.FC = () => {
             showModal={showModal}
             setShowModal={setShowModal}
             selectedCard={selectedCard}
+            isModalPending={isModalPending}
+            setIsModalPending={setIsModalPending}
           />,
           document.body
         )}
