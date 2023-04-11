@@ -1,0 +1,54 @@
+.card {
+  padding: 10px;
+  height: 350px;
+  border: 1px solid rgb(175, 168, 168);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 5px 5px green;
+    transition: all 0.3s;
+  }
+
+  &__title {
+    margin-top: 10px;
+    text-align: center;
+    font-family:'Roboto Regular', Helvetica, sans-serif;
+    color: rgb(72, 71, 71);
+  }
+
+  &__image_container {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__items {
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+  }
+
+  &__item_description {
+    font-family: 'Roboto Regular', sans-serif;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+
+  .card__title {
+    font-size: 1.3em;
+  }
+
+}
